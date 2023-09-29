@@ -10,6 +10,7 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         /// Получить список всех <see cref="Workers"/>
         /// </summary>
         Task<List<Workers>> GetAllAsync(CancellationToken cancellationToken);
+
         /// <summary>
         /// Получить <see cref="Workers"/> по идентификатору
         /// </summary>
