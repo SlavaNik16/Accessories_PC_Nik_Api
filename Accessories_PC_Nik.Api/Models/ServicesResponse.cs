@@ -2,7 +2,7 @@
 {   /// <summary>
     /// Модель ответа сущности услуги
     /// </summary>
-    public class ServicesModel
+    public class ServicesResponse
     {
         /// <summary>
         /// Идентификатор

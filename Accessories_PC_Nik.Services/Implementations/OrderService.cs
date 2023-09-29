@@ -19,22 +19,22 @@ namespace Accessories_PC_Nik.Services.Implementations
             {
                 Id = x.Id,
                 Client_id = x.Сlient_id,
-                ServicesModel = new ServicesModel
+                ServicesModel = (x.Services != null) ? new ServicesModel
                 {
                     Id = x.Services.Id,
                     Name = x.Services.Name,
                     Description = x.Services.Description,
                     Duration = x.Services.Duration,
                     Price = x.Services.Price,
-                },
-                ComponentsModel = new ComponentsModel
+                }: null,
+                ComponentsModel = (x.Сomponents != null) ? new ComponentsModel
                 {
                     Id = x.Сomponents.Id,
                     typeComponents = x.Сomponents.typeComponents,
                     Description = x.Сomponents.Description,
                     MaterialType = x.Сomponents.MaterialType,
                     Price = x.Сomponents.Price,
-                },
+                }: null,
                 Count = x.Count,
                 OrderTime = x.OrderTime,
                 DeliveryModel = new DeliveryModel
@@ -58,22 +58,22 @@ namespace Accessories_PC_Nik.Services.Implementations
             {
                 Id = item.Id,
                 Client_id = item.Сlient_id,
-                ServicesModel = new ServicesModel
+                ServicesModel = (item.Services != null) ? new ServicesModel
                 {
                     Id = item.Services.Id,
                     Name = item.Services.Name,
                     Description = item.Services.Description,
                     Duration = item.Services.Duration,
                     Price = item.Services.Price,
-                },
-                ComponentsModel = new ComponentsModel
+                } : null,
+                ComponentsModel = (item.Сomponents != null) ? new ComponentsModel
                 {
                     Id = item.Сomponents.Id,
                     typeComponents = item.Сomponents.typeComponents,
                     Description = item.Сomponents.Description,
                     MaterialType = item.Сomponents.MaterialType,
                     Price = item.Сomponents.Price,
-                },
+                }: null,
                 Count = item.Count,
                 OrderTime = item.OrderTime,
                 DeliveryModel = new DeliveryModel

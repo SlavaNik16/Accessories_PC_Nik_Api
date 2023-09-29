@@ -36,7 +36,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await workersService.GetByIdAsync(id, cancellationToken);
-            if (item == null) return NotFound($"Не удалось найти клиента с идентификатором {id}");
+            if (item == null) return NotFound($"Не удалось найти сотрудника с идентификатором {id}");
 
 
             return Ok(new WorkersResponse

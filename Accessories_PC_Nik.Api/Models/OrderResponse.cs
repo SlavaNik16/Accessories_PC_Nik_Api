@@ -19,12 +19,12 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Выбранная услуга
         /// </summary>
-        public ServicesModel? ServicesModel { get; set; }
+        public ServicesResponse? ServicesResponse { get; set; }
 
         /// <summary>
         /// Выбранный товар 
         /// </summary>
-        public ComponentsResponse? ComponentsModel { get; set; }
+        public ComponentsResponse? ComponentsResponse { get; set; }
 
         /// <summary>
         /// Кол-во товара
@@ -38,7 +38,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Доставка
         /// </summary>
-        public DeliveryResponse DeliveryModel { get; set; }
+        public DeliveryResponse DeliveryResponse { get; set; }
 
         /// <summary>
         /// Комментарий к заказу
