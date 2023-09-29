@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Api", "Accessories_PC_Nik.Api\Accessories_PC_Nik.Api.csproj", "{FE3C7DF1-B8F6-44F0-9397-C46FCCD0E33E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Api.Tests", "Accessories_PC_Nik.Api.Tests\Accessories_PC_Nik.Api.Tests.csproj", "{2AE588C9-4277-42A8-BA7E-079486181718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Context", "Accessories_PC_Nik.Context\Accessories_PC_Nik.Context.csproj", "{8AC1F6CA-DBE2-4E85-87C8-FC98A1E8ABCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Context.Contracts", "Accessories_PC_Nik.Context.Contracts\Accessories_PC_Nik.Context.Contracts.csproj", "{BDDF7E3C-A8DB-4EED-825C-F8801E5C04E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Repositories", "Accessories_PC_Nik.Repositories\Accessories_PC_Nik.Repositories.csproj", "{027B8296-EF45-483F-99C5-9AA0F56D1B25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Repositories.Contracts", "Accessories_PC_Nik.Repositories.Contracts\Accessories_PC_Nik.Repositories.Contracts.csproj", "{154D562E-E3B6-4CEA-9866-E6E610A1B60B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Repositories.Tests", "Accessories_PC_Nik.Repositories.Tests\Accessories_PC_Nik.Repositories.Tests.csproj", "{EA31B0B3-2635-4ED7-9D4C-6B8EF4AA03F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Services", "Accessories_PC_Nik.Services\Accessories_PC_Nik.Services.csproj", "{42744FC7-2F31-4093-B4BE-C2F581ECB797}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Services.Contracts", "Accessories_PC_Nik.Services.Contracts\Accessories_PC_Nik.Services.Contracts.csproj", "{DDEE71D6-BB70-4657-9193-B0C09F39B321}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Services.Tests", "Accessories_PC_Nik.Services.Tests\Accessories_PC_Nik.Services.Tests.csproj", "{E726C7F3-89EA-4025-9B46-45EE7902A760}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE3C7DF1-B8F6-44F0-9397-C46FCCD0E33E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE3C7DF1-B8F6-44F0-9397-C46FCCD0E33E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE3C7DF1-B8F6-44F0-9397-C46FCCD0E33E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE3C7DF1-B8F6-44F0-9397-C46FCCD0E33E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE588C9-4277-42A8-BA7E-079486181718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE588C9-4277-42A8-BA7E-079486181718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE588C9-4277-42A8-BA7E-079486181718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE588C9-4277-42A8-BA7E-079486181718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC1F6CA-DBE2-4E85-87C8-FC98A1E8ABCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC1F6CA-DBE2-4E85-87C8-FC98A1E8ABCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC1F6CA-DBE2-4E85-87C8-FC98A1E8ABCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC1F6CA-DBE2-4E85-87C8-FC98A1E8ABCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDDF7E3C-A8DB-4EED-825C-F8801E5C04E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDDF7E3C-A8DB-4EED-825C-F8801E5C04E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDDF7E3C-A8DB-4EED-825C-F8801E5C04E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDDF7E3C-A8DB-4EED-825C-F8801E5C04E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{027B8296-EF45-483F-99C5-9AA0F56D1B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{027B8296-EF45-483F-99C5-9AA0F56D1B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{027B8296-EF45-483F-99C5-9AA0F56D1B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{027B8296-EF45-483F-99C5-9AA0F56D1B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154D562E-E3B6-4CEA-9866-E6E610A1B60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154D562E-E3B6-4CEA-9866-E6E610A1B60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154D562E-E3B6-4CEA-9866-E6E610A1B60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154D562E-E3B6-4CEA-9866-E6E610A1B60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA31B0B3-2635-4ED7-9D4C-6B8EF4AA03F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA31B0B3-2635-4ED7-9D4C-6B8EF4AA03F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA31B0B3-2635-4ED7-9D4C-6B8EF4AA03F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA31B0B3-2635-4ED7-9D4C-6B8EF4AA03F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42744FC7-2F31-4093-B4BE-C2F581ECB797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42744FC7-2F31-4093-B4BE-C2F581ECB797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42744FC7-2F31-4093-B4BE-C2F581ECB797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42744FC7-2F31-4093-B4BE-C2F581ECB797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDEE71D6-BB70-4657-9193-B0C09F39B321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDEE71D6-BB70-4657-9193-B0C09F39B321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDEE71D6-BB70-4657-9193-B0C09F39B321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDEE71D6-BB70-4657-9193-B0C09F39B321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E726C7F3-89EA-4025-9B46-45EE7902A760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E726C7F3-89EA-4025-9B46-45EE7902A760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E726C7F3-89EA-4025-9B46-45EE7902A760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E726C7F3-89EA-4025-9B46-45EE7902A760}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC14D709-9DD9-40B6-B587-1B074A9B49DA}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Accessories_PC_Nik.Context.Contracts\Accessories_PC_Nik.Context.Contracts.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Repositories.Contracts\Accessories_PC_Nik.Repositories.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
