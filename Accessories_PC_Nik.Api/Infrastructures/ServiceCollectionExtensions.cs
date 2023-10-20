@@ -1,4 +1,7 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Accessories_PC_Nik.Context;
+using Accessories_PC_Nik.Repositories;
+using Accessories_PC_Nik.Services;
+using Microsoft.OpenApi.Models;
 
 namespace Accessories_PC_Nik.Api.Infrastructures
 {
@@ -6,7 +9,9 @@ namespace Accessories_PC_Nik.Api.Infrastructures
     {
         public static void AddDependences(this IServiceCollection services)
         {
-
+            services.RegisterModule<ServiceModule>();
+            services.RegisterModule<ReadRepositoryModule>();
+            services.RegisterModule<ContextModule>();
         }
         public static void RegisterModule<TModule>(this IServiceCollection services) where TModule : TimeTable203.Common.Module
         {

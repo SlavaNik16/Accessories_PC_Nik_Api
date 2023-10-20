@@ -1,7 +1,4 @@
-﻿
-using Accessories_PC_Nik.Api.Enums;
-
-namespace Accessories_PC_Nik.Api.Models
+﻿namespace Accessories_PC_Nik.Api.Models
 {
     /// <summary>
     /// Модель ответа сущности ключей доступа

@@ -1,10 +1,11 @@
 ﻿using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
+using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
-    public class ComponentsReadRepository : IComponentsReadRepository
+    public class ComponentsReadRepository : IComponentsReadRepository, IReadRepositoryAnchor
     {
         private readonly IAccessoriesContext context;
 

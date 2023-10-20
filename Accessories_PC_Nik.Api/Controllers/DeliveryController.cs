@@ -6,6 +6,7 @@ namespace Accessories_PC_Nik.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(GroupName = "Delivery")]
     public class DeliveryController : ControllerBase
     {
         private readonly IDeliveryService deliveryService;

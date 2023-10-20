@@ -6,6 +6,7 @@ namespace Accessories_PC_Nik.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(GroupName = "Services")]
     public class ServicesController : ControllerBase
     {
         private readonly IServicesService servicesService;

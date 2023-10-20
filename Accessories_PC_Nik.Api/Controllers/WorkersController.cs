@@ -7,6 +7,7 @@ namespace Accessories_PC_Nik.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(GroupName = "Workers")]
     public class WorkersController : Controller
     {
         private readonly IWorkersService workersService;

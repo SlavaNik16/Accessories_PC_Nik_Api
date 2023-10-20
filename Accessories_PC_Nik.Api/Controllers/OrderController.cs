@@ -7,6 +7,7 @@ namespace Accessories_PC_Nik.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(GroupName = "Order")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService orderService;

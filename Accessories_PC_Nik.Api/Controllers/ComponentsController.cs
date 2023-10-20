@@ -7,6 +7,7 @@ namespace Accessories_PC_Nik.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(GroupName = "Components")]
     public class ComponentsController : ControllerBase
     {
         private readonly IComponentsService componentsService;

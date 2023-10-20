@@ -1,12 +1,12 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Models;
-using Accessories_PC_Nik.Repositories.Contracts.Interface;
+﻿using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
 
 namespace Accessories_PC_Nik.Services.Implementations
 {
-    public class WorkersService : IWorkersService
+    public class WorkersService : IWorkersService, IServiceAnchor
     {
         private readonly IWorkersReadRepository workersReadRepository;
         private readonly IClientsReadRepository clientsReadRepository;
