@@ -12,12 +12,12 @@
         /// <summary>
         /// Название
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } 
 
         /// <summary>
         /// Описание
         /// </summary>
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; } 
 
         /// <summary>
         /// Продолжительность услуги (возможно в часах)

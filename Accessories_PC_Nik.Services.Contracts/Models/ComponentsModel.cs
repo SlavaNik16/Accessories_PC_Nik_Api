@@ -1,4 +1,4 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Enums;
+﻿using Accessories_PC_Nik.Services.Contracts.Enums;
 
 namespace Accessories_PC_Nik.Services.Contracts.Models
 {
@@ -14,17 +14,17 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Тип
         /// </summary>
-        public TypeComponents typeComponents { get; set; }
+        public TypeComponentsModel TypeComponents { get; set; }
 
         /// <summary>
         /// Описания
         /// </summary>
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; }
 
         /// <summary>
         /// Тип материала
         /// </summary>
-        public MaterialType MaterialType { get; set; }
+        public MaterialTypeModel MaterialType { get; set; }
 
         /// <summary>
         /// Цена за 1 шт.

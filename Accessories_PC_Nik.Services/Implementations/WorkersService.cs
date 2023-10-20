@@ -1,31 +1,42 @@
-﻿using Accessories_PC_Nik.Repositories.Contracts.Interface;
+﻿using Accessories_PC_Nik.Context.Contracts.Models;
+using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.Models;
+using AutoMapper;
 
 namespace Accessories_PC_Nik.Services.Implementations
 {
     public class WorkersService : IWorkersService
     {
         private readonly IWorkersReadRepository workersReadRepository;
+        private readonly IClientsReadRepository clientsReadRepository;
+        private readonly IMapper mapper;
 
-        public WorkersService(IWorkersReadRepository workersReadRepository)
+        public WorkersService(IWorkersReadRepository workersReadRepository,
+            IClientsReadRepository clientsReadRepository,
+            IMapper mapper)
         {
             this.workersReadRepository = workersReadRepository;
+            this.clientsReadRepository = clientsReadRepository;
+            this.mapper = mapper;
         }
 
         async Task<IEnumerable<WorkersModel>> IWorkersService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await workersReadRepository.GetAllAsync(cancellationToken);
-            return result.Select(x => new WorkersModel
+
+            var clients = await clientsReadRepository.GetByIdsAsync(result.Select(x => x.Client_id).Distinct(), cancellationToken);
+
+            var listWorker = new List<WorkersModel>();
+            foreach(var worker in result)
             {
-                Id = x.Id,
-                Number = x.Number,
-                Series = x.Series,
-                IssuedAt = x.IssuedAt,
-                IssuedBy = x.IssuedBy,
-                DocumentType = x.DocumentType,
-                AccessLevel = x.AccessLevel,
-            });
+                var work = mapper.Map<WorkersModel>(worker);
+                clients.TryGetValue(worker.Client_id, out var client);
+                work.ClientsModel = mapper.Map<ClientsModel>(client);
+                listWorker.Add(work);
+            }
+
+            return listWorker;
         }
 
         async Task<WorkersModel?> IWorkersService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -33,16 +44,15 @@ namespace Accessories_PC_Nik.Services.Implementations
             var item = await workersReadRepository.GetByIdAsync(id, cancellationToken);
             if (item == null) return null;
 
-            return new WorkersModel
-            {
-                Id = item.Id,
-                Number = item.Number,
-                Series = item.Series,
-                IssuedAt = item.IssuedAt,
-                IssuedBy = item.IssuedBy,
-                DocumentType = item.DocumentType,
-                AccessLevel = item.AccessLevel,
-            };
+
+            var client = await clientsReadRepository.GetByIdAsync(item.Client_id, cancellationToken);
+
+            var work = mapper.Map<WorkersModel>(item);
+            work.ClientsModel = client != null
+                ? mapper.Map<ClientsModel>(client)
+                : new ClientsModel();
+
+            return work;
         }
     }
 }

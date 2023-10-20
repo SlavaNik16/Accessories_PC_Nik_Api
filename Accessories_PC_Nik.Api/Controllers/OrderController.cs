@@ -1,7 +1,7 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
@@ -23,33 +23,14 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(result.Select(x => new OrderResponse
             {
                 Id = x.Id,
-                Client_id = x.Client_id,
-                ServicesResponse = (x.ServicesModel != null) ?  new ServicesResponse
-                {
-                    Id = x.ServicesModel.Id,
-                    Name = x.ServicesModel.Name,
-                    Description = x.ServicesModel.Description,
-                    Duration = x.ServicesModel.Duration,
-                    Price = x.ServicesModel.Price,
-                } : null,
-                ComponentsResponse = (x.ComponentsModel != null) ?  new ComponentsResponse
-                {
-                    Id = x.ComponentsModel.Id,
-                    typeComponents = x.ComponentsModel.typeComponents,
-                    Description = x.ComponentsModel.Description,
-                    MaterialType = x.ComponentsModel.MaterialType,
-                    Price = x.ComponentsModel.Price,
-                } : null,
+                FIO = $"{x.ClientsModel.Name} {x.ClientsModel.Surname} {x.ClientsModel.Patronymic}",
+                Phone = x.ClientsModel.Phone ?? string.Empty,
+                NameService = x.ServicesModel?.Name ?? string.Empty,
+                TypeComponents =x.ComponentsModel?.TypeComponents.GetDisplayName() ?? string.Empty,
                 Count = x.Count,
-                OrderTime = x.OrderTime,
-                DeliveryResponse =new DeliveryResponse
-                {
-                    Id = x.DeliveryModel.Id,
-                    IsDelivery = x.DeliveryModel.IsDelivery,
-                    From = x.DeliveryModel.From,
-                    To = x.DeliveryModel.To,
-                    Price = x.DeliveryModel.Price,
-                },
+                From = x.DeliveryModel.From,  
+                To = x.DeliveryModel.To,
+                Price  = x.DeliveryModel.Price,
                 Comment = x.Comment,
 
             }));
@@ -64,33 +45,14 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(new OrderResponse
             {
                 Id = item.Id,
-                Client_id = item.Client_id,
-                ServicesResponse = (item.ServicesModel != null) ?  new ServicesResponse
-                {
-                    Id = item.ServicesModel.Id,
-                    Name = item.ServicesModel.Name,
-                    Description = item.ServicesModel.Description,
-                    Duration = item.ServicesModel.Duration,
-                    Price = item.ServicesModel.Price,
-                } : null,
-                ComponentsResponse = (item.ComponentsModel != null) ? new ComponentsResponse
-                {
-                    Id = item.ComponentsModel.Id,
-                    typeComponents = item.ComponentsModel.typeComponents,
-                    Description = item.ComponentsModel.Description,
-                    MaterialType = item.ComponentsModel.MaterialType,
-                    Price = item.ComponentsModel.Price,
-                } : null,
+                FIO = $"{item.ClientsModel.Name} {item.ClientsModel.Surname} {item.ClientsModel.Patronymic}",
+                Phone = item.ClientsModel.Phone ?? string.Empty,
+                NameService = item.ServicesModel?.Name ?? string.Empty,
+                TypeComponents = item.ComponentsModel?.TypeComponents.GetDisplayName() ?? string.Empty,
                 Count = item.Count,
-                OrderTime = item.OrderTime,
-                DeliveryResponse = new DeliveryResponse
-                {
-                    Id = item.DeliveryModel.Id,
-                    IsDelivery = item.DeliveryModel.IsDelivery,
-                    From = item.DeliveryModel.From,
-                    To = item.DeliveryModel.To,
-                    Price = item.DeliveryModel.Price,
-                },
+                From = item.DeliveryModel.From,
+                To = item.DeliveryModel.To,
+                Price = item.DeliveryModel.Price,
                 Comment = item.Comment,
             });
         }

@@ -1,7 +1,9 @@
+using Accessories_PC_Nik.Api.Infrastructures;
 using Accessories_PC_Nik.Context;
 using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
+using Accessories_PC_Nik.Services.Automappers;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Implementations;
 
@@ -12,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.GetSwaggerDocument();
 
 
 builder.Services.AddScoped<IClientsService, ClientsService>();
@@ -35,14 +37,14 @@ builder.Services.AddScoped<IDeliveryReadRepository, DeliveryReadRepository>();
 
 builder.Services.AddSingleton<IAccessoriesContext, AccessoriesContext>();
 
-
+builder.Services.AddAutoMapper(typeof(ServiceProfile));
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.GetSwaggerDocumentUI();
 }
 
 app.UseHttpsRedirection();

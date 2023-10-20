@@ -13,6 +13,8 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
+       
+
         Task<List<Services>> IServicesReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => Task.FromResult(context.Services.Where(x => x.DeleteAt == null)
                 .OrderBy(x => x.Name)
@@ -20,5 +22,10 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<Services?> IServicesReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => Task.FromResult(context.Services.FirstOrDefault(x => x.Id == id));
+
+        Task<Dictionary<Guid, Services>> IServicesReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => Task.FromResult(context.Services.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
+                .OrderBy(x => x.Name)
+                .ToDictionary(key => key.Id));
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Accessories_PC_Nik.Context.Contracts.Models;
+﻿using Accessories_PC_Nik.Context.Contracts.Models;
 
 namespace Accessories_PC_Nik.Repositories.Contracts.Interface
 {
@@ -21,5 +16,10 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         /// Получить <see cref="Components"/> по идентификатору
         /// </summary>
         Task<Components?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получить <see cref="Components"/> по идентификатору
+        /// </summary>
+        Task<Dictionary<Guid, Components>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
     }
 }

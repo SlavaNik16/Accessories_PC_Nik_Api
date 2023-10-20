@@ -1,4 +1,4 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Enums;
+﻿using Accessories_PC_Nik.Services.Contracts.Enums;
 
 namespace Accessories_PC_Nik.Services.Contracts.Models
 {
@@ -20,6 +20,6 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Тип получения уровня доступа при данном ключе <see cref="Key"/>
         /// </summary>
-        public AccessLevelTypes Types { get; set; }
+        public AccessLevelTypesModel Types { get; set; }
     }
 }

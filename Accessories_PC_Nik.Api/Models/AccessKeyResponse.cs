@@ -1,6 +1,7 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Enums;
+﻿
+using Accessories_PC_Nik.Api.Enums;
 
-namespace Accessories_PC_Nik.Services.Contracts.Models
+namespace Accessories_PC_Nik.Api.Models
 {
     /// <summary>
     /// Модель ответа сущности ключей доступа
@@ -8,18 +9,8 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
     public class AccessKeyResponse
     {
         /// <summary>
-        /// Идентификатор
-        /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// Ключ уровня доступа (или может string?)
-        /// </summary>
-        public Guid Key { get; set; }
-
-        /// <summary>
         /// Тип получения уровня доступа при данном ключе <see cref="Key"/>
         /// </summary>
-        public AccessLevelTypes Types { get; set; }
+        public string Types { get; set; }
     }
 }

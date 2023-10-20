@@ -8,17 +8,17 @@
         /// <summary>
         /// Номер пользователя товара
         /// </summary>
-        public Guid Сlient_id { get; set; }
+        public Guid Client_id { get; set; }
         
         /// <summary>
         /// Выбранная услуга
         /// </summary>
-        public Services? Services { get; set; }
+        public Guid? Services_id { get; set; }
 
         /// <summary>
         /// Выбранный товар 
         /// </summary>
-        public Components? Сomponents { get; set; }
+        public Guid? Components_id { get; set; }
 
         /// <summary>
         /// Кол-во товара
@@ -32,11 +32,11 @@
         /// <summary>
         /// Доставка
         /// </summary>
-        public Delivery Delivery { get; set; }
+        public Guid? Delivery_id { get; set; }
 
         /// <summary>
         /// Комментарий к заказу
         /// </summary>
-        public string Comment { get; set; }
+        public string Comment { get; set; } = string.Empty;
     }
 }

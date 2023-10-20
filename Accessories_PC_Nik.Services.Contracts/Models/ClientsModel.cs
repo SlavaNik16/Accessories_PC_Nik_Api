@@ -13,27 +13,27 @@
         /// <summary>
         /// Фамилия
         /// </summary>
-        public string Surname { get; set; } = string.Empty;
+        public string? Surname { get; set; }
 
         /// <summary>
         /// Имя
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
         /// <summary>
         /// Отчество
         /// </summary>
-        public string Patronymic { get; set; } = string.Empty;
+        public string? Patronymic { get; set; }
 
         /// <summary>
         /// Телефон
         /// </summary>
-        public string Phone { get; set; } = string.Empty;
+        public string? Phone { get; set; }
 
         /// <summary>
         /// Почта
         /// </summary>
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; } 
 
         /// <summary>
         /// Баланс

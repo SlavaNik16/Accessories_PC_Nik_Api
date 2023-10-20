@@ -13,7 +13,7 @@
         /// <summary>
         /// Согласен ли пользователь использовать доставку товара 
         /// </summary>
-        public bool IsDelivery { get; set; } = false;
+        public bool IsDelivery { get; set; }
 
         /// <summary>
         /// Откуда привезти

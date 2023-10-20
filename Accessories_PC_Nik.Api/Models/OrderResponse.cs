@@ -1,5 +1,5 @@
 ﻿
-namespace Accessories_PC_Nik.Services.Contracts.Models
+namespace Accessories_PC_Nik.Api.Models
 {
     /// <summary>
     /// Модель ответа сущности заказов
@@ -12,37 +12,52 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Номер пользователя товара
+        /// FIO
         /// </summary>
-        public Guid Client_id { get; set; }
+        public string FIO { get; set; }
 
         /// <summary>
-        /// Выбранная услуга
+        /// Телефон
         /// </summary>
-        public ServicesResponse? ServicesResponse { get; set; }
+        public string Phone { get; set; }
 
         /// <summary>
-        /// Выбранный товар 
+        /// Название 
         /// </summary>
-        public ComponentsResponse? ComponentsResponse { get; set; }
+        public string NameService { get; set; }
+
+        /// <summary>
+        /// Тип
+        /// </summary>
+        public string TypeComponents { get; set; }
 
         /// <summary>
         /// Кол-во товара
         /// </summary>
-        public int Count { get; set; } = 0;
+        public int Count { get; set; }  
         /// <summary>
         /// Время заказа
         /// </summary>
         public DateTime OrderTime { get; set; }
 
         /// <summary>
-        /// Доставка
+        /// Откуда привезти
         /// </summary>
-        public DeliveryResponse DeliveryResponse { get; set; }
+        public DateTimeOffset From { get; set; }
+
+        /// <summary>
+        /// Куда привезти
+        /// </summary>
+        public DateTimeOffset To { get; set; }
+
+        /// <summary>
+        /// Стоимость доставки
+        /// </summary>
+        public decimal Price { get; set; }
 
         /// <summary>
         /// Комментарий к заказу
         /// </summary>
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
@@ -23,10 +23,10 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(result.Select(x => new ComponentsResponse
             {
                 Id = x.Id,
-                typeComponents = x.typeComponents,
+                TypeComponents = x.TypeComponents.GetDisplayName(),
+                MaterialType = x.MaterialType.GetDisplayName(),
                 Description = x.Description,
-                MaterialType = x.MaterialType,
-                Price = x.Price,
+                Price   = x.Price,
 
             }));
         }
@@ -40,9 +40,9 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(new ComponentsResponse
             {
                 Id = item.Id,
-                typeComponents = item.typeComponents,
+                TypeComponents = item.TypeComponents.GetDisplayName(),
+                MaterialType = item.MaterialType.GetDisplayName(),
                 Description = item.Description,
-                MaterialType = item.MaterialType,
                 Price = item.Price,
             });
         }

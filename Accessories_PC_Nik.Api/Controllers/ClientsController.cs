@@ -22,13 +22,8 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(result.Select(x => new ClientsResponse
             {
                 Id = x.Id,
-                Surname = x.Surname,
-                Name = x.Name,
-                Patronymic = x.Patronymic,
-                Phone = x.Phone,
-                Email = x.Email,
-                Balance = x.Balance,
-
+                FI0 = $"{x.Name} {x.Surname} {x.Patronymic}",
+                Phone = x.Phone ?? string.Empty
             }));
         }
         [HttpGet("{id}")]
@@ -41,12 +36,8 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(new ClientsResponse
             {
                 Id = item.Id,
-                Surname = item.Surname,
-                Name = item.Name,
-                Patronymic = item.Patronymic,
-                Phone = item.Phone,
-                Email = item.Email,
-                Balance = item.Balance,
+                FI0 = $"{item.Name} {item.Surname} {item.Patronymic}",
+                Phone = item.Phone ?? string.Empty
             });
         }
     }

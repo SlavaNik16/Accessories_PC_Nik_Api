@@ -1,6 +1,5 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accessories_PC_Nik.Api.Controllers

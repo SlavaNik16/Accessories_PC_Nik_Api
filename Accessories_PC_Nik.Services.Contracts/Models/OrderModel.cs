@@ -14,7 +14,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Номер пользователя товара
         /// </summary>
-        public Guid Client_id { get; set; }
+        public ClientsModel ClientsModel { get; set; }
 
         /// <summary>
         /// Выбранная услуга
@@ -38,11 +38,11 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Доставка
         /// </summary>
-        public DeliveryModel DeliveryModel { get; set; }
+        public DeliveryModel? DeliveryModel { get; set; }
 
         /// <summary>
         /// Комментарий к заказу
         /// </summary>
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
     }
 }

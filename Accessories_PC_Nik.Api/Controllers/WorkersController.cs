@@ -1,7 +1,7 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
@@ -27,8 +27,8 @@ namespace Accessories_PC_Nik.Api.Controllers
                 Series = x.Series,
                 IssuedAt = x.IssuedAt,
                 IssuedBy = x.IssuedBy,
-                DocumentType = x.DocumentType,
-                AccessLevel = x.AccessLevel,
+                DocumentType = x.DocumentType.GetDisplayName(),
+                AccessLevel = x.AccessLevel.GetDisplayName(),
 
             }));
         }
@@ -46,8 +46,8 @@ namespace Accessories_PC_Nik.Api.Controllers
                 Series = item.Series,
                 IssuedAt = item.IssuedAt,
                 IssuedBy = item.IssuedBy,
-                DocumentType = item.DocumentType,
-                AccessLevel = item.AccessLevel,
+                DocumentType = item.DocumentType.GetDisplayName(),
+                AccessLevel = item.AccessLevel.GetDisplayName(),
             });
         }
 

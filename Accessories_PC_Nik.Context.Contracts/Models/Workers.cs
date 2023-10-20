@@ -5,7 +5,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
     /// <summary>
     /// Сотрудники
     /// </summary>
-    public class Workers : Clients
+    public class Workers : BaseAuditEntity
     {
         /// <summary>
         /// Номер документа
@@ -36,6 +36,13 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// Тип уровня доступа
         /// </summary>
         public AccessLevelTypes AccessLevel { get; set; } = AccessLevelTypes.None;
+
+        /// <summary>
+        /// Данные клиента
+        /// </summary>
+        public Guid Client_id { get; set; }
+
+
 
 
     }

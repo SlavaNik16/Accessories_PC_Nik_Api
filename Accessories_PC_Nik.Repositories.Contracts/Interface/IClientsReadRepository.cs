@@ -15,5 +15,10 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         /// Получить <see cref="Clients"/> по идентификатору
         /// </summary>
         Task<Clients?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получить <see cref="Clients"/> по идентификатору
+        /// </summary>
+        Task<Dictionary<Guid, Clients>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Accessories_PC_Nik.Services.Contracts.Models
+﻿namespace Accessories_PC_Nik.Api.Models
 {
     /// <summary>
     /// Модель ответа сущности доставки
@@ -9,11 +9,6 @@
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Согласен ли пользователь использовать доставку товара 
-        /// </summary>
-        public bool IsDelivery { get; set; } = false;
 
         /// <summary>
         /// Откуда привезти

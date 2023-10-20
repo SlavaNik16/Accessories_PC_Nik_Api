@@ -11,7 +11,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// <summary>
         /// Тип
         /// </summary>
-        public TypeComponents typeComponents { get; set; }
+        public TypeComponents TypeComponents { get; set; }
 
         /// <summary>
         /// Описания

@@ -1,6 +1,5 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accessories_PC_Nik.Api.Controllers
@@ -23,11 +22,9 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(result.Select(x => new DeliveryResponse
             {
                 Id = x.Id,
-                IsDelivery = x.IsDelivery,
                 From = x.From,
                 To = x.To,
                 Price = x.Price,
-
             }));
         }
         [HttpGet("{id}")]
@@ -40,7 +37,6 @@ namespace Accessories_PC_Nik.Api.Controllers
             return Ok(new DeliveryResponse
             {
                 Id = item.Id,
-                IsDelivery = item.IsDelivery,
                 From = item.From,
                 To = item.To,
                 Price = item.Price,

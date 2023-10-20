@@ -1,13 +1,8 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Enums;
-
-namespace Accessories_PC_Nik.Services.Contracts.Models
+﻿using Accessories_PC_Nik.Api.Enums;
+namespace Accessories_PC_Nik.Api.Models
 {
     /// <summary>
     /// Модель ответа сущности сотрудникам
-    /// (
-    /// неужто надо дублировать и типы enum,
-    /// чтобы не сделать модель зависимой от них
-    /// )
     /// </summary>
     public class WorkersResponse
     {
@@ -19,12 +14,12 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Номер документа
         /// </summary>
-        public string Number { get; set; } = string.Empty;
+        public string Number { get; set; }
 
         /// <summary>
         /// Серия документа
         /// </summary>
-        public string Series { get; set; } = string.Empty;
+        public string Series { get; set; }
 
         /// <summary>
         /// Дата выдачи
@@ -34,17 +29,17 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Кем выдан
         /// </summary>
-        public string IssuedBy { get; set; } = string.Empty;
+        public string IssuedBy { get; set; }
 
         /// <summary>
         /// Тип документа на работу
         /// </summary>
-        public DocumentTypes DocumentType { get; set; }
+        public string DocumentType { get; set; }
 
         /// <summary>
         /// Тип уровня доступа
         /// </summary>
-        public AccessLevelTypes AccessLevel { get; set; } = AccessLevelTypes.None;
+        public string AccessLevel { get; set; }
 
     }
 }

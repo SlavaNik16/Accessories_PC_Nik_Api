@@ -15,7 +15,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<List<Workers>> IWorkersReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => Task.FromResult(context.Workers.Where(x => x.DeleteAt == null)
-                .OrderBy(x => x.Name)
+                .OrderBy(x => x.AccessLevel)
                 .ToList());
 
         Task<Workers?> IWorkersReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)

@@ -1,11 +1,6 @@
 ﻿using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
@@ -25,6 +20,11 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<Components?> IComponentsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => Task.FromResult(context.Components.FirstOrDefault(x => x.Id == id));
+
+        Task<Dictionary<Guid, Components>> IComponentsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+           => Task.FromResult(context.Components.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
+               .OrderBy(x => x.MaterialType)
+               .ToDictionary(key => key.Id));
 
     }
 }
