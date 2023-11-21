@@ -1,6 +1,4 @@
-﻿using TimeTable203.Common;
-
-namespace Accessories_PC_Nik.Common.Entity.InterfaceDB
+﻿namespace Accessories_PC_Nik.Common.Entity.InterfaceDB
 {
     /// <summary>
     /// Определяет контекст репозитория записи сущностей
