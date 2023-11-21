@@ -6,7 +6,7 @@
     public class AccessKeyResponse
     {
         /// <summary>
-        /// Уровень доступа доступа
+        /// Уровень привилегий
         /// </summary>
         public string Types { get; set; }
     }

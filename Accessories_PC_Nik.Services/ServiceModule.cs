@@ -1,6 +1,7 @@
 ﻿using Accessories_PC_Nik.Common;
 using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Automappers;
+using Accessories_PC_Nik.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Accessories_PC_Nik.Services
