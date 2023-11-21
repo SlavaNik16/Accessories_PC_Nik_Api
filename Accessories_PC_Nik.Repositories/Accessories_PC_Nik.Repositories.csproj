@@ -9,8 +9,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Accessories_PC_Nik.Context.Contracts\Accessories_PC_Nik.Context.Contracts.csproj" />
     <ProjectReference Include="..\Accessories_PC_Nik.Repositories.Contracts\Accessories_PC_Nik.Repositories.Contracts.csproj" />
-    <ProjectReference Include="..\TimeTable203.Common\TimeTable203.Common.csproj" />
-    <ProjectReference Include="..\TimeTable203.Shared\TimeTable203.Shared.csproj" />
+    <ProjectReference Include="..\TimeTable203.Common\Accessories_PC_Nik.Common.csproj" />
+    <ProjectReference Include="..\TimeTable203.Shared\Accessories_PC_Nik.Shared.csproj" />
   </ItemGroup>
 
 </Project>

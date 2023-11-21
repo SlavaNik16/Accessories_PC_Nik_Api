@@ -1,4 +1,4 @@
-﻿namespace TimeTable203.Common
+﻿namespace Accessories_PC_Nik.Common
 {
     /// <summary>
     /// Интерфейс получения даты

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Accessories_PC_Nik.Common.Entity.EntityInterface;
 
-namespace TimeTable203.Common.Entity.Repositories
+namespace Accessories_PC_Nik.Common.Entity.Repositories
 {
     /// <summary>
     /// Общие спецификации чтения

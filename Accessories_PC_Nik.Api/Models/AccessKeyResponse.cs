@@ -6,7 +6,7 @@
     public class AccessKeyResponse
     {
         /// <summary>
-        /// Тип получения уровня доступа при данном ключе <see cref="Key"/>
+        /// Уровень доступа доступа
         /// </summary>
         public string Types { get; set; }
     }

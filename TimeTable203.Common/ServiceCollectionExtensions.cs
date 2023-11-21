@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace TimeTable203.Common
+namespace Accessories_PC_Nik.Common
 {
     public static class ServiceCollectionExtensions
     {
