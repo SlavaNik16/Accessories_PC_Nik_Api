@@ -1,7 +1,6 @@
-﻿using Accessories_PC_Nik.Repositories.Anchors;
+﻿using Accessories_PC_Nik.Common;
+using Accessories_PC_Nik.Repositories.Anchors;
 using Microsoft.Extensions.DependencyInjection;
-using TimeTable203.Common;
-using TimeTable203.Shared;
 
 namespace Accessories_PC_Nik.Repositories
 {

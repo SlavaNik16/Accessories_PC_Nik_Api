@@ -9,7 +9,7 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         /// <summary>
         /// Получить список всех <see cref="Client"/>
         /// </summary>
-        Task<List<Client>> GetAllAsync(CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<Client>> GetAllAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить <see cref="Client"/> по идентификатору

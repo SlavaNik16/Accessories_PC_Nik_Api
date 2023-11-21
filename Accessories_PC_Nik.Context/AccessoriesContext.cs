@@ -22,16 +22,16 @@ namespace Accessories_PC_Nik.Context
         IDbWriter,
         IUnitOfWork
     {
-        public DbSet<Client> Client { get; set; }
-        public DbSet<Worker> Worker { get; set; }
-        public DbSet<Service> Service { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Worker> Workers { get; set; }
+        public DbSet<Service> Services { get; set; }
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Delivery> Deliveries { get; set; }
 
         public DbSet<AccessKey> AccessKeys { get; set; }
 
-        public DbSet<Component> Component { get; set; }
+        public DbSet<Component> Components { get; set; }
 
         public AccessoriesContext(DbContextOptions<AccessoriesContext> options)
             :base(options) { }

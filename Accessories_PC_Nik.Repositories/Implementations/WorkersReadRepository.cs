@@ -1,7 +1,9 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.Repositories;
+using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
@@ -14,12 +16,15 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
-        Task<List<Worker>> IWorkersReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult(context.Workers.Where(x => x.DeleteAt == null)
+        Task<IReadOnlyCollection<Worker>> IWorkersReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => context.Workers
+                .NotDeletedAt()
                 .OrderBy(x => x.AccessLevel)
-                .ToList());
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Worker?> IWorkersReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.Workers.FirstOrDefault(x => x.Id == id));
+            => context.Workers
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
     }
 }

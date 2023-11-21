@@ -25,17 +25,19 @@ namespace Accessories_PC_Nik.Services.Implementations
         {
             var result = await workersReadRepository.GetAllAsync(cancellationToken);
 
-            var clients = await clientsReadRepository.GetByIdsAsync(result.Select(x => x.Client_id).Distinct(), cancellationToken);
+            var clients = await clientsReadRepository.GetByIdsAsync(result.Select(x => x.ClientId).Distinct(), cancellationToken);
 
             var listWorker = new List<WorkersModel>();
             foreach(var worker in result)
             {
                 var work = mapper.Map<WorkersModel>(worker);
-                clients.TryGetValue(worker.Client_id, out var client);
-                work.ClientsModel = mapper.Map<ClientsModel>(client);
+                if(!clients.TryGetValue(worker.ClientId, out var client))
+                {
+                    continue;
+                }
+                work.Clients = mapper.Map<ClientsModel>(client);
                 listWorker.Add(work);
             }
-
             return listWorker;
         }
 
@@ -45,12 +47,10 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (item == null) return null;
 
 
-            var client = await clientsReadRepository.GetByIdAsync(item.Client_id, cancellationToken);
+            var client = await clientsReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
 
             var work = mapper.Map<WorkersModel>(item);
-            work.ClientsModel = client != null
-                ? mapper.Map<ClientsModel>(client)
-                : new ClientsModel();
+            work.Clients  = mapper.Map<ClientsModel>(client);
 
             return work;
         }

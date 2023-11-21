@@ -9,13 +9,13 @@ namespace Accessories_PC_Nik.Context.Contracts.Interface
     public interface IAccessoriesContext
     {
         /// <summary>Список <inheritdoc cref="Models.Client"/></summary>
-        DbSet<Client> Client { get; }
+        DbSet<Client> Clients { get; }
 
         /// <summary>Список <inheritdoc cref="Models.Worker"/></summary>
-        DbSet<Worker> Worker { get; }
+        DbSet<Worker> Workers { get; }
 
         /// <summary>Список <inheritdoc cref="Models.Service"/></summary>
-        DbSet<Service> Service { get; }
+        DbSet<Service> Services { get; }
 
         /// <summary>Список <inheritdoc cref="Order"/></summary>
         DbSet<Order> Orders { get; }
@@ -27,6 +27,6 @@ namespace Accessories_PC_Nik.Context.Contracts.Interface
         DbSet<AccessKey> AccessKeys { get; }
 
         /// <summary>Список <inheritdoc cref="Models.Component"/></summary>
-        DbSet<Component> Component { get; }
+        DbSet<Component> Components { get; }
     }
 }

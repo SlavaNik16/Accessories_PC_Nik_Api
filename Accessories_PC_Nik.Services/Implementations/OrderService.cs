@@ -18,7 +18,7 @@ namespace Accessories_PC_Nik.Services.Implementations
              IServicesReadRepository servicesReadRepository,
              IComponentsReadRepository componentsReadRepository,
              IDeliveryReadRepository deliveryReadRepository,
-              IClientsReadRepository clientsReadRepository,
+             IClientsReadRepository clientsReadRepository,
              IMapper mapper )
         {
             this.orderReadRepository = orderReadRepository;
@@ -31,11 +31,11 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<IEnumerable<OrderModel>> IOrderService.GetAllAsync(CancellationToken cancellationToken)
         {
             var orders = await orderReadRepository.GetAllAsync(cancellationToken);
-            IEnumerable<Guid> servicesId, componentsId, deliveriesId, clientsId;
-            servicesId = orders.Select(x=>x.Services_id).Distinct().Cast<Guid>();
-            componentsId = orders.Select(x => x.Components_id).Distinct().Cast<Guid>();
-            deliveriesId = orders.Select(x => x.Delivery_id).Distinct().Cast<Guid>();
-            clientsId = orders.Select(x => x.Client_id).Distinct().Cast<Guid>();
+           
+            var servicesId = orders.Select(x=>x.ServiceId).Distinct().Cast<Guid>();
+            var componentsId = orders.Select(x => x.ComponentId).Distinct().Cast<Guid>();
+            var deliveriesId = orders.Select(x => x.DeliveryId).Distinct().Cast<Guid>();
+            var clientsId = orders.Select(x => x.ClientId).Distinct().Cast<Guid>();
 
             var services = await servicesReadRepository.GetByIdsAsync(servicesId, cancellationToken);
             var components = await componentsReadRepository.GetByIdsAsync(componentsId, cancellationToken);
@@ -48,15 +48,32 @@ namespace Accessories_PC_Nik.Services.Implementations
             {
                 var ord = mapper.Map<OrderModel>(order);
 
-                services.TryGetValue(order.Services_id ?? Guid.Empty, out var service);
-                components.TryGetValue(order.Components_id ?? Guid.Empty, out var component);
-                deliveries.TryGetValue(order.Delivery_id ?? Guid.Empty, out var delivery);
-                clients.TryGetValue(order.Client_id, out var client);
+                if(order.ServiceId.HasValue && 
+                   services.TryGetValue(order.ServiceId!.Value, out var service))
+                {
+                    ord.Services = mapper.Map<ServicesModel>(service);
+                }
+                if (order.ComponentId.HasValue &&
+                    components.TryGetValue(order.ComponentId!.Value, out var component))
+                {
+                    ord.Components = mapper.Map<ComponentsModel>(component);
+                }
+                //В заказы должен быть хотя бы 1 услуга или покупка
+                if(ord.Components == null && ord.Services == null)
+                {
+                    continue;
+                }
+                if (order.DeliveryId.HasValue &&
+                    deliveries.TryGetValue(order.DeliveryId!.Value, out var delivery))
+                {
+                    ord.Delivery = mapper.Map<DeliveryModel>(delivery);
+                }
+                if (!clients.TryGetValue(order.ClientId, out var client))
+                {
+                    continue;
+                }
 
-                ord.ServicesModel = mapper.Map<ServicesModel>(service);
-                ord.ComponentsModel = mapper.Map<ComponentsModel>(component);
-                ord.DeliveryModel = mapper.Map<DeliveryModel>(delivery);
-                ord.ClientsModel = mapper.Map<ClientsModel>(client);
+                ord.Clients = mapper.Map<ClientsModel>(client);
 
                 listOrders.Add(ord);
             }
@@ -68,24 +85,26 @@ namespace Accessories_PC_Nik.Services.Implementations
             var item = await orderReadRepository.GetByIdAsync(id, cancellationToken);
             if (item == null) return null;
 
-            var service = await servicesReadRepository.GetByIdAsync(item.Services_id ?? Guid.Empty, cancellationToken);
-            var component = await componentsReadRepository.GetByIdAsync(item.Components_id ?? Guid.Empty, cancellationToken);
-            var delivery = await deliveryReadRepository.GetByIdAsync(item.Delivery_id ?? Guid.Empty, cancellationToken);
-            var client = await deliveryReadRepository.GetByIdAsync(item.Client_id, cancellationToken);
-
             var order = mapper.Map<OrderModel>(item);
-            order.ServicesModel = service != null
-                ? mapper.Map<ServicesModel>(service)
-                : null;
-            order.ComponentsModel = component != null
-               ? mapper.Map<ComponentsModel>(component)
-               : null;
-            order.DeliveryModel = delivery != null
-               ? mapper.Map<DeliveryModel>(delivery)
-               : null;
 
-            order.ClientsModel = mapper.Map<ClientsModel>(client);
-
+            if(item.ServiceId.HasValue)
+            {
+                var service = await servicesReadRepository.GetByIdAsync(item.ServiceId!.Value, cancellationToken);
+                order.Services = mapper.Map<ServicesModel>(service);
+            }
+            if (item.ComponentId.HasValue)
+            {
+                var component = await componentsReadRepository.GetByIdAsync(item.ComponentId!.Value, cancellationToken);
+                order.Components = mapper.Map<ComponentsModel>(component);
+            }
+            if (item.DeliveryId.HasValue)
+            {
+                var delivery = await deliveryReadRepository.GetByIdAsync(item.DeliveryId!.Value, cancellationToken);
+                order.Delivery = mapper.Map<DeliveryModel>(delivery);
+            }
+            
+            var client = await deliveryReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
+            order.Clients = mapper.Map<ClientsModel>(client);
             return order;
         }
     }
