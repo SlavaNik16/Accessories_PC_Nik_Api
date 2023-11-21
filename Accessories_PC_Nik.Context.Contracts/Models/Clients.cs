@@ -19,7 +19,7 @@
         /// <summary>
         /// Отчество
         /// </summary>
-        public string Patronymic { get; set; } = string.Empty;
+        public string? Patronymic { get; set; } = string.Empty;
 
         /// <summary>
         /// Телефон

@@ -16,7 +16,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// <summary>
         /// Описания
         /// </summary>
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Тип материала

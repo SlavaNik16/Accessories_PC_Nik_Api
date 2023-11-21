@@ -1,4 +1,5 @@
 ﻿using Accessories_PC_Nik.Services.Anchors;
+using Accessories_PC_Nik.Services.Automappers;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using TimeTable203.Common;
@@ -12,7 +13,7 @@ namespace Accessories_PC_Nik.Services
         {
             service.AssemblyInterfaceAssignableTo<IServiceAnchor>(ServiceLifetime.Scoped);
 
-            service.AddMapper<Profile>();
+            service.RegisterAutoMapperProfile<ServiceProfile>();
         }
     }
 }

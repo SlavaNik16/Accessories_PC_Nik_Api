@@ -49,7 +49,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Данные клиента
         /// </summary>
-        public ClientsModel ClientsModel { get; set; }
+        public ClientsModel Clients { get; set; }
 
     }
 }

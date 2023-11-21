@@ -25,17 +25,27 @@ namespace TimeTable203.Shared
                 }
             }
         }
-        public static void AddMapper<TProfile>(this IServiceCollection service) where TProfile : Profile
+        public static void RegisterAutoMapper(this IServiceCollection services)
         {
-            var type = typeof(TProfile);
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p));
-
-            foreach (var classType in types)
+            services.AddSingleton<IMapper>(provider =>
             {
-                service.AddAutoMapper(classType);
-            }
+                var profiles = provider.GetServices<Profile>();
+                var mapperConfig = new MapperConfiguration(mc =>
+                {
+                    foreach (var profile in profiles)
+                    {
+                        mc.AddProfile(profile);
+                    }
+                });
+                var mapper = mapperConfig.CreateMapper();
+                return mapper;
+            });
         }
+
+        /// <summary>
+        /// Регистрирует <see cref="Profile"/> автомапера
+        /// </summary>
+        public static void RegisterAutoMapperProfile<TProfile>(this IServiceCollection services) where TProfile : Profile
+            => services.AddSingleton<Profile, TProfile>();
     }
 }

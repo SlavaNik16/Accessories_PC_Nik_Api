@@ -7,11 +7,6 @@
     {
 
         /// <summary>
-        /// Согласен ли пользователь использовать доставку товара 
-        /// </summary>
-        public bool IsDelivery { get; set; } = false;
-
-        /// <summary>
         /// Откуда привезти
         /// </summary>
         public DateTimeOffset From { get; set; }

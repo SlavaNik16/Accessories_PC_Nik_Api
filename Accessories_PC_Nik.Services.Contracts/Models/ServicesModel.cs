@@ -17,7 +17,7 @@
         /// <summary>
         /// Описание
         /// </summary>
-        public string Description { get; set; } 
+        public string? Description { get; set; } 
 
         /// <summary>
         /// Продолжительность услуги (возможно в часах)

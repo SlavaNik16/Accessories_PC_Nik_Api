@@ -11,11 +11,6 @@
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Согласен ли пользователь использовать доставку товара 
-        /// </summary>
-        public bool IsDelivery { get; set; }
-
-        /// <summary>
         /// Откуда привезти
         /// </summary>
         public DateTimeOffset From { get; set; }

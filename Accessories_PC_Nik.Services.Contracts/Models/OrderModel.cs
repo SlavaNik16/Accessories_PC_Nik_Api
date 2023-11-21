@@ -14,17 +14,17 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Номер пользователя товара
         /// </summary>
-        public ClientsModel ClientsModel { get; set; }
+        public ClientsModel Clients { get; set; }
 
         /// <summary>
         /// Выбранная услуга
         /// </summary>
-        public ServicesModel? ServicesModel { get; set; }
+        public ServicesModel? Services{ get; set; }
 
         /// <summary>
         /// Выбранный товар 
         /// </summary>
-        public ComponentsModel? ComponentsModel { get; set; }
+        public ComponentsModel? Components { get; set; }
 
         /// <summary>
         /// Кол-во товара
@@ -38,11 +38,11 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Доставка
         /// </summary>
-        public DeliveryModel? DeliveryModel { get; set; }
+        public DeliveryModel? Delivery { get; set; }
 
         /// <summary>
         /// Комментарий к заказу
         /// </summary>
-        public string? Comment { get; set; }
+        public string? Comment { get; set; } 
     }
 }

@@ -13,12 +13,12 @@
         /// <summary>
         /// Фамилия
         /// </summary>
-        public string? Surname { get; set; }
+        public string Surname { get; set; }
 
         /// <summary>
         /// Имя
         /// </summary>
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Отчество
@@ -28,12 +28,12 @@
         /// <summary>
         /// Телефон
         /// </summary>
-        public string? Phone { get; set; }
+        public string Phone { get; set; }
 
         /// <summary>
         /// Почта
         /// </summary>
-        public string? Email { get; set; } 
+        public string Email { get; set; } 
 
         /// <summary>
         /// Баланс

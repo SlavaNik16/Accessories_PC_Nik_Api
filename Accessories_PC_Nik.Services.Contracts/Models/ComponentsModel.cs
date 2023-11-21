@@ -19,7 +19,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Описания
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Тип материала

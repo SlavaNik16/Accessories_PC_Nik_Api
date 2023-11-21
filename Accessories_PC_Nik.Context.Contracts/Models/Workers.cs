@@ -30,7 +30,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// <summary>
         /// Тип документа на работу
         /// </summary>
-        public DocumentTypes DocumentType { get; set; }
+        public DocumentTypes DocumentType { get; set; } = DocumentTypes.None;
 
         /// <summary>
         /// Тип уровня доступа
@@ -40,7 +40,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// <summary>
         /// Данные клиента
         /// </summary>
-        public Guid Client_id { get; set; }
+        public Guid ClientId { get; set; }
 
 
 
