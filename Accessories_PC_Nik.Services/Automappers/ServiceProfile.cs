@@ -26,9 +26,9 @@ namespace Accessories_PC_Nik.Services.Automappers
 
             CreateMap<AccessKey, AccessKeyModel>(MemberList.Destination);
 
-            CreateMap<Clients, ClientsModel>(MemberList.Destination);
+            CreateMap<Client, ClientsModel>(MemberList.Destination);
 
-            CreateMap<Components, ComponentsModel>(MemberList.Destination);
+            CreateMap<Component, ComponentsModel>(MemberList.Destination);
 
             CreateMap<Delivery, DeliveryModel>(MemberList.Destination);
 
@@ -37,9 +37,9 @@ namespace Accessories_PC_Nik.Services.Automappers
                 .ForMember(pref => pref.ComponentsModel, next => next.Ignore())
                 .ForMember(pref => pref.DeliveryModel, next => next.Ignore());
 
-            CreateMap<Context.Contracts.Models.Services, ServicesModel>(MemberList.Destination);
+            CreateMap<Context.Contracts.Models.Service, ServicesModel>(MemberList.Destination);
 
-            CreateMap<Workers, WorkersModel>(MemberList.Destination)
+            CreateMap<Worker, WorkersModel>(MemberList.Destination)
                 .ForMember(pref => pref.ClientsModel, next => next.Ignore());
         }
     }

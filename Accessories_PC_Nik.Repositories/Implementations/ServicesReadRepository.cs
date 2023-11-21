@@ -16,15 +16,15 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
        
 
-        Task<List<Services>> IServicesReadRepository.GetAllAsync(CancellationToken cancellationToken)
+        Task<List<Service>> IServicesReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => Task.FromResult(context.Services.Where(x => x.DeleteAt == null)
                 .OrderBy(x => x.Name)
                 .ToList());
 
-        Task<Services?> IServicesReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        Task<Service?> IServicesReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => Task.FromResult(context.Services.FirstOrDefault(x => x.Id == id));
 
-        Task<Dictionary<Guid, Services>> IServicesReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+        Task<Dictionary<Guid, Service>> IServicesReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
             => Task.FromResult(context.Services.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
                 .OrderBy(x => x.Name)
                 .ToDictionary(key => key.Id));

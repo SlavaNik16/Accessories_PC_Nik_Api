@@ -1,4 +1,5 @@
 ﻿using Accessories_PC_Nik.Context.Contracts.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Context.Contracts.Interface
 {
@@ -7,12 +8,25 @@ namespace Accessories_PC_Nik.Context.Contracts.Interface
     /// </summary>
     public interface IAccessoriesContext
     {
-        IEnumerable<Clients> Clients { get; }
-        IEnumerable<Workers> Workers { get; }
-        IEnumerable<Services> Services { get; }
-        IEnumerable<Order> Order { get; }
-        IEnumerable<Delivery> Delivery { get; }
-        IEnumerable<AccessKey> AccessKey { get; }
-        IEnumerable<Components> Components { get; }
+        /// <summary>Список <inheritdoc cref="Models.Client"/></summary>
+        DbSet<Client> Client { get; }
+
+        /// <summary>Список <inheritdoc cref="Models.Worker"/></summary>
+        DbSet<Worker> Worker { get; }
+
+        /// <summary>Список <inheritdoc cref="Models.Service"/></summary>
+        DbSet<Service> Service { get; }
+
+        /// <summary>Список <inheritdoc cref="Order"/></summary>
+        DbSet<Order> Orders { get; }
+
+        /// <summary>Список <inheritdoc cref="Delivery"/></summary>
+        DbSet<Delivery> Deliveries { get; }
+
+        /// <summary>Список <inheritdoc cref="AccessKey"/></summary>
+        DbSet<AccessKey> AccessKeys { get; }
+
+        /// <summary>Список <inheritdoc cref="Models.Component"/></summary>
+        DbSet<Component> Component { get; }
     }
 }

@@ -2,18 +2,18 @@
 namespace Accessories_PC_Nik.Repositories.Contracts.Interface
 {
     /// <summary>
-    /// Репозиторий чтения <see cref="Workers"/>
+    /// Репозиторий чтения <see cref="Worker"/>
     /// </summary>
     public interface IWorkersReadRepository
     {
         /// <summary>
-        /// Получить список всех <see cref="Workers"/>
+        /// Получить список всех <see cref="Worker"/>
         /// </summary>
-        Task<List<Workers>> GetAllAsync(CancellationToken cancellationToken);
+        Task<List<Worker>> GetAllAsync(CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="Workers"/> по идентификатору
+        /// Получить <see cref="Worker"/> по идентификатору
         /// </summary>
-        Task<Workers?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<Worker?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }

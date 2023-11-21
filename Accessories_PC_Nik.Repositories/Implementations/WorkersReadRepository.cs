@@ -14,12 +14,12 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
-        Task<List<Workers>> IWorkersReadRepository.GetAllAsync(CancellationToken cancellationToken)
+        Task<List<Worker>> IWorkersReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => Task.FromResult(context.Workers.Where(x => x.DeleteAt == null)
                 .OrderBy(x => x.AccessLevel)
                 .ToList());
 
-        Task<Workers?> IWorkersReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        Task<Worker?> IWorkersReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => Task.FromResult(context.Workers.FirstOrDefault(x => x.Id == id));
     }
 }

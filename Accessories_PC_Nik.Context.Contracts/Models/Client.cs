@@ -3,7 +3,7 @@
     /// <summary>
     /// Покупатели, клиенты
     /// </summary>
-    public class Clients : BaseAuditEntity
+    public class Client : BaseAuditEntity
     {
 
         /// <summary>
@@ -35,5 +35,15 @@
         /// Баланс
         /// </summary>
         public decimal Balance { get; set; } = 0;
+
+        /// <summary>
+        /// навигация для связи 1 ко многим
+        /// </summary>
+        public ICollection<Order> Order { get; set; }
+
+        /// <summary>
+        /// навигация для связи 1 ко многим
+        /// </summary>
+        public ICollection<Worker> Worker { get; set; }
     }
 }

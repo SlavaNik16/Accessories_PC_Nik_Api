@@ -9,21 +9,32 @@
         /// Номер пользователя товара
         /// </summary>
         public Guid ClientId { get; set; }
+
+        /// <summary>
+        /// Cвязь один ко многим
+        /// </summary>
+        public Client? Client { get; set; }
         
         /// <summary>
         /// Выбранная услуга
         /// </summary>
-        public Guid? ServicesId { get; set; }
+        public Guid? ServiceId { get; set; }
+
+        /// <summary>
+        /// Cвязь один ко многим
+        /// </summary>
+        public Service? Service { get; set; }
 
         /// <summary>
         /// Выбранный товар 
         /// </summary>
-        public Guid? ComponentsId { get; set; }
+        public Guid? ComponentId { get; set; }
 
         /// <summary>
-        /// Кол-во товара
+        /// Cвязь один ко многим
         /// </summary>
-        public int Count { get; set; } = 0;
+        public Component? Component { get; set; }
+
         /// <summary>
         /// Время заказа
         /// </summary>
@@ -33,6 +44,11 @@
         /// Доставка
         /// </summary>
         public Guid? DeliveryId { get; set; }
+
+        /// <summary>
+        /// Cвязь один ко многим
+        /// </summary>
+        public Delivery? Delivery { get; set; }
 
         /// <summary>
         /// Комментарий к заказу

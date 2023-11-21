@@ -5,7 +5,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
     /// <summary>
     /// Сотрудники
     /// </summary>
-    public class Workers : BaseAuditEntity
+    public class Worker : BaseAuditEntity
     {
         /// <summary>
         /// Номер документа
@@ -41,6 +41,11 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// Данные клиента
         /// </summary>
         public Guid ClientId { get; set; }
+
+        /// <summary>
+        /// Cвязь один ко многим
+        /// </summary>
+        public Client? Client { get; set; }
 
 
 

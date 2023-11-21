@@ -2,23 +2,23 @@
 namespace Accessories_PC_Nik.Repositories.Contracts.Interface
 {
     /// <summary>
-    /// Репозиторий чтения <see cref="Clients"/>
+    /// Репозиторий чтения <see cref="Client"/>
     /// </summary>
     public interface IClientsReadRepository
     {
         /// <summary>
-        /// Получить список всех <see cref="Clients"/>
+        /// Получить список всех <see cref="Client"/>
         /// </summary>
-        Task<List<Clients>> GetAllAsync(CancellationToken cancellationToken);
+        Task<List<Client>> GetAllAsync(CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="Clients"/> по идентификатору
+        /// Получить <see cref="Client"/> по идентификатору
         /// </summary>
-        Task<Clients?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<Client?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="Clients"/> по идентификатору
+        /// Получить <see cref="Client"/> по идентификатору
         /// </summary>
-        Task<Dictionary<Guid, Clients>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+        Task<Dictionary<Guid, Client>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
     }
 }

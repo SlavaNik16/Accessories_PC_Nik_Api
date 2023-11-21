@@ -15,8 +15,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Accessories_PC_Nik.Repositories.Contracts\Accessories_PC_Nik.Repositories.Contracts.csproj" />
     <ProjectReference Include="..\Accessories_PC_Nik.Services.Contracts\Accessories_PC_Nik.Services.Contracts.csproj" />
-    <ProjectReference Include="..\TimeTable203.Common\Accessories_PC_Nik.Common.csproj" />
-    <ProjectReference Include="..\TimeTable203.Shared\Accessories_PC_Nik.Shared.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Common\Accessories_PC_Nik.Common.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Shared\Accessories_PC_Nik.Shared.csproj" />
   </ItemGroup>
 
 </Project>

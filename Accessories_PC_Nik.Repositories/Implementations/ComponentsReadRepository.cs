@@ -14,15 +14,15 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
-        Task<List<Components>> IComponentsReadRepository.GetAllAsync(CancellationToken cancellationToken)
+        Task<List<Component>> IComponentsReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => Task.FromResult(context.Components.Where(x => x.DeleteAt == null)
                 .OrderBy(x => x.MaterialType)
                 .ToList());
 
-        Task<Components?> IComponentsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        Task<Component?> IComponentsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => Task.FromResult(context.Components.FirstOrDefault(x => x.Id == id));
 
-        Task<Dictionary<Guid, Components>> IComponentsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+        Task<Dictionary<Guid, Component>> IComponentsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
            => Task.FromResult(context.Components.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
                .OrderBy(x => x.MaterialType)
                .ToDictionary(key => key.Id));

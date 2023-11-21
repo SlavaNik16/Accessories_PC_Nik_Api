@@ -8,10 +8,10 @@ namespace Accessories_PC_Nik.Common
         /// Метод который по поставленному типу(класс наследуемый от Module - абстрактного класса)
         /// Вызывает метод CreateModule
         /// </summary>
-        public static void RegisterModule<TModule>(this IServiceCollection services) where TModule : Common.Module
+        public static void RegisterModule<TModule>(this IServiceCollection services) where TModule : Module
         {
             var type = typeof(TModule);
-            var instance = Activator.CreateInstance(type) as Common.Module;
+            var instance = Activator.CreateInstance(type) as Module;
             instance?.CreateModule(services);
         }
     }

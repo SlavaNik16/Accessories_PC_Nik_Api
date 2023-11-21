@@ -2,8 +2,8 @@
 using Accessories_PC_Nik.Repositories;
 using Accessories_PC_Nik.Services;
 using Accessories_PC_Nik.Common;
-using Microsoft.OpenApi.Models;
-
+using Accessories_PC_Nik.Common.Entity;
+using Accessories_PC_Nik.Shared;
 namespace Accessories_PC_Nik.Api.Infrastructures
 {
     public static class ServiceCollectionExtensions
@@ -13,6 +13,9 @@ namespace Accessories_PC_Nik.Api.Infrastructures
             services.RegisterModule<ServiceModule>();
             services.RegisterModule<ReadRepositoryModule>();
             services.RegisterModule<ContextModule>();
+
+            services.RegisterAutoMapper();
         }
+
     }
 }

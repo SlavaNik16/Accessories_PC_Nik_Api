@@ -14,15 +14,15 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
-        Task<List<Clients>> IClientsReadRepository.GetAllAsync(CancellationToken cancellationToken)
+        Task<List<Client>> IClientsReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => Task.FromResult(context.Clients.Where(x => x.DeleteAt == null)
                 .OrderBy(x => x.Name)
                 .ToList());
 
-        Task<Clients?> IClientsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        Task<Client?> IClientsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => Task.FromResult(context.Clients.FirstOrDefault(x => x.Id == id));
 
-        Task<Dictionary<Guid, Clients>> IClientsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+        Task<Dictionary<Guid, Client>> IClientsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
          => Task.FromResult(context.Clients.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
              .OrderBy(x => x.Name)
              .ToDictionary(key => key.Id));
