@@ -1,4 +1,4 @@
-﻿using Accessories_PC_Nik.Repositories.Contracts.Interface.AccessKeyRead;
+﻿using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.Models;

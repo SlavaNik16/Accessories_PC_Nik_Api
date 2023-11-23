@@ -1,5 +1,6 @@
-﻿using Accessories_PC_Nik.Api.Models;
-using Accessories_PC_Nik.Services.Contracts.Interface;
+﻿using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accessories_PC_Nik.Api.Controllers
@@ -10,22 +11,20 @@ namespace Accessories_PC_Nik.Api.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly IClientsService clientsService;
+        private readonly IMapper mapper;
 
-        public ClientsController(IClientsService clientsService)
+        public ClientsController(IClientsService clientsService,
+            IMapper mapper)
         {
             this.clientsService = clientsService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await clientsService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => new ClientsResponse
-            {
-                Id = x.Id,
-                FI0 = $"{x.Name} {x.Surname} {x.Patronymic}",
-                Phone = x.Phone ?? string.Empty
-            }));
+            return Ok(mapper.Map<IEnumerable<ClientsModel>>(result));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
@@ -34,12 +33,7 @@ namespace Accessories_PC_Nik.Api.Controllers
             if(item == null) return NotFound($"Не удалось найти клиента с идентификатором {id}");
 
 
-            return Ok(new ClientsResponse
-            {
-                Id = item.Id,
-                FI0 = $"{item.Name} {item.Surname} {item.Patronymic}",
-                Phone = item.Phone ?? string.Empty
-            });
+            return Ok(mapper.Map<ClientsModel>(item));
         }
     }
 }
