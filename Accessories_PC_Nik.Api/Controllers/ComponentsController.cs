@@ -1,4 +1,5 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Interface;
+﻿using Accessories_PC_Nik.Api.Models;
+using Accessories_PC_Nik.Services.Contracts.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,9 @@ namespace Accessories_PC_Nik.Api.Controllers
         private readonly IComponentsService componentsService;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="ComponentsController"/>
+        /// </summary>
         public ComponentsController(IComponentsService componentsService,
             IMapper mapper)
         {

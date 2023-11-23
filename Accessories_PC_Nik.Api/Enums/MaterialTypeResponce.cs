@@ -1,5 +1,8 @@
 ﻿namespace Accessories_PC_Nik.Api.Enums
 {
+    /// <summary>
+    /// Типы материалов
+    /// </summary>
     public enum MaterialTypeResponce
     {
         /// <summary>

@@ -1,12 +1,13 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Extensions;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
+    /// <summary>
+    /// CRUD контроллер по работы с работниками
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     [ApiExplorerSettings(GroupName = "Workers")]

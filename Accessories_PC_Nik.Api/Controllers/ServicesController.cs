@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
+    /// <summary>
+    /// CRUD контроллер по работы с услугами
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     [ApiExplorerSettings(GroupName = "Services")]
@@ -13,6 +16,9 @@ namespace Accessories_PC_Nik.Api.Controllers
         private readonly IServicesService servicesService;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="ServicesController"/>
+        /// </summary>
         public ServicesController(IServicesService servicesService,
             IMapper mapper)
         {

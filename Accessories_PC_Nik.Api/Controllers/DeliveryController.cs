@@ -1,4 +1,5 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Interface;
+﻿using Accessories_PC_Nik.Api.Models;
+using Accessories_PC_Nik.Services.Contracts.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,10 @@ namespace Accessories_PC_Nik.Api.Controllers
     {
         private readonly IDeliveryService deliveryService;
         private readonly IMapper mapper;
+
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="DeliveryController"/>
+        /// </summary>
         public DeliveryController(IDeliveryService deliveryService,
                 IMapper mapper)
         {

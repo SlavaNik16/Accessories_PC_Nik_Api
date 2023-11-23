@@ -1,5 +1,8 @@
 ﻿namespace Accessories_PC_Nik.Api.Enums
 {
+    /// <summary>
+    /// Типы возвращаемых компонентов для пользователей
+    /// </summary>
     public enum TypeComponentsResponce
     {
         /// <summary>
