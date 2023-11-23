@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Accessories_PC_Nik.Context
 {
+    /// <summary>
+    /// Файбрика для создания контекста в DesignTime (Миграции)
+    /// </summary>
     public class SampleContextFactory : IDesignTimeDbContextFactory<AccessoriesContext>
     {
         public AccessoriesContext CreateDbContext(string[] args)
