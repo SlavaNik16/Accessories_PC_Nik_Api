@@ -4,7 +4,7 @@
     /// <summary>
     /// Услуги
     /// </summary>
-    public class Services : BaseAuditEntity
+    public class Service : BaseAuditEntity
     {
         /// <summary>
         /// Название
@@ -25,6 +25,11 @@
         /// Цена за услугу
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// навигация для связи 1 ко многим
+        /// </summary>
+        public ICollection<Order> Order { get; set; }
 
     }
 }

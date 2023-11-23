@@ -1,5 +1,7 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;
 
@@ -11,30 +13,20 @@ namespace Accessories_PC_Nik.Api.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService orderService;
+        private readonly IMapper mapper;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService,
+            IMapper mapper)
         {
             this.orderService = orderService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await orderService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => new OrderResponse
-            {
-                Id = x.Id,
-                FIO = $"{x.ClientsModel.Name} {x.ClientsModel.Surname} {x.ClientsModel.Patronymic}",
-                Phone = x.ClientsModel.Phone ?? string.Empty,
-                NameService = x.ServicesModel?.Name ?? string.Empty,
-                TypeComponents =x.ComponentsModel?.TypeComponents.GetDisplayName() ?? string.Empty,
-                Count = x.Count,
-                From = x.DeliveryModel.From,  
-                To = x.DeliveryModel.To,
-                Price  = x.DeliveryModel.Price,
-                Comment = x.Comment,
-
-            }));
+            return Ok(mapper.Map<IEnumerable<OrderModel>>(result));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
@@ -43,19 +35,7 @@ namespace Accessories_PC_Nik.Api.Controllers
             if (item == null) return NotFound($"Не удалось найти заказ с идентификатором {id}");
 
 
-            return Ok(new OrderResponse
-            {
-                Id = item.Id,
-                FIO = $"{item.ClientsModel.Name} {item.ClientsModel.Surname} {item.ClientsModel.Patronymic}",
-                Phone = item.ClientsModel.Phone ?? string.Empty,
-                NameService = item.ServicesModel?.Name ?? string.Empty,
-                TypeComponents = item.ComponentsModel?.TypeComponents.GetDisplayName() ?? string.Empty,
-                Count = item.Count,
-                From = item.DeliveryModel.From,
-                To = item.DeliveryModel.To,
-                Price = item.DeliveryModel.Price,
-                Comment = item.Comment,
-            });
+            return Ok(mapper.Map<OrderModel>(item));
         }
     }
 }

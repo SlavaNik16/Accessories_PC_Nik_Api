@@ -1,7 +1,9 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.Repositories;
+using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
@@ -14,18 +16,23 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
-        Task<List<Components>> IComponentsReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult(context.Components.Where(x => x.DeleteAt == null)
+        Task<IReadOnlyCollection<Component>> IComponentsReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => context.Components
+                .NotDeletedAt()
                 .OrderBy(x => x.MaterialType)
-                .ToList());
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
-        Task<Components?> IComponentsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.Components.FirstOrDefault(x => x.Id == id));
+        Task<Component?> IComponentsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+            => context.Components
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
-        Task<Dictionary<Guid, Components>> IComponentsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-           => Task.FromResult(context.Components.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
-               .OrderBy(x => x.MaterialType)
-               .ToDictionary(key => key.Id));
+        Task<Dictionary<Guid, Component>> IComponentsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+           => context.Components
+                .NotDeletedAt()
+                .ByIds(ids)
+                .OrderBy(x => x.MaterialType)
+                .ToDictionaryAsync(key => key.Id);
 
     }
 }

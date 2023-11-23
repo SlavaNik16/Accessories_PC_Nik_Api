@@ -1,5 +1,6 @@
 ﻿namespace Accessories_PC_Nik.Api.Models
-{   /// <summary>
+{   
+    /// <summary>
     /// Модель ответа сущности услуги
     /// </summary>
     public class ServicesResponse
@@ -17,7 +18,7 @@
         /// <summary>
         /// Описание
         /// </summary>
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Продолжительность услуги (возможно в часах)

@@ -19,5 +19,10 @@
         /// Телефон
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        /// Баланс
+        /// </summary>
+        public decimal Balance { get; set; } = 0;
     }
 }

@@ -3,23 +3,23 @@
 namespace Accessories_PC_Nik.Repositories.Contracts.Interface
 {
     /// <summary>
-    /// Репозиторий чтения <see cref="Components"/>
+    /// Репозиторий чтения <see cref="Component"/>
     /// </summary>
     public interface IComponentsReadRepository
     {
         /// <summary>
-        /// Получить список всех <see cref="Components"/>
+        /// Получить список всех <see cref="Component"/>
         /// </summary>
-        Task<List<Components>> GetAllAsync(CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<Component>> GetAllAsync(CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="Components"/> по идентификатору
+        /// Получить <see cref="Component"/> по идентификатору
         /// </summary>
-        Task<Components?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<Component?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="Components"/> по идентификатору
+        /// Получить <see cref="Component"/> по идентификатору
         /// </summary>
-        Task<Dictionary<Guid, Components>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+        Task<Dictionary<Guid, Component>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
     }
 }

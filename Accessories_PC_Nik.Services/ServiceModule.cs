@@ -1,9 +1,8 @@
-﻿using Accessories_PC_Nik.Services.Anchors;
+﻿using Accessories_PC_Nik.Common;
+using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Automappers;
-using AutoMapper;
+using Accessories_PC_Nik.Shared;
 using Microsoft.Extensions.DependencyInjection;
-using TimeTable203.Common;
-using TimeTable203.Shared;
 
 namespace Accessories_PC_Nik.Services
 {

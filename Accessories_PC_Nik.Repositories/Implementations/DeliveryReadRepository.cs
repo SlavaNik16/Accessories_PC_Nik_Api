@@ -1,7 +1,9 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.Repositories;
+using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
@@ -14,17 +16,22 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
-        Task<List<Delivery>> IDeliveryReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult(context.Delivery.Where(x => x.DeleteAt == null)
+        Task<IReadOnlyCollection<Delivery>> IDeliveryReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => context.Deliveries
+                .NotDeletedAt()
                 .OrderBy(x => x.From)
-                .ToList());
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Delivery?> IDeliveryReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.Delivery.FirstOrDefault(x => x.Id == id));
+            => context.Deliveries
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
         Task<Dictionary<Guid, Delivery>> IDeliveryReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-           => Task.FromResult(context.Delivery.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
-               .OrderBy(x => x.From)
-               .ToDictionary(key => key.Id));
+           => context.Deliveries
+                .NotDeletedAt()
+                .ByIds(ids)
+                .OrderBy(x => x.From)
+                .ToDictionaryAsync(key => key.Id);
     }
 }

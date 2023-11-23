@@ -31,6 +31,16 @@
         public string IssuedBy { get; set; }
 
         /// <summary>
+        /// FIO
+        /// </summary>
+        public string FIO { get; set; }
+
+        /// <summary>
+        /// Телефон
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
         /// Тип документа на работу
         /// </summary>
         public string DocumentType { get; set; }

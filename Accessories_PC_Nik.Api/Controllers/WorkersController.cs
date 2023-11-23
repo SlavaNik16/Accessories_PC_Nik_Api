@@ -1,5 +1,7 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;
 
@@ -11,27 +13,20 @@ namespace Accessories_PC_Nik.Api.Controllers
     public class WorkersController : Controller
     {
         private readonly IWorkersService workersService;
+        private readonly IMapper mapper;
 
-        public WorkersController(IWorkersService workersService)
+        public WorkersController(IWorkersService workersService,
+            IMapper mapper)
         {
             this.workersService = workersService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await workersService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => new WorkersResponse
-            {
-                Id = x.Id,
-                Number = x.Number,
-                Series = x.Series,
-                IssuedAt = x.IssuedAt,
-                IssuedBy = x.IssuedBy,
-                DocumentType = x.DocumentType.GetDisplayName(),
-                AccessLevel = x.AccessLevel.GetDisplayName(),
-
-            }));
+            return Ok(mapper.Map<IEnumerable<WorkersModel>>(result));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
@@ -40,16 +35,7 @@ namespace Accessories_PC_Nik.Api.Controllers
             if (item == null) return NotFound($"Не удалось найти сотрудника с идентификатором {id}");
 
 
-            return Ok(new WorkersResponse
-            {
-                Id = item.Id,
-                Number = item.Number,
-                Series = item.Series,
-                IssuedAt = item.IssuedAt,
-                IssuedBy = item.IssuedBy,
-                DocumentType = item.DocumentType.GetDisplayName(),
-                AccessLevel = item.AccessLevel.GetDisplayName(),
-            });
+            return Ok(mapper.Map<IEnumerable<WorkersModel>>(item));
         }
 
     }

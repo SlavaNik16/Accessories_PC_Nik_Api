@@ -2,19 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Accessories_PC_Nik.Common\Accessories_PC_Nik.Common.csproj" />
     <ProjectReference Include="..\Accessories_PC_Nik.Context\Accessories_PC_Nik.Context.csproj" />
     <ProjectReference Include="..\Accessories_PC_Nik.Repositories\Accessories_PC_Nik.Repositories.csproj" />
     <ProjectReference Include="..\Accessories_PC_Nik.Services\Accessories_PC_Nik.Services.csproj" />
-    <ProjectReference Include="..\TimeTable203.Common\TimeTable203.Common.csproj" />
   </ItemGroup>
 
 </Project>

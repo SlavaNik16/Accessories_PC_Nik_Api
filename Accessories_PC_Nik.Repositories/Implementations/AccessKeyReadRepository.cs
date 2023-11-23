@@ -1,7 +1,9 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.Repositories;
+using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
@@ -14,13 +16,16 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.context = context;
         }
 
-        Task<List<AccessKey>> IAccessKeyReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult(context.AccessKey.Where(x => x.DeleteAt == null)
+        Task<IReadOnlyCollection<AccessKey>> IAccessKeyReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => context.AccessKeys
+                .NotDeletedAt()
                 .OrderBy(x => x.Types)
-                .ToList());
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<AccessKey?> IAccessKeyReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.AccessKey.FirstOrDefault(x => x.Id == id));
+            => context.AccessKeys
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
     }
 }

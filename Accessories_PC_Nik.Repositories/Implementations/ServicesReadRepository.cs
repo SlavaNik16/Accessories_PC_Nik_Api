@@ -1,7 +1,9 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.Repositories;
+using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
@@ -16,17 +18,22 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
        
 
-        Task<List<Services>> IServicesReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult(context.Services.Where(x => x.DeleteAt == null)
+        Task<IReadOnlyCollection<Service>> IServicesReadRepository.GetAllAsync(CancellationToken cancellationToken)
+            => context.Services
+                .NotDeletedAt()
                 .OrderBy(x => x.Name)
-                .ToList());
+                .ToReadOnlyCollectionAsync(cancellationToken);
 
-        Task<Services?> IServicesReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => Task.FromResult(context.Services.FirstOrDefault(x => x.Id == id));
+        Task<Service?> IServicesReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+            => context.Services
+                .ById(id)
+                .FirstOrDefaultAsync(cancellationToken);
 
-        Task<Dictionary<Guid, Services>> IServicesReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-            => Task.FromResult(context.Services.Where(x => x.DeleteAt == null && ids.Contains(x.Id))
+        Task<Dictionary<Guid, Service>> IServicesReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => context.Services
+                .NotDeletedAt()
+                .ByIds(ids)
                 .OrderBy(x => x.Name)
-                .ToDictionary(key => key.Id));
+                .ToDictionaryAsync(key => key.Id);
     }
 }

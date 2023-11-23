@@ -7,8 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Accessories_PC_Nik.Context.Configuration\Accessories_PC_Nik.Context.Configuration.csproj" />
     <ProjectReference Include="..\Accessories_PC_Nik.Context.Contracts\Accessories_PC_Nik.Context.Contracts.csproj" />
-    <ProjectReference Include="..\TimeTable203.Common\TimeTable203.Common.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Common\Accessories_PC_Nik.Common.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Shared\Accessories_PC_Nik.Shared.csproj" />
   </ItemGroup>
 
 </Project>

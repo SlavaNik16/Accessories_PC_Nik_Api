@@ -22,12 +22,12 @@ namespace Accessories_PC_Nik.Api.Models
         public string Phone { get; set; }
 
         /// <summary>
-        /// Название 
+        /// Название Услуги
         /// </summary>
         public string NameService { get; set; }
 
         /// <summary>
-        /// Тип
+        /// Тип Компонента
         /// </summary>
         public string TypeComponents { get; set; }
 

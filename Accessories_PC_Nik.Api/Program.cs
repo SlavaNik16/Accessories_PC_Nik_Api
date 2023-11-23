@@ -1,18 +1,22 @@
 using Accessories_PC_Nik.Api.Infrastructures;
+using Accessories_PC_Nik.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.GetSwaggerDocument();
 
 builder.Services.AddDependences();
 
+var conString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContextFactory<AccessoriesContext>(options => options.UseSqlServer(conString),
+    ServiceLifetime.Scoped);
+
 var app = builder.Build();
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

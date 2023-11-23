@@ -1,7 +1,7 @@
-﻿using Accessories_PC_Nik.Api.Models;
-using Accessories_PC_Nik.Services.Contracts.Interface;
+﻿using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Extensions;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
@@ -11,25 +11,20 @@ namespace Accessories_PC_Nik.Api.Controllers
     public class ComponentsController : ControllerBase
     {
         private readonly IComponentsService componentsService;
+        private readonly IMapper mapper;
 
-        public ComponentsController(IComponentsService componentsService)
+        public ComponentsController(IComponentsService componentsService,
+            IMapper mapper)
         {
             this.componentsService = componentsService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await componentsService.GetAllAsync(cancellationToken);
-            return Ok(result.Select(x => new ComponentsResponse
-            {
-                Id = x.Id,
-                TypeComponents = x.TypeComponents.GetDisplayName(),
-                MaterialType = x.MaterialType.GetDisplayName(),
-                Description = x.Description,
-                Price   = x.Price,
-
-            }));
+            return Ok(mapper.Map<IEnumerable<ComponentsModel>>(result));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
@@ -38,14 +33,7 @@ namespace Accessories_PC_Nik.Api.Controllers
             if (item == null) return NotFound($"Не удалось найти компонент с идентификатором {id}");
 
 
-            return Ok(new ComponentsResponse
-            {
-                Id = item.Id,
-                TypeComponents = item.TypeComponents.GetDisplayName(),
-                MaterialType = item.MaterialType.GetDisplayName(),
-                Description = item.Description,
-                Price = item.Price,
-            });
+            return Ok(mapper.Map<ComponentsModel>(item));
         }
     }
 }

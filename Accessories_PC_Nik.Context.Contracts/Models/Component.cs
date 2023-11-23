@@ -5,7 +5,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
     /// <summary>
     /// Комплектующие ПК
     /// </summary>
-    public class Components :BaseAuditEntity
+    public class Component :BaseAuditEntity
     {
 
         /// <summary>
@@ -27,6 +27,16 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// Цена за 1 шт.
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Кол-во товара
+        /// </summary>
+        public int Count { get; set; } = 1;
+
+        /// <summary>
+        /// навигация для связи 1 ко многим
+        /// </summary>
+        public ICollection<Order> Order { get; set; }
 
     }
 }
