@@ -1,11 +1,13 @@
 ﻿using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
+    /// <summary>
+    /// CRUD контроллер по работы с услугами
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     [ApiExplorerSettings(GroupName = "Services")]
@@ -14,6 +16,9 @@ namespace Accessories_PC_Nik.Api.Controllers
         private readonly IServicesService servicesService;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="ServicesController"/>
+        /// </summary>
         public ServicesController(IServicesService servicesService,
             IMapper mapper)
         {
@@ -21,20 +26,30 @@ namespace Accessories_PC_Nik.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Получает список всех услуг
+        /// </summary>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ServicesResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await servicesService.GetAllAsync(cancellationToken);
-            return Ok(mapper.Map<IEnumerable<ServicesModel>>(result));
+            return Ok(mapper.Map<IEnumerable<ServicesResponse>>(result));
         }
+
+        /// <summary>
+        /// Получает услугу по Id
+        /// </summary>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ServicesResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await servicesService.GetByIdAsync(id, cancellationToken);
             if (item == null) return NotFound($"Не удалось найти услугу с идентификатором {id}");
 
 
-            return Ok(mapper.Map<ServicesModel>(item));
+            return Ok(mapper.Map<ServicesResponse>(item));
         }
     }
 }

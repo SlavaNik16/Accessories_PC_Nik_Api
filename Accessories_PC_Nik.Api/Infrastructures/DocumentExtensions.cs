@@ -2,8 +2,14 @@
 
 namespace Accessories_PC_Nik.Api.Infrastructures
 {
+    /// <summary>
+    /// Дефенишены, для поиска по сущностям
+    /// </summary>
     public static class DocumentExtensions
     {
+        /// <summary>
+        /// Документ для создания страниц со сущностями и xml файлом с комментарием
+        /// </summary>
         public static void GetSwaggerDocument(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -19,6 +25,10 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 c.IncludeXmlComments(filePath);
             });
         }
+
+        /// <summary>
+        /// Документы задающий путь по разным страницам
+        /// </summary>
         public static void GetSwaggerDocumentUI(this WebApplication app)
         {
             app.UseSwaggerUI(x =>
