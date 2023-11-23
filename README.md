@@ -11,13 +11,15 @@ erDiagram
         string Patronymic
         string Email
         string Phone
-        guid Id
-        enum role
+        guid GroupId
     }
-    test {
-        guid id
-        guid userId
-        guid organizationId
-        enum role
+    Documents {
+        guid Id
+        int Number
+        int Series
+        datetime IssuedAt
+        string Issuedby
+        enum DocumentType
+        guid PersonId
     }
 ```
