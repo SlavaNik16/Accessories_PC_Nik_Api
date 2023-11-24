@@ -56,7 +56,7 @@ erDiagram
     Persons ||--o{ Documents: is
     Persons ||--o{ Employees: is
     Employees ||--o{ Groups: is
-    Groups ||--o{ TimeTableItem: is
-     Persons ||--o{ TimeTableItem: is
-     Employees ||--o{ TimeTableItem: is
+    Disciplines ||--o{ TimeTableItem: is
+    Persons ||--o{ TimeTableItem: is
+    Employees ||--o{ TimeTableItem: is
 ```
