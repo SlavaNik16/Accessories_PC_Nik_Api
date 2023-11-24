@@ -6,7 +6,7 @@
 erDiagram
 
     Persons {
-        guid Id
+        Guid Id
         string LastName
         string FirstName
         string Patronymic
