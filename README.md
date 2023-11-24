@@ -13,7 +13,7 @@ erDiagram
         string Email
         string Phone
         guid GroupId
-    
+    }
     
     Documents {
         guid Id
