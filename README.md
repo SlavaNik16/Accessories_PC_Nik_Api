@@ -54,6 +54,7 @@ erDiagram
             Guid TeacherId
     }
     Persons ||--o{ Documents: is
+     Persons |o--o{ Documents: is
     Persons ||--o{ Employees: is
     Groups ||--o{ Persons: is
     Employees ||--o{ Groups: is
