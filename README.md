@@ -4,16 +4,28 @@
 ## Схема базы данных
 ```mermaid
 erDiagram
-    Persons {
-        guid Id
-        string LastName
-        string FirstName
-        string Patronymic
-        string Email
-        string Phone
-        guid GroupId
-    }
-    Documents {
+
+Persons {
+    guid Id
+    string LastName
+    string FirstName
+    string Patronymic
+    string Email
+    string Phone
+    guid GroupId
+
+
+Documents {
+    guid Id
+    int Number
+    int Series
+    datetime IssuedAt
+    string Issuedby
+    enum DocumentType
+    guid PersonId
+}
+
+Documents {
         guid Id
         int Number
         int Series
@@ -22,5 +34,5 @@ erDiagram
         enum DocumentType
         guid PersonId
     }
-Persons ||--o{ Documents: Id-PersonId
+Persons ||--o{ Documents: is(Id-PersonId)
 ```
