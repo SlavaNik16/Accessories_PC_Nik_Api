@@ -25,14 +25,17 @@ Documents {
     guid PersonId
 }
 
-Documents {
+Disciplines {
         guid Id
-        int Number
-        int Series
-        datetime IssuedAt
-        string Issuedby
-        enum DocumentType
-        guid PersonId
+        string Name
+        string Description
     }
-Persons ||--o{ Documents: is Id-PersonId
+
+Employees {
+    guid Id
+    enum EmployeeType
+    int PersonId
+}
+Persons ||--o{ Documents: Id-PersonId
+Persons ||--o{ Employees: Id-PersonId
 ```
