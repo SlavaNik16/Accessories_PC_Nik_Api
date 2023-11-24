@@ -6,6 +6,7 @@
 erDiagram
 
   BaseAuditEntity{
+      <<abstract>>
         Guid ID
         DateTimeOffset CreatedAt
         string CreatedBy
@@ -22,7 +23,6 @@ erDiagram
         string Email
         string Phone
         Guid GroupId
-        BaseAuditEntity sd
     }
     
     Documents {
