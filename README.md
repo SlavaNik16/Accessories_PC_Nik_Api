@@ -22,4 +22,6 @@ erDiagram
         enum DocumentType
         guid PersonId
     }
+
+ Documents <.. Persons
 ```
