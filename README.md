@@ -34,5 +34,5 @@ Documents {
         enum DocumentType
         guid PersonId
     }
-Persons ||--o{ Documents: is(Id-PersonId)
+Persons ||--o{ Documents: is Id-PersonId
 ```
