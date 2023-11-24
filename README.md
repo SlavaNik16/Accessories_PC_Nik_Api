@@ -13,18 +13,8 @@ erDiagram
         string UpdatedBy
         DateTimeOffset DeleteddAt
   }
-
-  Persons {
-        Guid Id
-        string LastName
-        string FirstName
-        string Patronymic
-        string Email
-        string Phone
-        Guid GroupId
-    }
-
-    Persons {
+    
+    Persons,BaseAuditEntity {
         Guid Id
         string LastName
         string FirstName
