@@ -4,7 +4,6 @@
 ## Схема базы данных
 ```mermaid
 erDiagram
-    
     Persons {
         guid Id
         string LastName
@@ -23,6 +22,6 @@ erDiagram
         enum DocumentType
         guid PersonId
     }
-    Documents <.. Persons
+ Documents <.. Persons
      
 ```
