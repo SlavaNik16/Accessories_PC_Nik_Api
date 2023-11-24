@@ -5,37 +5,37 @@
 ```mermaid
 erDiagram
 
-Persons {
-    guid Id
-    string LastName
-    string FirstName
-    string Patronymic
-    string Email
-    string Phone
-    guid GroupId
-
-
-Documents {
-    guid Id
-    int Number
-    int Series
-    datetime IssuedAt
-    string Issuedby
-    enum DocumentType
-    guid PersonId
-}
-
-Disciplines {
+    Persons {
         guid Id
-        string Name
-        string Description
+        string LastName
+        string FirstName
+        string Patronymic
+        string Email
+        string Phone
+        guid GroupId
+    
+    
+    Documents {
+        guid Id
+        int Number
+        int Series
+        datetime IssuedAt
+        string Issuedby
+        enum DocumentType
+        guid PersonId
     }
-
-Employees {
-    guid Id
-    enum EmployeeType
-    int PersonId
-}
-Persons ||--o{ Documents: is
-Persons ||--o{ Employees: is
+    
+    Disciplines {
+            guid Id
+            string Name
+            string Description
+        }
+    
+    Employees {
+        guid Id
+        enum EmployeeType
+        int PersonId
+    }
+    Persons ||--o{ Documents: is
+    Persons ||--o{ Employees: is
 ```
