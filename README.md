@@ -29,13 +29,21 @@ erDiagram
             guid Id
             string Name
             string Description
-        }
+    }
     
     Employees {
         guid Id
         enum EmployeeType
         int PersonId
     }
+
+    Groups {
+                guid Id
+                string Name
+                string Description
+                guid EmployeeId
+    }
     Persons ||--o{ Documents: is
     Persons ||--o{ Employees: is
+    Employees ||--o{ Groups: is
 ```
