@@ -49,7 +49,7 @@ erDiagram
             DateTimeOffset StartDate
             DateTimeOffset EndDate
             Guid DisciplineId
-            guid GroupId
+            Guid GroupId
             int RoomNumber
             Guid TeacherId
     }
@@ -57,6 +57,6 @@ erDiagram
     Persons ||--o{ Employees: is
     Employees ||--o{ Groups: is
     Disciplines ||--o{ TimeTableItem: is
-    Persons ||--o{ TimeTableItem: is
+    Groups ||--o{ TimeTableItem: is
     Employees ||--o{ TimeTableItem: is
 ```
