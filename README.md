@@ -22,7 +22,7 @@ erDiagram
         string Email
         string Phone
         Guid GroupId
-        BaseAuditEntity
+        BaseAuditEntity sd
     }
     
     Documents {
