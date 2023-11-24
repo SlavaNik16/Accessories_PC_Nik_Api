@@ -36,6 +36,6 @@ Employees {
     enum EmployeeType
     int PersonId
 }
-Persons ||--o{ Documents: Id-PersonId
-Persons ||--o{ Employees: Id-PersonId
+Persons ||--o{ Documents: is
+Persons ||--o{ Employees: is
 ```
