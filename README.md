@@ -43,6 +43,16 @@ erDiagram
                 string Description
                 guid EmployeeId
     }
+
+     TimeTableItem {
+            guid Id
+            datetimeoffset StartDate
+            datetimeoffset EndDate
+            guid DisciplineId
+            guid GroupId
+            int RoomNumber
+            guid TeacherId
+    }
     Persons ||--o{ Documents: is
     Persons ||--o{ Employees: is
     Employees ||--o{ Groups: is
