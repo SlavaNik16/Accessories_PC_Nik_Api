@@ -6,6 +6,7 @@
 erDiagram
 
   BaseAuditEntity{
+        Guid ID
         DateTimeOffset CreatedAt
         string CreatedBy
         DateTimeOffset UpdatedAt
