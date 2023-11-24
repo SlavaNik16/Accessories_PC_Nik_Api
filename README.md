@@ -14,7 +14,7 @@ erDiagram
         DateTimeOffset DeleteddAt
   }
     
-    Persons,BaseAuditEntity {
+    Persons BaseAuditEntity {
         Guid Id
         string LastName
         string FirstName
