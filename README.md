@@ -12,48 +12,51 @@ erDiagram
         string Patronymic
         string Email
         string Phone
-        guid GroupId
+        Guid GroupId
     }
     
     Documents {
-        guid Id
+        Guid Id
         int Number
         int Series
-        datetime IssuedAt
-        string Issuedby
-        enum DocumentType
-        guid PersonId
+        DateTime IssuedAt
+        string IssuedBy
+        Enum DocumentType
+        Guid PersonId
     }
     
     Disciplines {
-            guid Id
+            Guid Id
             string Name
             string Description
     }
     
     Employees {
-        guid Id
-        enum EmployeeType
+        Guid Id
+        Enum EmployeeType
         int PersonId
     }
 
     Groups {
-                guid Id
+                Guid Id
                 string Name
                 string Description
-                guid EmployeeId
+                Guid EmployeeId
     }
 
      TimeTableItem {
-            guid Id
-            datetimeoffset StartDate
-            datetimeoffset EndDate
-            guid DisciplineId
+            Guid Id
+            DateTimeOffset StartDate
+            DateTimeOffset EndDate
+            Guid DisciplineId
             guid GroupId
             int RoomNumber
-            guid TeacherId
+            Guid TeacherId
     }
     Persons ||--o{ Documents: is
     Persons ||--o{ Employees: is
     Employees ||--o{ Groups: is
+    Groups ||--o{ TimeTableItem: is
+     Persons ||--o{ TimeTableItem: is
+     Employees ||--o{ TimeTableItem: is
 ```
