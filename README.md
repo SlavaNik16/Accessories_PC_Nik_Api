@@ -22,5 +22,5 @@ erDiagram
         enum DocumentType
         guid PersonId
     }
-Persons.Id ||--o{ Documents.Id: is
+Persons ||--o{ Documents: is
 ```
