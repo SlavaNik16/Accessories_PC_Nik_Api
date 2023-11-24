@@ -21,7 +21,5 @@ erDiagram
         string Issuedby
         enum DocumentType
         guid PersonId
-    }
- Documents <.. Persons
-     
+    }  
 ```
