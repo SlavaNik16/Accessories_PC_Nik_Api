@@ -5,16 +5,6 @@
 ```mermaid
 erDiagram
 
-  BaseAuditEntity{
-      <<abstract>>
-        Guid ID
-        DateTimeOffset CreatedAt
-        string CreatedBy
-        DateTimeOffset UpdatedAt
-        string UpdatedBy
-        DateTimeOffset DeleteddAt
-  }
-    
     Persons {
         Guid Id
         string LastName
@@ -70,4 +60,13 @@ erDiagram
     Disciplines ||--o{ TimeTableItem: is
     Groups ||--o{ TimeTableItem: is
     Employees ||--o{ TimeTableItem: is
+
+  BaseAuditEntity {
+        Guid ID
+        DateTimeOffset CreatedAt
+        string CreatedBy
+        DateTimeOffset UpdatedAt
+        string UpdatedBy
+        DateTimeOffset DeleteddAt
+  }
 ```
