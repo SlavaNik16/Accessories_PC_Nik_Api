@@ -93,5 +93,28 @@ erDiagram
         DateTimeOffset To
         decimal Price
     }
+    Order   {
+        Guid ClientId
+        Guid? ServiceI
+        Guid? ComponentId
+        DateTime OrderTime
+        Guid? DeliveryId
+        string? Comment
+    }
+    Service   {
+        string Name
+        string? Description
+        DateTimeOffset Duration
+        decimal Price
+    }
+    Worker    {
+        string Number
+        string Series
+        DateTime IssuedAt
+        string IssuedBy
+        Enum DocumentType
+        Enum AccessLevel
+        Guid ClientId
+    }
    
 ```
