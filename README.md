@@ -69,4 +69,29 @@ erDiagram
         string UpdatedBy
         DateTimeOffset DeleteddAt
   }
+   AccessKey {
+        Guid Key
+        Enum Types
+   }
+    Client {
+        string Surname
+        string Name
+        string? Patronymic
+        string Phone
+        string Email
+        decimal Balance
+    }
+    Component {
+        Enum TypeComponents
+        string? Description
+        Enum MaterialType
+        decimal Price
+        int Count
+    }
+     Delivery  {
+        DateTimeOffset From
+        DateTimeOffset To
+        decimal Price
+    }
+   
 ```
