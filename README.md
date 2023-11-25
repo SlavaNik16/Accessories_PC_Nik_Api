@@ -72,12 +72,12 @@ erDiagram
     Client ||--o{ Worker: is
 
     BaseAuditEntity ||--o{ Delivery: allows
-    Service ||--o{ BaseAuditEntity: is
-    Component ||--o{ BaseAuditEntity: is
-    Worker ||--o{ BaseAuditEntity: is
-    Order ||--o{ BaseAuditEntity: is
-    AccessKey ||--o{ BaseAuditEntity: is
-    Client ||--o{ BaseAuditEntity: is
+    BaseAuditEntity ||--o{ Service: allows
+    BaseAuditEntity ||--o{ Component: allows
+    BaseAuditEntity ||--o{ Worker: allows
+    BaseAuditEntity ||--o{ Order: allows
+    BaseAuditEntity ||--o{ AccessKey: allows
+    BaseAuditEntity ||--o{ Client: allows
  ```
 
 
