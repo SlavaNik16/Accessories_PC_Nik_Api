@@ -70,6 +70,14 @@ erDiagram
     Component ||--o{ Order: is
     Client ||--o{ Order: is
     Client ||--o{ Worker: is
+
+    Delivery ||--|| BaseAuditEntity: is
+    Service ||--o{ BaseAuditEntity: is
+    Component ||--o{ BaseAuditEntity: is
+    Worker ||--o{ BaseAuditEntity: is
+    Order ||--o{ BaseAuditEntity: is
+    AccessKey ||--o{ BaseAuditEntity: is
+    Client ||--o{ BaseAuditEntity: is
  ```
 
 
