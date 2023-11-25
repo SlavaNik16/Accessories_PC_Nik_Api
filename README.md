@@ -71,7 +71,7 @@ erDiagram
     Client ||--o{ Order: is
     Client ||--o{ Worker: is
 
-    Delivery ||--|| BaseAuditEntity: is
+    BaseAuditEntity ||--o{ Delivery: allows
     Service ||--o{ BaseAuditEntity: is
     Component ||--o{ BaseAuditEntity: is
     Worker ||--o{ BaseAuditEntity: is
