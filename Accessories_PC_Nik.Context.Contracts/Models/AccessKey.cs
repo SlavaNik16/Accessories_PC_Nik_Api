@@ -8,7 +8,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
     public class AccessKey : BaseAuditEntity
     {
         /// <summary>
-        /// Ключ уровня доступа (или может string?)
+        /// Ключ уровня доступа
         /// </summary>
         public Guid Key { get; set; }
 

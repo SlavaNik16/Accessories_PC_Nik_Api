@@ -5,7 +5,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
     /// <summary>
     /// Модель компонентов пк
     /// </summary>
-    public class ComponentsModel
+    public class ComponentModel
     {
         /// <summary>
         /// Идентификатор

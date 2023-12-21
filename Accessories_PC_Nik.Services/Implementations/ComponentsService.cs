@@ -16,19 +16,19 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.componentsReadRepository = componentsReadRepository;
             this.mapper = mapper;
         }
-        async Task<IEnumerable<ComponentsModel>> IComponentsService.GetAllAsync(CancellationToken cancellationToken)
+        async Task<IEnumerable<ComponentModel>> IComponentsService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await componentsReadRepository.GetAllAsync(cancellationToken);
 
-            return mapper.Map<IEnumerable<ComponentsModel>>(result);
+            return mapper.Map<IEnumerable<ComponentModel>>(result);
         }
 
-        async Task<ComponentsModel?> IComponentsService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        async Task<ComponentModel?> IComponentsService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await componentsReadRepository.GetByIdAsync(id, cancellationToken);
             if (item == null) return null;
 
-            return mapper.Map<ComponentsModel>(item);
+            return mapper.Map<ComponentModel>(item);
         }
     }
 }

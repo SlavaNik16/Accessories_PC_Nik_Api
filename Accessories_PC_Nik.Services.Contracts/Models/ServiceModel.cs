@@ -2,7 +2,7 @@
 {   /// <summary>
     /// Модель услуги
     /// </summary>
-    public class ServicesModel
+    public class ServiceModel
     {
         /// <summary>
         /// Идентификатор

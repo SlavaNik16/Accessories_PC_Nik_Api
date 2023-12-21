@@ -16,18 +16,18 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.clientsReadRepository = clientsReadRepository;
             this.mapper = mapper;
         }
-        async Task<IEnumerable<ClientsModel>> IClientsService.GetAllAsync(CancellationToken cancellationToken)
+        async Task<IEnumerable<Contracts.Models.ClientModel>> IClientsService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await clientsReadRepository.GetAllAsync(cancellationToken);
-            return mapper.Map<IEnumerable<ClientsModel>>(result);
+            return mapper.Map<IEnumerable<Contracts.Models.ClientModel>>(result);
         }
 
-        async Task<ClientsModel?> IClientsService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        async Task<Contracts.Models.ClientModel?> IClientsService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await clientsReadRepository.GetByIdAsync(id, cancellationToken);
             if(item == null) return null;
 
-            return mapper.Map<ClientsModel>(item);
+            return mapper.Map<Contracts.Models.ClientModel>(item);
         }
     }
 }

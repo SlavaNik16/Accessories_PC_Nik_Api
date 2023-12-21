@@ -5,7 +5,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
     /// <summary>
     /// Модель сотрудникам
     /// </summary>
-    public class WorkersModel
+    public class WorkerModel
     {
         /// <summary>
         /// Идентификатор
@@ -45,7 +45,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Данные клиента
         /// </summary>
-        public ClientsModel Clients { get; set; }
+        public ClientModel Clients { get; set; }
 
     }
 }

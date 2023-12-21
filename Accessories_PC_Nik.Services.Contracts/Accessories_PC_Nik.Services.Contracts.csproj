@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Accessories_PC_Nik.Context.Contracts\Accessories_PC_Nik.Context.Contracts.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Shared\Accessories_PC_Nik.Shared.csproj" />
   </ItemGroup>
 
 </Project>

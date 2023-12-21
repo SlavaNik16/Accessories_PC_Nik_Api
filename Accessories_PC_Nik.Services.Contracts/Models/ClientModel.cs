@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель клиента
     /// </summary>
-    public class ClientsModel
+    public class ClientModel
     {
 
         /// <summary>

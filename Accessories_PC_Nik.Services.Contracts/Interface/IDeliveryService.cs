@@ -14,5 +14,19 @@ namespace Accessories_PC_Nik.Services.Contracts.Interface
         /// </summary>
         Task<DeliveryModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
+        /// <summary>
+        /// Добавляет новую доставку
+        /// </summary>
+        Task<DeliveryModel> AddAsync(CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Редактирует существующую доставку
+        /// </summary>
+        Task<DeliveryModel> EditAsync(CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Удаляет существующую доставку
+        /// </summary>
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

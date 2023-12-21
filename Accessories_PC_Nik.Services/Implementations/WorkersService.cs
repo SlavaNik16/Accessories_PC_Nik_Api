@@ -21,27 +21,27 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.mapper = mapper;
         }
 
-        async Task<IEnumerable<WorkersModel>> IWorkersService.GetAllAsync(CancellationToken cancellationToken)
+        async Task<IEnumerable<WorkerModel>> IWorkersService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await workersReadRepository.GetAllAsync(cancellationToken);
 
             var clients = await clientsReadRepository.GetByIdsAsync(result.Select(x => x.ClientId).Distinct(), cancellationToken);
 
-            var listWorker = new List<WorkersModel>();
+            var listWorker = new List<WorkerModel>();
             foreach(var worker in result)
             {
-                var work = mapper.Map<WorkersModel>(worker);
+                var work = mapper.Map<WorkerModel>(worker);
                 if(!clients.TryGetValue(worker.ClientId, out var client))
                 {
                     continue;
                 }
-                work.Clients = mapper.Map<ClientsModel>(client);
+                work.Clients = mapper.Map<Contracts.Models.ClientModel>(client);
                 listWorker.Add(work);
             }
             return listWorker;
         }
 
-        async Task<WorkersModel?> IWorkersService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        async Task<WorkerModel?> IWorkersService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await workersReadRepository.GetByIdAsync(id, cancellationToken);
             if (item == null) return null;
@@ -49,8 +49,8 @@ namespace Accessories_PC_Nik.Services.Implementations
 
             var client = await clientsReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
 
-            var work = mapper.Map<WorkersModel>(item);
-            work.Clients  = mapper.Map<ClientsModel>(client);
+            var work = mapper.Map<WorkerModel>(item);
+            work.Clients  = mapper.Map<Contracts.Models.ClientModel>(client);
 
             return work;
         }
