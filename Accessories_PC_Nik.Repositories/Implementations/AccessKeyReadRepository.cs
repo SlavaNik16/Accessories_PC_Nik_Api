@@ -1,5 +1,5 @@
-﻿using Accessories_PC_Nik.Common.Entity.Repositories;
-using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
+using Accessories_PC_Nik.Common.Entity.Repositories;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
@@ -9,21 +9,21 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 {
     public class AccessKeyReadRepository : IAccessKeyReadRepository, IReadRepositoryAnchor
     {
-        private readonly IAccessoriesContext context;
+        private readonly IDbRead reader;
 
-        public AccessKeyReadRepository(IAccessoriesContext context)
+        public AccessKeyReadRepository(IDbRead reader)
         {
-            this.context = context;
+            this.reader = reader;
         }
 
         Task<IReadOnlyCollection<AccessKey>> IAccessKeyReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => context.AccessKeys
+            => reader.Read<AccessKey>()
                 .NotDeletedAt()
                 .OrderBy(x => x.Types)
                 .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<AccessKey?> IAccessKeyReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => context.AccessKeys
+            => reader.Read<AccessKey>()
                 .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);

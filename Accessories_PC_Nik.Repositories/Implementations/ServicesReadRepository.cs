@@ -1,5 +1,5 @@
-﻿using Accessories_PC_Nik.Common.Entity.Repositories;
-using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
+using Accessories_PC_Nik.Common.Entity.Repositories;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
@@ -9,29 +9,27 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 {
     public class ServicesReadRepository : IServicesReadRepository, IReadRepositoryAnchor
     {
-        private readonly IAccessoriesContext context;
+        private readonly IDbRead reader;
 
-        public ServicesReadRepository(IAccessoriesContext context)
+        public ServicesReadRepository(IDbRead reader)
         {
-            this.context = context;
+            this.reader = reader;
         }
 
-       
-
         Task<IReadOnlyCollection<Service>> IServicesReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => context.Services
+            => reader.Read<Service>()
                 .NotDeletedAt()
                 .OrderBy(x => x.Name)
                 .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Service?> IServicesReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => context.Services
+            => reader.Read<Service>()
                 .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 
         Task<Dictionary<Guid, Service>> IServicesReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-            => context.Services
+            => reader.Read<Service>()
                 .NotDeletedAt()
                 .ByIds(ids)
                 .OrderBy(x => x.Name)
