@@ -7,7 +7,7 @@ namespace Accessories_PC_Nik.Context.Configuration
     /// <summary>
     /// Методы расширения для <see cref="EntityTypeBuilder"/>
     /// </summary>
-     internal static class EntityTypeBuilderExtensions
+    internal static class EntityTypeBuilderExtensions
     {
         /// <summary>
         /// Задаёт конфигурацию свойств аудита для сущности <inheritdoc cref="BaseAuditEntity"/>

@@ -1,5 +1,5 @@
 ﻿namespace Accessories_PC_Nik.Api.Models
-{   
+{
     /// <summary>
     /// Модель ответа сущности услуги
     /// </summary>

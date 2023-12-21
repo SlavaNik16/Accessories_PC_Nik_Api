@@ -12,7 +12,7 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
             builder.HasIdAsKey();
             builder.PropertyAuditConfiguration();
 
-            builder.Property(x => x.Name).IsRequired();
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(200); ;
             builder.Property(x => x.Duration).IsRequired();
             builder.Property(x => x.Price).IsRequired();
 

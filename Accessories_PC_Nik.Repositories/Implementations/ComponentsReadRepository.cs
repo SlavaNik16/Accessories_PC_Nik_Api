@@ -24,6 +24,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<Component?> IComponentsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => context.Components
+                .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 

@@ -24,6 +24,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<Delivery?> IDeliveryReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => context.Deliveries
+                .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Repositories.Implementations
 {
-    public class ClientsReadRepositories : IClientsReadRepository, IReadRepositoryAnchor
+    public class ClientsReadRepository : IClientsReadRepository, IReadRepositoryAnchor
     {
         private readonly IAccessoriesContext context;
 
-        public ClientsReadRepositories(IAccessoriesContext context)
+        public ClientsReadRepository(IAccessoriesContext context)
         {
             this.context = context;
         }
@@ -26,6 +26,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<Client?> IClientsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => context.Clients
+                .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 

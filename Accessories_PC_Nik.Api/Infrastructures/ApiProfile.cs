@@ -1,7 +1,5 @@
 ﻿using Accessories_PC_Nik.Api.Enums;
 using Accessories_PC_Nik.Api.Models;
-using Accessories_PC_Nik.Context.Contracts.Enums;
-using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Services.Contracts.Enums;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;

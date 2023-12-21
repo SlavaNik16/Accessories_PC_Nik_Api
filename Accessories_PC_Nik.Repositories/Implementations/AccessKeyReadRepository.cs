@@ -24,6 +24,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<AccessKey?> IAccessKeyReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => context.AccessKeys
+                .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 

@@ -26,6 +26,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<Service?> IServicesReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => context.Services
+                .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 

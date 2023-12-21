@@ -12,8 +12,8 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
             builder.HasIdAsKey();
             builder.PropertyAuditConfiguration();
 
-            builder.Property(x => x.Name).IsRequired();
-            builder.Property(x => x.Surname).IsRequired();
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(80);
+            builder.Property(x => x.Surname).IsRequired().HasMaxLength(80);
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.Phone).IsRequired();
             builder.Property(x => x.Balance).IsRequired();

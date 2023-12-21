@@ -4,10 +4,6 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
 {
     /// <summary>
     /// Модель сотрудникам
-    /// (
-    /// неужто надо дублировать и типы enum,
-    /// чтобы не сделать модель зависимой от них
-    /// )
     /// </summary>
     public class WorkersModel
     {

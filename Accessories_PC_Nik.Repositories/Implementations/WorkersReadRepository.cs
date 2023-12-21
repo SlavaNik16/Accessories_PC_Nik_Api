@@ -24,6 +24,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<Worker?> IWorkersReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => context.Workers
+                .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
     }

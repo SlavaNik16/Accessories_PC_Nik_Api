@@ -9,6 +9,10 @@ namespace Accessories_PC_Nik.Api.Infrastructures
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="DbWriterContext"/>
         /// </summary>
+        /// <remarks>
+        /// В реальном проекте надо добавлять IIdentity для доступа
+        /// к информации об авторизации
+        /// </remarks>
         public DbWriterContext(
             IDbWriter writer,
             IUnitOfWork unitOfWork,
