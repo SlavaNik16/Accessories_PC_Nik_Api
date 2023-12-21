@@ -62,7 +62,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetAccessKey = await accessKeyReadRepository.GetByIdAsync(id, cancellationToken);
             if (targetAccessKey == null)
             {
-                throw new AccessoriesEntityNotFoundException<Document>(id);
+                throw new AccessoriesEntityNotFoundException<AccessKey>(id);
             }
             if (targetAccessKey.DeletedAt.HasValue)
             {
