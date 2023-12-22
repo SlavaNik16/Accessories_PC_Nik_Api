@@ -1,4 +1,4 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Models;
+﻿using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using Accessories_PC_Nik.Services.Contracts.Models;
 
 namespace Accessories_PC_Nik.Services.Contracts.Interface
@@ -19,12 +19,12 @@ namespace Accessories_PC_Nik.Services.Contracts.Interface
         /// <summary>
         /// Добавляет новый компонент
         /// </summary>
-        Task<ComponentModel> AddAsync(CancellationToken cancellationToken);
+        Task<ComponentModel> AddAsync(ComponentRequestModel source, CancellationToken cancellationToken);
 
         /// <summary>
         /// Редактирует существующий компонент
         /// </summary>
-        Task<ComponentModel> EditAsync(CancellationToken cancellationToken);
+        Task<ComponentModel> EditAsync(ComponentRequestModel source, CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаляет существующий компонент

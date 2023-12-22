@@ -12,7 +12,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="AccessKeyWriteRepository"/>
         /// </summary>
-        public AccessKeyWriteRepository(IDbWriterContext writerContext) 
+        public AccessKeyWriteRepository(IDbWriterContext writerContext)
             : base(writerContext)
         {
         }

@@ -1,10 +1,6 @@
-﻿
-namespace Accessories_PC_Nik.Services.Contracts.Models
+﻿namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
 {
-    /// <summary>
-    /// Модель заказов
-    /// </summary>
-    public class OrderModel
+    public class OrderRequestModel
     {
         /// <summary>
         /// Идентификатор
@@ -14,22 +10,19 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Номер пользователя товара
         /// </summary>
-        public ClientModel Clients { get; set; }
+        public Guid ClientId { get; set; }
 
         /// <summary>
         /// Выбранная услуга
         /// </summary>
-        public ServiceModel? Services { get; set; }
+        public Guid? ServiceId { get; set; }
 
         /// <summary>
         /// Выбранный товар 
         /// </summary>
-        public ComponentModel? Components { get; set; }
+        public Guid? ComponentId { get; set; }
 
-        /// <summary>
-        /// Кол-во товара
-        /// </summary>
-        public int Count { get; set; } = 0;
+
         /// <summary>
         /// Время заказа
         /// </summary>
@@ -38,11 +31,11 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Доставка
         /// </summary>
-        public DeliveryModel? Delivery { get; set; }
+        public Guid? DeliveryId { get; set; }
 
         /// <summary>
         /// Комментарий к заказу
         /// </summary>
-        public string? Comment { get; set; }
+        public string? Comment { get; set; } = string.Empty;
     }
 }

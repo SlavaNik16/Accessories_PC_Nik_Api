@@ -1,6 +1,6 @@
 ﻿using Accessories_PC_Nik.Context.Contracts.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
 {

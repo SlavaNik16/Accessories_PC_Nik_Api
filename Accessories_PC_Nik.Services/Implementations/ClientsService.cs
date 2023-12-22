@@ -6,7 +6,6 @@ using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
-using System.Reflection.Metadata;
 using TimeTable203.Services.Contracts.Exceptions;
 
 namespace Accessories_PC_Nik.Services.Implementations
@@ -28,7 +27,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.mapper = mapper;
         }
 
-       
+
         async Task<IEnumerable<ClientModel>> IClientsService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await clientsReadRepository.GetAllAsync(cancellationToken);
@@ -38,11 +37,11 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<ClientModel?> IClientsService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await clientsReadRepository.GetByIdAsync(id, cancellationToken);
-            if(item == null) return null;
+            if (item == null) return null;
 
             return mapper.Map<ClientModel>(item);
-        } 
-        
+        }
+
         async Task<ClientModel> IClientsService.AddAsync(ClientRequestModel source, CancellationToken cancellationToken)
         {
             var item = new Client
@@ -60,14 +59,26 @@ namespace Accessories_PC_Nik.Services.Implementations
             return mapper.Map<ClientModel>(item);
         }
 
-        
+
 
         async Task<ClientModel> IClientsService.EditAsync(ClientRequestModel source, CancellationToken cancellationToken)
         {
-            var item = new Client();
-            clientsWriteRepository.Update(item);
+            var targetPerson = await clientsReadRepository.GetByIdAsync(source.Id, cancellationToken);
+            if (targetPerson == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+            }
+
+            targetPerson.Surname = source.Surname;
+            targetPerson.Name = source.Name;
+            targetPerson.Patronymic = source.Patronymic;
+            targetPerson.Email = source.Email;
+            targetPerson.Phone = source.Phone;
+            targetPerson.Balance = source.Balance;
+
+            clientsWriteRepository.Update(targetPerson);
             await unitOfWork.SaveChangesAsync(cancellationToken);
-            return mapper.Map<ClientModel>(item);
+            return mapper.Map<ClientModel>(targetPerson);
         }
         async Task IClientsService.DeleteAsync(Guid id, CancellationToken cancellationToken)
         {

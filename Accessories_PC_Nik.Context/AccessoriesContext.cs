@@ -34,7 +34,7 @@ namespace Accessories_PC_Nik.Context
         public DbSet<Component> Components { get; set; }
 
         public AccessoriesContext(DbContextOptions<AccessoriesContext> options)
-            :base(options) { }
+            : base(options) { }
 
         IQueryable<TEntity> IDbRead.Read<TEntity>()
             => base.Set<TEntity>()

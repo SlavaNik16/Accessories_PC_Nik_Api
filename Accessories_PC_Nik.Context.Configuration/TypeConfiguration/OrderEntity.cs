@@ -18,7 +18,7 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
             builder.HasIndex(x => x.OrderTime)
                 .HasFilter($"{nameof(Order.DeletedAt)} is null")
                 .HasDatabaseName($"IX_{nameof(Order)}_" +
-                             $"{ nameof(Order.OrderTime)}_" +
+                             $"{nameof(Order.OrderTime)}_" +
                              $"{nameof(Order.Id)}");
 
         }

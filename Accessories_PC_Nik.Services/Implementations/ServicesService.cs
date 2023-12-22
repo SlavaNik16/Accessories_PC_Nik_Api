@@ -1,6 +1,7 @@
 ﻿using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
 
@@ -28,6 +29,21 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (item == null) return null;
 
             return mapper.Map<ServiceModel>(item);
+        }
+
+        Task<ServiceModel> IServicesService.AddAsync(ServiceRequestModel source, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IServicesService.DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<ServiceModel> IServicesService.EditAsync(ServiceRequestModel source, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

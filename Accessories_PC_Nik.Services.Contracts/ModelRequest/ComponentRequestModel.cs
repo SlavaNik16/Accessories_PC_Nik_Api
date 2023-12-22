@@ -1,13 +1,13 @@
 ﻿using Accessories_PC_Nik.Context.Contracts.Enums;
 
-namespace Accessories_PC_Nik.Context.Contracts.Models
+namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
 {
-    /// <summary>
-    /// Комплектующие ПК
-    /// </summary>
-    public class Component : BaseAuditEntity
+    public class ComponentRequestModel
     {
-
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
         /// <summary>
         /// Тип
         /// </summary>
@@ -16,7 +16,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// <summary>
         /// Описания
         /// </summary>
-        public string? Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         /// <summary>
         /// Тип материала
@@ -32,11 +32,5 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// Кол-во товара
         /// </summary>
         public int Count { get; set; } = 1;
-
-        /// <summary>
-        /// навигация для связи 1 ко многим
-        /// </summary>
-        public ICollection<Order> Order { get; set; }
-
     }
 }

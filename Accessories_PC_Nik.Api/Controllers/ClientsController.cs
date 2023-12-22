@@ -45,8 +45,8 @@ namespace Accessories_PC_Nik.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var item = await clientsService.GetByIdAsync(id,cancellationToken);
-            if(item == null) return NotFound($"Не удалось найти клиента с идентификатором {id}");
+            var item = await clientsService.GetByIdAsync(id, cancellationToken);
+            if (item == null) return NotFound($"Не удалось найти клиента с идентификатором {id}");
             return Ok(mapper.Map<ClientsResponse>(item));
         }
     }

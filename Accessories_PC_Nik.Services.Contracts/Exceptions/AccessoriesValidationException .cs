@@ -1,6 +1,5 @@
 ﻿using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Shared;
-using TimeTable203.Shared;
 
 namespace TimeTable203.Services.Contracts.Exceptions
 {

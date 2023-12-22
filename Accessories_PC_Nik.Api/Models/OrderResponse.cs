@@ -34,7 +34,7 @@ namespace Accessories_PC_Nik.Api.Models
         /// <summary>
         /// Кол-во товара
         /// </summary>
-        public int Count { get; set; }  
+        public int Count { get; set; }
         /// <summary>
         /// Время заказа
         /// </summary>

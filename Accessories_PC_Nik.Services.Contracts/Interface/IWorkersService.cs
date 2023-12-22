@@ -1,4 +1,5 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Models;
+﻿using Accessories_PC_Nik.Services.Contracts.ModelRequest;
+using Accessories_PC_Nik.Services.Contracts.Models;
 
 namespace Accessories_PC_Nik.Services.Contracts.Interface
 {
@@ -17,12 +18,12 @@ namespace Accessories_PC_Nik.Services.Contracts.Interface
         /// <summary>
         /// Добавляет нового работника
         /// </summary>
-        Task<WorkerModel> AddAsync(CancellationToken cancellationToken);
+        Task<WorkerModel> AddAsync(WorkerRequestModel source, CancellationToken cancellationToken);
 
         /// <summary>
         /// Редактирует существующего работника
         /// </summary>
-        Task<WorkerModel> EditAsync(CancellationToken cancellationToken);
+        Task<WorkerModel> EditAsync(WorkerRequestModel source, CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаляет существующего работника

@@ -1,11 +1,8 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Enums;
+﻿using Accessories_PC_Nik.Context.Contracts.Enums;
 
-namespace Accessories_PC_Nik.Services.Contracts.Models
+namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
 {
-    /// <summary>
-    /// Модель сотрудникам
-    /// </summary>
-    public class WorkerModel
+    public class WorkerRequestModel
     {
         /// <summary>
         /// Идентификатор
@@ -15,12 +12,12 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Номер документа
         /// </summary>
-        public string Number { get; set; }
+        public string Number { get; set; } = string.Empty;
 
         /// <summary>
         /// Серия документа
         /// </summary>
-        public string Series { get; set; }
+        public string Series { get; set; } = string.Empty;
 
         /// <summary>
         /// Дата выдачи
@@ -30,22 +27,21 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Кем выдан
         /// </summary>
-        public string? IssuedBy { get; set; }
+        public string IssuedBy { get; set; } = string.Empty;
 
         /// <summary>
         /// Тип документа на работу
         /// </summary>
-        public DocumentTypesModel DocumentType { get; set; }
+        public DocumentTypes DocumentType { get; set; }
 
         /// <summary>
         /// Тип уровня доступа
         /// </summary>
-        public AccessLevelTypesModel AccessLevel { get; set; }
+        public AccessLevelTypes AccessLevel { get; set; }
 
         /// <summary>
         /// Данные клиента
         /// </summary>
-        public ClientModel Clients { get; set; }
-
+        public Guid ClientId { get; set; }
     }
 }

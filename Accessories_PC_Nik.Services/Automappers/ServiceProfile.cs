@@ -9,7 +9,7 @@ namespace Accessories_PC_Nik.Services.Automappers
 {
     public class ServiceProfile : Profile
     {
-        public ServiceProfile() 
+        public ServiceProfile()
         {
             CreateMap<AccessLevelTypes, AccessLevelTypesModel>()
                 .ConvertUsingEnumMapping(opt => opt.MapByName())

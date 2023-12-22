@@ -30,5 +30,10 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// Цена за 1 шт.
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Кол-во товара
+        /// </summary>
+        public int Count { get; set; } = 1;
     }
 }

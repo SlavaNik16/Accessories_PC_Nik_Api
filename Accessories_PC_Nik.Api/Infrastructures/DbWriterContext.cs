@@ -1,5 +1,5 @@
-﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
-using Accessories_PC_Nik.Common;
+﻿using Accessories_PC_Nik.Common;
+using Accessories_PC_Nik.Common.Entity.InterfaceDB;
 
 namespace Accessories_PC_Nik.Api.Infrastructures
 {

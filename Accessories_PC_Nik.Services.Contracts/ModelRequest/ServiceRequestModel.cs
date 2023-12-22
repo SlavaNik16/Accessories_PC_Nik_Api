@@ -1,8 +1,6 @@
-﻿namespace Accessories_PC_Nik.Services.Contracts.Models
-{   /// <summary>
-    /// Модель услуги
-    /// </summary>
-    public class ServiceModel
+﻿namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
+{
+    public class ServiceRequestModel
     {
         /// <summary>
         /// Идентификатор

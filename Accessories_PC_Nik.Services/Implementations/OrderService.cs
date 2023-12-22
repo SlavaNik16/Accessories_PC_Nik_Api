@@ -1,14 +1,20 @@
-﻿using Accessories_PC_Nik.Repositories.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
+using Accessories_PC_Nik.Context.Contracts.Models;
+using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
+using TimeTable203.Services.Contracts.Exceptions;
 
 namespace Accessories_PC_Nik.Services.Implementations
 {
     public class OrderService : IOrderService, IServiceAnchor
     {
         private readonly IOrderReadRepository orderReadRepository;
+        private readonly IOrderWriteRepository orderWriteRepository;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IServicesReadRepository servicesReadRepository;
         private readonly IComponentsReadRepository componentsReadRepository;
         private readonly IDeliveryReadRepository deliveryReadRepository;
@@ -19,20 +25,26 @@ namespace Accessories_PC_Nik.Services.Implementations
              IComponentsReadRepository componentsReadRepository,
              IDeliveryReadRepository deliveryReadRepository,
              IClientsReadRepository clientsReadRepository,
-             IMapper mapper )
+             IOrderWriteRepository orderWriteRepository,
+             IUnitOfWork unitOfWork,
+             IMapper mapper)
         {
             this.orderReadRepository = orderReadRepository;
             this.servicesReadRepository = servicesReadRepository;
             this.componentsReadRepository = componentsReadRepository;
             this.deliveryReadRepository = deliveryReadRepository;
             this.clientsReadRepository = clientsReadRepository;
+            this.orderWriteRepository = orderWriteRepository;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
+
+
         async Task<IEnumerable<OrderModel>> IOrderService.GetAllAsync(CancellationToken cancellationToken)
         {
             var orders = await orderReadRepository.GetAllAsync(cancellationToken);
-           
-            var servicesId = orders.Select(x=>x.ServiceId).Distinct().Cast<Guid>();
+
+            var servicesId = orders.Select(x => x.ServiceId).Distinct().Cast<Guid>();
             var componentsId = orders.Select(x => x.ComponentId).Distinct().Cast<Guid>();
             var deliveriesId = orders.Select(x => x.DeliveryId).Distinct().Cast<Guid>();
             var clientsId = orders.Select(x => x.ClientId).Distinct().Cast<Guid>();
@@ -44,11 +56,11 @@ namespace Accessories_PC_Nik.Services.Implementations
 
             var listOrders = new List<OrderModel>();
 
-            foreach(var order in orders)
+            foreach (var order in orders)
             {
                 var ord = mapper.Map<OrderModel>(order);
 
-                if(order.ServiceId.HasValue && 
+                if (order.ServiceId.HasValue &&
                    services.TryGetValue(order.ServiceId!.Value, out var service))
                 {
                     ord.Services = mapper.Map<ServiceModel>(service);
@@ -59,7 +71,7 @@ namespace Accessories_PC_Nik.Services.Implementations
                     ord.Components = mapper.Map<ComponentModel>(component);
                 }
                 //В заказы должен быть хотя бы 1 услуга или покупка
-                if(ord.Components == null && ord.Services == null)
+                if (ord.Components == null && ord.Services == null)
                 {
                     continue;
                 }
@@ -87,7 +99,7 @@ namespace Accessories_PC_Nik.Services.Implementations
 
             var order = mapper.Map<OrderModel>(item);
 
-            if(item.ServiceId.HasValue)
+            if (item.ServiceId.HasValue)
             {
                 var service = await servicesReadRepository.GetByIdAsync(item.ServiceId!.Value, cancellationToken);
                 order.Services = mapper.Map<ServiceModel>(service);
@@ -102,10 +114,76 @@ namespace Accessories_PC_Nik.Services.Implementations
                 var delivery = await deliveryReadRepository.GetByIdAsync(item.DeliveryId!.Value, cancellationToken);
                 order.Delivery = mapper.Map<DeliveryModel>(delivery);
             }
-            
+
             var client = await deliveryReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
-            order.Clients = mapper.Map<Contracts.Models.ClientModel>(client);
+            order.Clients = mapper.Map<ClientModel>(client);
             return order;
         }
+
+        async Task<OrderModel> IOrderService.AddAsync(OrderRequestModel source, CancellationToken cancellationToken)
+        {
+            var item = new Order
+            {
+                Id = Guid.NewGuid(),
+                ClientId = source.ClientId,
+                ServiceId = source.ServiceId,
+                ComponentId = source.ComponentId,
+                OrderTime = source.OrderTime,
+                DeliveryId = source.DeliveryId,
+                Comment = source.Comment,
+
+            };
+            orderWriteRepository.Add(item);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+            return mapper.Map<OrderModel>(item);
+        }
+
+        async Task<OrderModel> IOrderService.EditAsync(OrderRequestModel source, CancellationToken cancellationToken)
+        {
+            var targetOrder = await orderReadRepository.GetByIdAsync(source.Id, cancellationToken);
+            if (targetOrder == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+            }
+
+            targetOrder.OrderTime = source.OrderTime;
+            targetOrder.Comment = source.Comment;
+
+            var client = await clientsReadRepository.GetByIdAsync(source.ClientId, cancellationToken);
+            targetOrder.ClientId = client!.Id;
+            targetOrder.Client = client;
+
+            var service = await servicesReadRepository.GetByIdAsync(source.ServiceId!.Value, cancellationToken);
+            targetOrder.ServiceId = service!.Id;
+            targetOrder.Service = service;
+
+            var component = await componentsReadRepository.GetByIdAsync(source.ComponentId!.Value, cancellationToken);
+            targetOrder.ComponentId = component!.Id;
+            targetOrder.Component = component;
+
+            var delivery = await deliveryReadRepository.GetByIdAsync(source.DeliveryId!.Value, cancellationToken);
+            targetOrder.DeliveryId = delivery!.Id;
+            targetOrder.Delivery = delivery;
+
+            orderWriteRepository.Update(targetOrder);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+            return mapper.Map<OrderModel>(targetOrder);
+        }
+        async Task IOrderService.DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var targetComponent = await orderReadRepository.GetByIdAsync(id, cancellationToken);
+            if (targetComponent == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Order>(id);
+            }
+            if (targetComponent.DeletedAt.HasValue)
+            {
+                throw new AccessoriesInvalidOperationException($"Заказ с идентификатором {id} уже удален");
+            }
+
+            orderWriteRepository.Delete(targetComponent);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+        }
+
     }
 }

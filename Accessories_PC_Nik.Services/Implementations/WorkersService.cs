@@ -28,10 +28,10 @@ namespace Accessories_PC_Nik.Services.Implementations
             var clients = await clientsReadRepository.GetByIdsAsync(result.Select(x => x.ClientId).Distinct(), cancellationToken);
 
             var listWorker = new List<WorkerModel>();
-            foreach(var worker in result)
+            foreach (var worker in result)
             {
                 var work = mapper.Map<WorkerModel>(worker);
-                if(!clients.TryGetValue(worker.ClientId, out var client))
+                if (!clients.TryGetValue(worker.ClientId, out var client))
                 {
                     continue;
                 }
@@ -50,7 +50,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var client = await clientsReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
 
             var work = mapper.Map<WorkerModel>(item);
-            work.Clients  = mapper.Map<Contracts.Models.ClientModel>(client);
+            work.Clients = mapper.Map<Contracts.Models.ClientModel>(client);
 
             return work;
         }
