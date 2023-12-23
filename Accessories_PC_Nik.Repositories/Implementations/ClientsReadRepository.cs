@@ -16,6 +16,11 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.reader = reader;
         }
 
+        Task<bool> IClientsReadRepository.AnyByIdAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<Client>()
+                .NotDeletedAt()
+                .AnyAsync(x => x.Id == id);
+
         Task<IReadOnlyCollection<Client>> IClientsReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Client>()
                 .NotDeletedAt()

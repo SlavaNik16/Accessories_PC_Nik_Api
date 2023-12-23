@@ -20,7 +20,7 @@
         /// <summary>
         /// Продолжительность услуги (возможно в часах)
         /// </summary>
-        public DateTimeOffset Duration { get; set; }
+        public float Duration { get; set; }
 
         /// <summary>
         /// Цена за услугу

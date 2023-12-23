@@ -1,4 +1,4 @@
-﻿namespace TimeTable203.Services.Contracts.Exceptions
+﻿namespace Accessories_PC_Nik.Services.Contracts.Exceptions
 {
     /// <summary>
     /// Запрашиваемая сущность не найдена

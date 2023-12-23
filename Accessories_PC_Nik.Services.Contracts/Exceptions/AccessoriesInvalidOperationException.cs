@@ -1,6 +1,6 @@
 ﻿using Accessories_PC_Nik.Services.Contracts.Exceptions;
 
-namespace TimeTable203.Services.Contracts.Exceptions
+namespace Accessories_PC_Nik.Services.Contracts.Exceptions
 {
     /// <summary>
     /// Ошибка выполнения операции

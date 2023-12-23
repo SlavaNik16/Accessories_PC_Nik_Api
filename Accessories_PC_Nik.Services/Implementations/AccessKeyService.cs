@@ -6,7 +6,7 @@ using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
-using TimeTable203.Services.Contracts.Exceptions;
+using Accessories_PC_Nik.Services.Contracts.Exceptions;
 
 namespace Accessories_PC_Nik.Services.Implementations
 {

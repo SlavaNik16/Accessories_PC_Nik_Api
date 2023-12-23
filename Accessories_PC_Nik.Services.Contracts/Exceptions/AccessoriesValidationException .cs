@@ -1,7 +1,7 @@
 ﻿using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Shared;
 
-namespace TimeTable203.Services.Contracts.Exceptions
+namespace Accessories_PC_Nik.Services.Contracts.Exceptions
 {
     /// <summary>
     /// Ошибки валидации
