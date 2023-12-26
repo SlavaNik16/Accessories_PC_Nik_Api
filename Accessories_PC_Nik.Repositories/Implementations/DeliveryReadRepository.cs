@@ -15,6 +15,10 @@ namespace Accessories_PC_Nik.Repositories.Implementations
         {
             this.reader = reader;
         }
+        Task<bool> IDeliveryReadRepository.AnyByIdAsync(Guid id, CancellationToken cancellationToken)
+         => reader.Read<Delivery>()
+             .NotDeletedAt()
+             .AnyAsync(x => x.Id == id, cancellationToken);
 
         Task<IReadOnlyCollection<Delivery>> IDeliveryReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Delivery>()

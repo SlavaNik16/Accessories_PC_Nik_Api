@@ -21,5 +21,10 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         /// Получить <see cref="Component"/> по идентификатору
         /// </summary>
         Task<Dictionary<Guid, Component>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получить ответ, существует ли компонент по Id
+        /// </summary>
+        Task<bool> AnyByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }

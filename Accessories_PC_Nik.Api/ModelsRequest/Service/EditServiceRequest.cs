@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель запроса изменение услуги 
     /// </summary>
-    public class EditServiceRequest
+    public class EditServiceRequest : CreateServiceRequest
     {
         /// <summary>
         /// Идентификатор

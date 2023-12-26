@@ -24,7 +24,7 @@
         /// <summary>
         /// Время заказа
         /// </summary>
-        public DateTime OrderTime { get; set; }
+        public DateTime OrderTime { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// Доставка

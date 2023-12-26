@@ -1,72 +1,48 @@
 ﻿using Accessories_PC_Nik.Api.ModelsRequest.Service;
+using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using Accessories_PC_Nik.Repositories.Implementations;
 using FluentValidation;
 
 namespace Accessories_PC_Nik.Api.Validators.Service
 {
     /// <summary>
-    /// 
+    /// Валидатор класса <see cref="CreateServiceRequest"/>
     /// </summary>
     public class CreateServiceRequestValidator : AbstractValidator<CreateServiceRequest>
     {
         /// <summary>
-        /// 
+        /// Инициализирую <see cref="CreateServiceRequestValidator"/>
         /// </summary>
-        public CreateServiceRequestValidator()
+        public CreateServiceRequestValidator(IServicesReadRepository servicesReadRepository)
         {
+            RuleFor(x => x.Name)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Имя не должно быть пустым или null")
+                .MaximumLength(200)
+                .WithMessage("Слишком больше имя. Оно должно быть не более 200 символов!")
+                .MustAsync(async (name, cancellationToken) =>
+                 {
+                     var isNameExists = await servicesReadRepository.AnyByNameAsync(name, cancellationToken);
+                     return !isNameExists;
+                 })
+                .WithMessage("Имя должно быть уникальным!");
 
-            //RuleFor(x => x.StartDate)
-            //    .NotNull()
-            //    .NotEmpty()
-            //    .WithMessage("Начало занятия не должно быть пустым или null");
 
-            //RuleFor(x => x.EndDate)
-            //    .NotNull()
-            //    .NotEmpty()
-            //    .WithMessage("Конец занятия не должно быть пустым или null");
+            RuleFor(x => x.Description)
+                .MaximumLength(300)
+                .WithMessage("Слишком больше описание. Оно должно быть не более 300 символов!");
 
-            //RuleFor(x => x.RoomNumber)
-            //    .NotNull()
-            //    .NotEmpty()
-            //    .WithMessage("Номер кабинета не должен быть пустым или null");
+            RuleFor(x => x.Duration)
+                .NotNull()
+                .NotNull()
+                .WithMessage("Продолжительность не должно быть пустым или null");
 
-            //RuleFor(x => x.Discipline)
-            //    .NotNull()
-            //    .NotEmpty()
-            //    .WithMessage("Дисциплина не должна быть пустым или null")
-            //    .MustAsync(async (id, CancellationToken) =>
-            //    {
-            //        var disciplineExists = await disciplineReadRepository.AnyByIdAsync(id, CancellationToken);
-            //        return disciplineExists;
-            //    })
-            //    .WithMessage("Такой дисциплины не существует!");
-
-            //RuleFor(x => x.Group)
-            //   .NotNull()
-            //   .NotEmpty()
-            //   .WithMessage("Группа не должна быть пустым или null")
-            //   .MustAsync(async (id, CancellationToken) =>
-            //   {
-            //       var groupExists = await groupReadRepository.AnyByIdAsync(id, CancellationToken);
-            //       return groupExists;
-            //   })
-            //   .WithMessage("Такой группы не существует!");
-
-            //RuleFor(x => x.Teacher)
-            //   .NotNull()
-            //   .NotEmpty()
-            //   .WithMessage("Учитель не должен быть пустым или null")
-            //   .MustAsync(async (id, CancellationToken) =>
-            //   {
-            //       var employeeExist = await employeeReadRepository.AnyByIdAsync(id, CancellationToken);
-            //       return employeeExist;
-            //   })
-            //   .WithMessage("Такого учителя не существует!")
-            //   .MustAsync(async (id, CancellationToken) =>
-            //   {
-            //       var employeeExistsWithTeacher = await employeeReadRepository.AnyByIdWithTeacherAsync(id, CancellationToken);
-            //       return employeeExistsWithTeacher;
-            //   })
-            //    .WithMessage("Работник не соответствует категории: учитель!");
+            RuleFor(x => x.Price)
+                .NotNull()
+                .WithMessage("Стоимость не должен быть null")
+                .Must(x => x >= 0)
+                .WithMessage("Стоимость не может быть отрицательной");
         }
 
     }

@@ -6,13 +6,13 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
 {
 
     /// <summary>
-    /// 
+    /// Валидатор класса <see cref="EditWorkerRequest"/>
     /// </summary>
     public class EditWorkerRequestValidator : AbstractValidator<EditWorkerRequest>
-    {
-        /// <summary>
-        /// 
-        /// </summary>
+    { 
+          /// <summary>
+          /// Инициализирую <see cref="EditWorkerRequestValidator"/>
+          /// </summary>
         public EditWorkerRequestValidator(IClientsReadRepository clientsReadRepository)
         {
 
@@ -33,12 +33,14 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
                 .NotEmpty()
                 .WithMessage("Серия не должна быть пустым или null")
                 .MaximumLength(12)
-                .WithMessage("Серия не может быть больше 11 символов");
+                .WithMessage("Серия не может быть больше 12 символов");
 
             RuleFor(x => x.IssuedBy)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Кем выдан не должно быть пустым или null");
+                .WithMessage("Кем выдан не должно быть пустым или null")
+                .MaximumLength(300)
+                .WithMessage("Кем выдан не может быть больше 300 символов");
 
             RuleFor(x => x.DocumentType)
                 .NotNull()

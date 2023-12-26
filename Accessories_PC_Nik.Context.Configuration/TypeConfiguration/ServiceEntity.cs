@@ -12,8 +12,9 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
             builder.HasIdAsKey();
             builder.PropertyAuditConfiguration();
 
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(200); ;
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(200);
             builder.Property(x => x.Duration).IsRequired();
+            builder.Property(x => x.Description).HasMaxLength(300);
             builder.Property(x => x.Price).IsRequired();
 
             builder
@@ -22,6 +23,7 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
                .HasForeignKey(x => x.ServiceId);
 
             builder.HasIndex(x => x.Name)
+                .IsUnique()
                 .HasFilter($"{nameof(Service.DeletedAt)} is null")
                 .HasDatabaseName($"IX_{nameof(Service)}_" +
                              $"{nameof(Service.Name)}");
