@@ -9,6 +9,12 @@
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Название
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// Тип
         /// </summary>
@@ -28,5 +34,10 @@
         /// Цена за 1 шт.
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Кол-во товара
+        /// </summary>
+        public int Count { get; set; }
     }
 }

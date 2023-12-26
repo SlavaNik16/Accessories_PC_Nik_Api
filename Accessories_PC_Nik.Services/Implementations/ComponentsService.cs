@@ -46,6 +46,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var item = new Component
             {
                 Id = Guid.NewGuid(),
+                Name = source.Name,
                 TypeComponents = source.TypeComponents,
                 Description = source.Description,
                 MaterialType = source.MaterialType,
@@ -64,6 +65,7 @@ namespace Accessories_PC_Nik.Services.Implementations
                 throw new AccessoriesEntityNotFoundException<Client>(source.Id);
             }
 
+            targetComponent.Name = source.Name;
             targetComponent.MaterialType = source.MaterialType;
             targetComponent.Description = source.Description;
             targetComponent.MaterialType = source.MaterialType;

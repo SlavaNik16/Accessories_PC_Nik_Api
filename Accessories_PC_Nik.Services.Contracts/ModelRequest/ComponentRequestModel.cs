@@ -8,6 +8,12 @@ namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Название
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// Тип
         /// </summary>

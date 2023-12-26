@@ -10,12 +10,12 @@
         /// <summary>
         /// Откуда привезти
         /// </summary>
-        public DateTimeOffset From { get; set; }
+        public string From { get; set; }
 
         /// <summary>
         /// Куда привезти
         /// </summary>
-        public DateTimeOffset To { get; set; }
+        public string To { get; set; }
 
         /// <summary>
         /// Стоимость доставки
