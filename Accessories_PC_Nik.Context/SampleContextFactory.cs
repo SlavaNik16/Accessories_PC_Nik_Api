@@ -24,5 +24,5 @@ namespace Accessories_PC_Nik.Context
             return new AccessoriesContext(options);
         }
     }
-    
+
 }

@@ -16,7 +16,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
-        
+
         /// <summary>
         /// Когда создан
         /// </summary>

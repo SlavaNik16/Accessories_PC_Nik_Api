@@ -1,7 +1,5 @@
 ﻿using Accessories_PC_Nik.Api.Enums;
 using Accessories_PC_Nik.Api.Models;
-using Accessories_PC_Nik.Context.Contracts.Enums;
-using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Services.Contracts.Enums;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
@@ -36,13 +34,13 @@ namespace Accessories_PC_Nik.Api.Infrastructures
             CreateMap<AccessKeyModel, AccessKeyResponse>(MemberList.Destination)
                  .ForMember(x => x.Types, opt => opt.MapFrom(y => y.Types.GetDisplayName()));
 
-            CreateMap<ClientsModel, ClientsResponse>(MemberList.Destination)
+            CreateMap<ClientModel, ClientsResponse>(MemberList.Destination)
                  .ForMember(x => x.FI0,
                     opt => opt.MapFrom(y => $"{y.Surname} {y.Name} {y.Patronymic ?? string.Empty}"))
                 .ForMember(x => x.Phone,
                     opt => opt.MapFrom(y => y.Phone));
 
-            CreateMap<ComponentsModel, ComponentsResponse>(MemberList.Destination)
+            CreateMap<ComponentModel, ComponentsResponse>(MemberList.Destination)
                 .ForMember(x => x.MaterialType, opt => opt.MapFrom(y => y.MaterialType.GetDisplayName()))
                 .ForMember(x => x.TypeComponents, opt => opt.MapFrom(y => y.TypeComponents.GetDisplayName()));
 
@@ -58,9 +56,9 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 .ForMember(x => x.Phone,
                     opt => opt.MapFrom(y => y.Clients.Phone));
 
-            CreateMap<ServicesModel, ServicesResponse>(MemberList.Destination);
+            CreateMap<ServiceModel, ServicesResponse>(MemberList.Destination);
 
-            CreateMap<WorkersModel, WorkersResponse>(MemberList.Destination)
+            CreateMap<WorkerModel, WorkersResponse>(MemberList.Destination)
                 .ForMember(x => x.FIO,
                     opt => opt.MapFrom(y => $"{y.Clients.Surname} {y.Clients.Name} {y.Clients.Patronymic ?? string.Empty}"))
                 .ForMember(x => x.Phone,

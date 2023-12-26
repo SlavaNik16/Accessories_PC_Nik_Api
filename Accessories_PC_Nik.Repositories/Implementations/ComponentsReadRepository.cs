@@ -1,5 +1,5 @@
-﻿using Accessories_PC_Nik.Common.Entity.Repositories;
-using Accessories_PC_Nik.Context.Contracts.Interface;
+﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
+using Accessories_PC_Nik.Common.Entity.Repositories;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
@@ -9,26 +9,32 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 {
     public class ComponentsReadRepository : IComponentsReadRepository, IReadRepositoryAnchor
     {
-        private readonly IAccessoriesContext context;
+        private readonly IDbRead reader;
 
-        public ComponentsReadRepository(IAccessoriesContext context)
+        public ComponentsReadRepository(IDbRead reader)
         {
-            this.context = context;
+            this.reader = reader;
         }
 
+        Task<bool> IComponentsReadRepository.AnyByIdAsync(Guid id, CancellationToken cancellationToken)
+            => reader.Read<Component>()
+                .NotDeletedAt()
+                .AnyAsync(x => x.Id == id, cancellationToken);
+
         Task<IReadOnlyCollection<Component>> IComponentsReadRepository.GetAllAsync(CancellationToken cancellationToken)
-            => context.Components
+            => reader.Read<Component>()
                 .NotDeletedAt()
                 .OrderBy(x => x.MaterialType)
                 .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Component?> IComponentsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => context.Components
+            => reader.Read<Component>()
+                .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 
         Task<Dictionary<Guid, Component>> IComponentsReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
-           => context.Components
+           => reader.Read<Component>()
                 .NotDeletedAt()
                 .ByIds(ids)
                 .OrderBy(x => x.MaterialType)

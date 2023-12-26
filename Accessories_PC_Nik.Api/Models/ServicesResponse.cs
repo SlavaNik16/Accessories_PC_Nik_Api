@@ -1,5 +1,5 @@
 ﻿namespace Accessories_PC_Nik.Api.Models
-{   
+{
     /// <summary>
     /// Модель ответа сущности услуги
     /// </summary>
@@ -23,7 +23,7 @@
         /// <summary>
         /// Продолжительность услуги (возможно в часах)
         /// </summary>
-        public DateTimeOffset Duration { get; set; }
+        public float Duration { get; set; }
 
         /// <summary>
         /// Цена за услугу

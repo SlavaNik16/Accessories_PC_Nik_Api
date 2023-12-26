@@ -3,7 +3,7 @@
     /// <summary>
     /// Заказ клиента
     /// </summary>
-    public class Order :BaseAuditEntity
+    public class Order : BaseAuditEntity
     {
         /// <summary>
         /// Номер пользователя товара
@@ -14,7 +14,7 @@
         /// Cвязь один ко многим
         /// </summary>
         public Client? Client { get; set; }
-        
+
         /// <summary>
         /// Выбранная услуга
         /// </summary>
@@ -39,7 +39,7 @@
         /// Время заказа
         /// </summary>
         public DateTime OrderTime { get; set; }
-        
+
         /// <summary>
         /// Доставка
         /// </summary>

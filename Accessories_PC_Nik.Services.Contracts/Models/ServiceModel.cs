@@ -2,7 +2,7 @@
 {   /// <summary>
     /// Модель услуги
     /// </summary>
-    public class ServicesModel
+    public class ServiceModel
     {
         /// <summary>
         /// Идентификатор
@@ -12,17 +12,17 @@
         /// <summary>
         /// Название
         /// </summary>
-        public string Name { get; set; } 
+        public string Name { get; set; }
 
         /// <summary>
         /// Описание
         /// </summary>
-        public string? Description { get; set; } 
+        public string? Description { get; set; }
 
         /// <summary>
         /// Продолжительность услуги (возможно в часах)
         /// </summary>
-        public DateTimeOffset Duration { get; set; }
+        public float Duration { get; set; }
 
         /// <summary>
         /// Цена за услугу

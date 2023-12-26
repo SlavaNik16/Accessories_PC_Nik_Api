@@ -14,7 +14,7 @@ namespace Accessories_PC_Nik.Repositories
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="BaseWriteRepository{T}"/>
         /// </summary>
-        public BaseWriteRepository(IDbWriterContext writerContext) 
+        public BaseWriteRepository(IDbWriterContext writerContext)
         {
             this.writerContext = writerContext;
         }
@@ -22,8 +22,8 @@ namespace Accessories_PC_Nik.Repositories
         /// <inheritdoc cref="IRepositoryWriter{T}"/>
         public void Add([NotNull] TEntity entity)
         {
-           if(entity is IEntityWithId entityWithId &&
-                entityWithId.Id == Guid.Empty)
+            if (entity is IEntityWithId entityWithId &&
+                 entityWithId.Id == Guid.Empty)
             {
                 entityWithId.Id = Guid.NewGuid();
             }
@@ -56,7 +56,7 @@ namespace Accessories_PC_Nik.Repositories
 
         private void AuditForCreated([NotNull] TEntity entity)
         {
-            if(entity is IEntityAuditCreated auditCreated)
+            if (entity is IEntityAuditCreated auditCreated)
             {
                 auditCreated.CreatedAt = writerContext.DateTimeProvider.UtcNow;
                 auditCreated.CreatedBy = writerContext.UserName;

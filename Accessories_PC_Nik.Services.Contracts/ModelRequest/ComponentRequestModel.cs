@@ -1,11 +1,8 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Enums;
+﻿using Accessories_PC_Nik.Context.Contracts.Enums;
 
-namespace Accessories_PC_Nik.Services.Contracts.Models
+namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
 {
-    /// <summary>
-    /// Модель компонентов пк
-    /// </summary>
-    public class ComponentsModel
+    public class ComponentRequestModel
     {
         /// <summary>
         /// Идентификатор
@@ -14,7 +11,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Тип
         /// </summary>
-        public TypeComponentsModel TypeComponents { get; set; }
+        public TypeComponents TypeComponents { get; set; }
 
         /// <summary>
         /// Описания
@@ -24,11 +21,16 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Тип материала
         /// </summary>
-        public MaterialTypeModel MaterialType { get; set; }
+        public MaterialType MaterialType { get; set; }
 
         /// <summary>
         /// Цена за 1 шт.
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Кол-во товара
+        /// </summary>
+        public int Count { get; set; } = 1;
     }
 }

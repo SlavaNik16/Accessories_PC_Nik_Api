@@ -5,7 +5,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
     /// <summary>
     /// Комплектующие ПК
     /// </summary>
-    public class Component :BaseAuditEntity
+    public class Component : BaseAuditEntity
     {
 
         /// <summary>

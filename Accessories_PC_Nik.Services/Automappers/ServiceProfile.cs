@@ -9,7 +9,7 @@ namespace Accessories_PC_Nik.Services.Automappers
 {
     public class ServiceProfile : Profile
     {
-        public ServiceProfile() 
+        public ServiceProfile()
         {
             CreateMap<AccessLevelTypes, AccessLevelTypesModel>()
                 .ConvertUsingEnumMapping(opt => opt.MapByName())
@@ -26,22 +26,22 @@ namespace Accessories_PC_Nik.Services.Automappers
 
             CreateMap<AccessKey, AccessKeyModel>(MemberList.Destination);
 
-            CreateMap<Client, ClientsModel>(MemberList.Destination);
+            CreateMap<Client, ClientModel>(MemberList.Destination);
 
-            CreateMap<Component, ComponentsModel>(MemberList.Destination);
+            CreateMap<Component, ComponentModel>(MemberList.Destination);
 
             CreateMap<Delivery, DeliveryModel>(MemberList.Destination);
 
             CreateMap<Order, OrderModel>(MemberList.Destination)
-                .ForMember(pref => pref.Services, next => next.Ignore())
-                .ForMember(pref => pref.Components, next => next.Ignore())
-                .ForMember(pref => pref.Delivery, next => next.Ignore())
-                .ForMember(pref => pref.Clients, next => next.Ignore());
+                .ForMember(opt => opt.Services, next => next.Ignore())
+                .ForMember(opt => opt.Components, next => next.Ignore())
+                .ForMember(opt => opt.Delivery, next => next.Ignore())
+                .ForMember(opt => opt.Clients, next => next.Ignore());
 
-            CreateMap<Service, ServicesModel>(MemberList.Destination);
+            CreateMap<Service, ServiceModel>(MemberList.Destination);
 
-            CreateMap<Worker, WorkersModel>(MemberList.Destination)
-                .ForMember(pref => pref.Clients, next => next.Ignore());
+            CreateMap<Worker, WorkerModel>(MemberList.Destination)
+                .ForMember(opt => opt.Clients, next => next.Ignore());
         }
     }
 }

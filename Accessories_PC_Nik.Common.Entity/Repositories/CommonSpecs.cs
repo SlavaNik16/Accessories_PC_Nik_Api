@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Accessories_PC_Nik.Common.Entity.EntityInterface;
 using Microsoft.EntityFrameworkCore;
-using Accessories_PC_Nik.Common.Entity.EntityInterface;
+using System.Collections.ObjectModel;
 
 namespace Accessories_PC_Nik.Common.Entity.Repositories
 {

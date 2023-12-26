@@ -1,20 +1,34 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Models;
+﻿using Accessories_PC_Nik.Services.Contracts.ModelRequest;
+using Accessories_PC_Nik.Services.Contracts.Models;
 
 namespace Accessories_PC_Nik.Services.Contracts.Interface
 {
     public interface IServicesService
     {
         /// <summary>
-        /// Получить список всех <see cref="ServicesModel"/>
+        /// Получить список всех <see cref="ServiceModel"/>
         /// </summary>
-        Task<IEnumerable<ServicesModel>> GetAllAsync(CancellationToken cancellationToken);
+        Task<IEnumerable<ServiceModel>> GetAllAsync(CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="ServicesModel"/> по идентификатору
+        /// Получить <see cref="ServiceModel"/> по идентификатору
         /// </summary>
-        Task<ServicesModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<ServiceModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
-      
+        /// <summary>
+        /// Добавляет новую услугу
+        /// </summary>
+        Task<ServiceModel> AddAsync(ServiceRequestModel source, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Редактирует существующую услуги
+        /// </summary>
+        Task<ServiceModel> EditAsync(ServiceRequestModel source, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Удаляет существующую услугу
+        /// </summary>
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
 
     }
 }

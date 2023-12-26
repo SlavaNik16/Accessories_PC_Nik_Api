@@ -19,6 +19,16 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         /// <summary>
         /// Получить <see cref="ServicesModel"/> по идентификатору
         /// </summary>
-        Task<Dictionary<Guid,Service>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+        Task<Dictionary<Guid, Service>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получить ответ, существует ли такое имя
+        /// </summary>
+        Task<bool> AnyByNameAsync(string name, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получить ответ, существует ли компонент по Id
+        /// </summary>
+        Task<bool> AnyByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }

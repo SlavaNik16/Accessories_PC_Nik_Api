@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accessories_PC_Nik.Context.Migrations
 {
     [DbContext(typeof(AccessoriesContext))]
-    [Migration("20231123160316_Init")]
+    [Migration("20231226143804_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -261,8 +261,8 @@ namespace Accessories_PC_Nik.Context.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("Duration")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<float>("Duration")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .IsRequired()

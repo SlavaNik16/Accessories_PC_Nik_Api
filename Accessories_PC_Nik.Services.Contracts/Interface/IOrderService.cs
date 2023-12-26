@@ -1,4 +1,5 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Models;
+﻿using Accessories_PC_Nik.Services.Contracts.ModelRequest;
+using Accessories_PC_Nik.Services.Contracts.Models;
 
 namespace Accessories_PC_Nik.Services.Contracts.Interface
 {
@@ -14,5 +15,19 @@ namespace Accessories_PC_Nik.Services.Contracts.Interface
         /// </summary>
         Task<OrderModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
+        /// <summary>
+        /// Добавляет новый заказ
+        /// </summary>
+        Task<OrderModel> AddAsync(OrderRequestModel source, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Редактирует существующий заказ
+        /// </summary>
+        Task<OrderModel> EditAsync(OrderRequestModel source, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Удаляет существующий заказ
+        /// </summary>
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

@@ -13,7 +13,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Ключ уровня доступа (или может string?)
+        /// Ключ уровня доступа
         /// </summary>
         public Guid Key { get; set; }
 
