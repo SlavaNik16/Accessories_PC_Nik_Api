@@ -1,11 +1,9 @@
 ﻿using Accessories_PC_Nik.Api.Attribute;
 using Accessories_PC_Nik.Api.Infrastructures.Validator;
 using Accessories_PC_Nik.Api.Models;
-using Accessories_PC_Nik.Api.ModelsRequest.Component;
 using Accessories_PC_Nik.Api.ModelsRequest.Service;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.ModelRequest;
-using Accessories_PC_Nik.Services.Implementations;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Accessories_PC_Nik.Api.Models.Exceptions;
+﻿using Accessories_PC_Nik.Api.Models.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 namespace Accessories_PC_Nik.Api.Attribute
 {
 
