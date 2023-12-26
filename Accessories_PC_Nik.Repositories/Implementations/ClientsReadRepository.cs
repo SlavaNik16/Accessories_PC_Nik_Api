@@ -36,7 +36,6 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .NotDeletedAt()
                 .OrderBy(x => x.Surname)
                 .ThenBy(x => x.Name)
-                .ThenBy(x => x.Patronymic)
                 .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Client?> IClientsReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)

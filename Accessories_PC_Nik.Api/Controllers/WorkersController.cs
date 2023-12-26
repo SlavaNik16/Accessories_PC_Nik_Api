@@ -1,5 +1,9 @@
-﻿using Accessories_PC_Nik.Api.Models;
+﻿using Accessories_PC_Nik.Api.Attribute;
+using Accessories_PC_Nik.Api.Infrastructures.Validator;
+using Accessories_PC_Nik.Api.Models;
+using Accessories_PC_Nik.Api.ModelsRequest.Worker;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,15 +18,19 @@ namespace Accessories_PC_Nik.Api.Controllers
     public class WorkersController : Controller
     {
         private readonly IWorkersService workersService;
+        private readonly IApiValidatorService validatorService;
         private readonly IMapper mapper;
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="WorkersController"/>
         /// </summary>
         public WorkersController(IWorkersService workersService,
+            IApiValidatorService validatorService,
             IMapper mapper)
+
         {
             this.workersService = workersService;
+            this.validatorService = validatorService;
             this.mapper = mapper;
         }
 
@@ -49,7 +57,51 @@ namespace Accessories_PC_Nik.Api.Controllers
             if (item == null) return NotFound($"Не удалось найти сотрудника с идентификатором {id}");
 
 
-            return Ok(mapper.Map<IEnumerable<WorkersResponse>>(item));
+            return Ok(mapper.Map<WorkersResponse>(item));
+        }
+
+        /// <summary>
+        /// Создаёт нового клиента
+        /// </summary>
+        [HttpPost]
+        [ApiOk(typeof(WorkersResponse))]
+        [ApiConflict]
+        public async Task<IActionResult> Create(CreateWorkerRequest request, CancellationToken cancellationToken)
+        {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
+            var personRequestModel = mapper.Map<WorkerRequestModel>(request);
+            var result = await workersService.AddAsync(personRequestModel, cancellationToken);
+            return Ok(mapper.Map<WorkersResponse>(result));
+        }
+
+        /// <summary>
+        /// Редактирует существующего клиента
+        /// </summary>
+        [HttpPut]
+        [ApiOk(typeof(WorkersResponse))]
+        [ApiNotFound]
+        [ApiConflict]
+        public async Task<IActionResult> Edit(EditWorkerRequest request, CancellationToken cancellationToken)
+        {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
+            var model = mapper.Map<WorkerRequestModel>(request);
+            var result = await workersService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<WorkersResponse>(result));
+        }
+
+        /// <summary>
+        /// Удаляет существующего клиента
+        /// </summary>
+        [HttpDelete("{id}")]
+        [ApiOk]
+        [ApiNotFound]
+        [ApiNotAcceptable]
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+        {
+            await workersService.DeleteAsync(id, cancellationToken);
+            return Ok();
         }
 
     }

@@ -1,12 +1,11 @@
-﻿using Accessories_PC_Nik.Api.Infrastructures.Validator;
+﻿using Accessories_PC_Nik.Api.Attribute;
+using Accessories_PC_Nik.Api.Infrastructures.Validator;
 using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Api.ModelsRequest.Client;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using TimeTable203.Api.Attribute;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
@@ -59,7 +58,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         }
 
         /// <summary>
-        /// Создаёт новую персону
+        /// Создаёт нового клиента
         /// </summary>
         [HttpPost]
         [ApiOk(typeof(ClientsResponse))]
@@ -74,7 +73,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         }
 
         /// <summary>
-        /// Редактирует имеющуюся персону
+        /// Редактирует существующего клиента
         /// </summary>
         [HttpPut]
         [ApiOk(typeof(ClientsResponse))]
@@ -90,7 +89,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         }
 
         /// <summary>
-        /// Удаляет имеющуюся персону по id
+        /// Удаляет существующего клиента
         /// </summary>
         [HttpDelete("{id}")]
         [ApiOk]

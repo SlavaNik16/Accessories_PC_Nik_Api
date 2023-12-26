@@ -17,7 +17,7 @@ using Microsoft.OpenApi.Extensions;
 namespace Accessories_PC_Nik.Api.Infrastructures
 {
     /// <summary>
-    /// Профиль маппера АПИшки
+    /// Профиль маппера Api
     /// </summary>
     public class ApiProfile : Profile
     {

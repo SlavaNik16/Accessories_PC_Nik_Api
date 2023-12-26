@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt =>
+{
+    opt.Filters.Add<AccessoriesExceptionFilter>();
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.GetSwaggerDocument();

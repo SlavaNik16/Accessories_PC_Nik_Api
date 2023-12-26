@@ -18,11 +18,6 @@ namespace Accessories_PC_Nik.Api.Validators.AccessKey
                .NotEmpty()
                .WithMessage("Идентификатор не должен быть пустым или null");
 
-            RuleFor(x => x.Key)
-                 .NotNull()
-                 .NotEmpty()
-                 .WithMessage("Ключ не должен быть пустым или null");
-
             RuleFor(x => x.Types)
                 .NotNull()
                 .WithMessage("Уровень доступа не должен быть null");

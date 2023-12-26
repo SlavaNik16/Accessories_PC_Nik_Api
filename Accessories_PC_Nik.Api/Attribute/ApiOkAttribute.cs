@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TimeTable203.Api.Attribute
+namespace Accessories_PC_Nik.Api.Attribute
 {
     /// <summary>
     /// Фильтр, который определяет тип значения и код состояния 200, возвращаемый действием

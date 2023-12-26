@@ -13,10 +13,6 @@ namespace Accessories_PC_Nik.Api.Validators.AccessKey
         /// </summary>
         public CreateAccessKeyRequestValidator()
         {
-            RuleFor(x => x.Key)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Ключ не должен быть пустым или null");
 
             RuleFor(x => x.Types)
                 .NotNull()

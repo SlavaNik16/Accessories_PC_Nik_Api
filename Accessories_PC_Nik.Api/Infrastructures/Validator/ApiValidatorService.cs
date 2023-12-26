@@ -90,7 +90,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
 
             if (!result.IsValid)
             {
-                throw new TimeTableValidationException(result.Errors.Select(x =>
+                throw new AccessoriesValidationException(result.Errors.Select(x =>
                 InvalidateItemModel.New(x.PropertyName, x.ErrorMessage)));
             }
         }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TimeTable203.Api.Models.Exceptions;
-
-namespace TimeTable203.Api.Attribute
+using Accessories_PC_Nik.Api.Models.Exceptions;
+namespace Accessories_PC_Nik.Api.Attribute
 {
     /// <summary>
     /// Фильтр, который определяет тип значения и код состояния 406, возвращаемый действием <see cref="ApiExceptionDetail"/>

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TimeTable203.Api.Models.Exceptions;
+﻿using Accessories_PC_Nik.Api.Models.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 
-namespace TimeTable203.Api.Attribute
+namespace Accessories_PC_Nik.Api.Attribute
 {
     /// <summary>
     /// Фильтр, который определяет тип значения и код состояния 409, возвращаемый действием <see cref="ApiValidationExceptionDetail"/>

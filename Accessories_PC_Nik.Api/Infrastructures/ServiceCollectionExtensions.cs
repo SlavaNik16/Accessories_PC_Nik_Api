@@ -1,4 +1,5 @@
-﻿using Accessories_PC_Nik.Common;
+﻿using Accessories_PC_Nik.Api.Infrastructures.Validator;
+using Accessories_PC_Nik.Common;
 using Accessories_PC_Nik.Common.Entity.InterfaceDB;
 using Accessories_PC_Nik.Context;
 using Accessories_PC_Nik.Repositories;
@@ -18,6 +19,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures
         {
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IDbWriterContext, DbWriterContext>();
+            services.AddTransient<IApiValidatorService, ApiValidatorService>();
             services.RegisterAutoMapperProfile<ApiProfile>();
 
             services.RegisterModule<ServiceModule>();
