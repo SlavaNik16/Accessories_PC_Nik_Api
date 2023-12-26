@@ -259,8 +259,8 @@ namespace Accessories_PC_Nik.Context.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("Duration")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<float>("Duration")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .IsRequired()

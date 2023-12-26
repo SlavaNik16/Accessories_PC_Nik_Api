@@ -1,15 +1,14 @@
-﻿using FluentValidation;
-using Accessories_PC_Nik.Api.Validators.Discipline;
-using Accessories_PC_Nik.Api.Validators.Document;
-using Accessories_PC_Nik.Api.Validators.Employee;
-using Accessories_PC_Nik.Api.Validators.Group;
-using Accessories_PC_Nik.Api.Validators.Person;
-using Accessories_PC_Nik.Api.Validators.TimeTableItem;
+﻿using Accessories_PC_Nik.Api.Validators.AccessKey;
+using Accessories_PC_Nik.Api.Validators.Client;
+using Accessories_PC_Nik.Api.Validators.Component;
+using Accessories_PC_Nik.Api.Validators.Delivery;
+using Accessories_PC_Nik.Api.Validators.Order;
+using Accessories_PC_Nik.Api.Validators.Service;
+using Accessories_PC_Nik.Api.Validators.Worker;
+using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Shared;
-using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using Accessories_PC_Nik.Api.ModelsRequest.Discipline;
-using Accessories_PC_Nik.Api.Validators.Worker;
+using FluentValidation;
 
 namespace Accessories_PC_Nik.Api.Infrastructures.Validator
 {
