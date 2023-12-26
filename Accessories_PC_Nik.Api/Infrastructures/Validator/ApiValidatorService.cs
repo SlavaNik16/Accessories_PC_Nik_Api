@@ -16,14 +16,16 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
     {
         private readonly Dictionary<Type, IValidator> validators = new Dictionary<Type, IValidator>();
 
-        public ApiValidatorService(IClientsReadRepository personReadRepository,
-            IWorkersReadRepository employeeReadRepository)
+        public ApiValidatorService(IClientsReadRepository clientReadRepository,
+              IComponentsReadRepository componentsReadRepository,
+              IServicesReadRepository servicesReadRepository,
+              IDeliveryReadRepository deliveryReadRepository)
         {
             Register<CreateAccessKeyRequestValidator>();
             Register<EditAccessKeyRequestValidator>();
 
-            Register<CreateClientRequestValidator>();
-            Register<EditClientRequestValidator>();
+            Register<CreateClientRequestValidator>(clientReadRepository);
+            Register<EditClientRequestValidator>(clientReadRepository);
 
             Register<CreateComponentRequestValidator>();
             Register<EditComponentRequestValidator>();
@@ -31,14 +33,20 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
             Register<CreateDeliveryRequestValidator>();
             Register<EditDeliveryRequestValidator>();
 
-            Register<CreateOrderRequestValidator>();
-            Register<EditOrderRequestValidator>();
+            Register<CreateOrderRequestValidator>(clientReadRepository,
+                componentsReadRepository,
+                servicesReadRepository,
+                deliveryReadRepository);
+            Register<EditOrderRequestValidator>(clientReadRepository,
+                componentsReadRepository,
+                servicesReadRepository,
+                deliveryReadRepository);
 
-            Register<CreateServiceRequestValidator>();
-            Register<EditServiceRequestValidator>();
+            Register<CreateServiceRequestValidator>(servicesReadRepository);
+            Register<EditServiceRequestValidator>(servicesReadRepository);
 
-            Register<CreateWorkerRequestValidator>(personReadRepository);
-            Register<EditWorkerRequestValidator>(personReadRepository);
+            Register<CreateWorkerRequestValidator>(clientReadRepository);
+            Register<EditWorkerRequestValidator>(clientReadRepository);
         }
 
         ///<summary>
