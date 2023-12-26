@@ -67,8 +67,8 @@ namespace Accessories_PC_Nik.Api.Controllers
         {
             await validatorService.ValidateAsync(request, cancellationToken);
 
-            var personRequestModel = mapper.Map<ClientRequestModel>(request);
-            var result = await clientsService.AddAsync(personRequestModel, cancellationToken);
+            var clientRequestModel = mapper.Map<ClientRequestModel>(request);
+            var result = await clientsService.AddAsync(clientRequestModel, cancellationToken);
             return Ok(mapper.Map<ClientsResponse>(result));
         }
 

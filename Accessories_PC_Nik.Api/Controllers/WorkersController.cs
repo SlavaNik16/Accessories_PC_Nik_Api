@@ -61,7 +61,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         }
 
         /// <summary>
-        /// Создаёт нового клиента
+        /// Создаёт нового работника
         /// </summary>
         [HttpPost]
         [ApiOk(typeof(WorkersResponse))]
@@ -70,13 +70,13 @@ namespace Accessories_PC_Nik.Api.Controllers
         {
             await validatorService.ValidateAsync(request, cancellationToken);
 
-            var personRequestModel = mapper.Map<WorkerRequestModel>(request);
-            var result = await workersService.AddAsync(personRequestModel, cancellationToken);
+            var workerRequestModel = mapper.Map<WorkerRequestModel>(request);
+            var result = await workersService.AddAsync(workerRequestModel, cancellationToken);
             return Ok(mapper.Map<WorkersResponse>(result));
         }
 
         /// <summary>
-        /// Редактирует существующего клиента
+        /// Редактирует существующего работника
         /// </summary>
         [HttpPut]
         [ApiOk(typeof(WorkersResponse))]
@@ -92,7 +92,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         }
 
         /// <summary>
-        /// Удаляет существующего клиента
+        /// Удаляет существующего работника
         /// </summary>
         [HttpDelete("{id}")]
         [ApiOk]
