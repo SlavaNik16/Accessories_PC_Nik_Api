@@ -13,12 +13,14 @@ namespace Accessories_PC_Nik.Api.Validators.Discipline
         /// </summary>
         public CreateAccessKeyRequestValidator()
         {
-            RuleFor(discipline => discipline.Name)
+            RuleFor(x=>x.Key)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Имя не должно быть пустым или null")
-                .MaximumLength(200)
-                .WithMessage("Имя дисциплины больше 200 символов");
+                .WithMessage("Ключ не должен быть пустым или null");
+
+            RuleFor(x => x.Types)
+                .NotNull()
+                .WithMessage("Уровень доступа не должен быть null");
         }
     }
 }

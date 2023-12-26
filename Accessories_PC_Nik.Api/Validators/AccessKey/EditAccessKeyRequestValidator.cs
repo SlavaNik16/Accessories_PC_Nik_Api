@@ -4,21 +4,28 @@ using Accessories_PC_Nik.Api.ModelsRequest.Discipline;
 namespace Accessories_PC_Nik.Api.Validators.Discipline
 {
     /// <summary>
-    /// 
+    ///  Валидатор класса <see cref="EditAccessKeyRequest"/>
     /// </summary>
-    public class EditAccessKeyRequestValidator : AbstractValidator<DisciplineRequest>
+    public class EditAccessKeyRequestValidator : AbstractValidator<EditAccessKeyRequest>
     {
         /// <summary>
-        /// ctor
+        /// Инициализирую <see cref="EditAccessKeyRequestValidator"/>
         /// </summary>
         public EditAccessKeyRequestValidator()
         {
-            RuleFor(discipline => discipline.Name)
+            RuleFor(x => x.Id)
+               .NotNull()
+               .NotEmpty()
+               .WithMessage("Идентификатор не должен быть пустым или null");
+
+            RuleFor(x => x.Key)
+                 .NotNull()
+                 .NotEmpty()
+                 .WithMessage("Ключ не должен быть пустым или null");
+
+            RuleFor(x => x.Types)
                 .NotNull()
-                .NotEmpty()
-                .WithMessage("Имя не должно быть пустым или null")
-                .MaximumLength(200)
-                .WithMessage("Имя дисциплины больше 200 символов");
+                .WithMessage("Уровень доступа не должен быть null");
         }
     }
 }
