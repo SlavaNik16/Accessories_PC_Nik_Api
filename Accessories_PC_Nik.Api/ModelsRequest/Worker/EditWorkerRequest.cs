@@ -1,5 +1,8 @@
-﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Employee
+﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Worker
 {
+    /// <summary>
+    /// Модель запроса изменения работника 
+    /// </summary>
     public class EditWorkerRequest : CreateWorkerRequest
     {
         /// <summary>

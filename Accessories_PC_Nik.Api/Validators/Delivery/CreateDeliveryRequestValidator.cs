@@ -1,41 +1,35 @@
-﻿using FluentValidation;
-using Accessories_PC_Nik.Api.ModelsRequest.Group;
-using Accessories_PC_Nik.Repositories.Contracts;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.Delivery;
+using FluentValidation;
 
-namespace Accessories_PC_Nik.Api.Validators.Group
+namespace Accessories_PC_Nik.Api.Validators.Delivery
 {
     /// <summary>
-    /// 
+    /// Валидатор класса <see cref="CreateDeliveryRequest"/>
     /// </summary>
-    public class CreateDeliveryRequestValidator : AbstractValidator<CreateComponentRequest>
+    public class CreateDeliveryRequestValidator : AbstractValidator<CreateDeliveryRequest>
     {
         /// <summary>
-        /// 
+        /// Инициализирую <see cref="CreateDeliveryRequestValidator"/>
         /// </summary>
-        public CreateDeliveryRequestValidator(IEmployeeReadRepository employeeReadRepository)
+        public CreateDeliveryRequestValidator()
         {
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.From)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Имя  не должен быть null");
+                .WithMessage("Откуда не должно быть пустым или null");
 
-            RuleFor(x => x.ClassroomTeacher)
+            RuleFor(x => x.To)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Клаасный руководитель не должен быть пустым или null")
-                .MustAsync(async (id, CancellationToken) =>
-                {
-                    var employeeExists = await employeeReadRepository.AnyByIdAsync(id!.Value, CancellationToken);
-                    return employeeExists;
-                })
-                .WithMessage("Такого работника не существует!")
-                .MustAsync(async (id, CancellationToken) =>
-                 {
-                     var employeeExistsWithTeacher = await employeeReadRepository.AnyByIdWithTeacherAsync(id!.Value, CancellationToken);
-                     return employeeExistsWithTeacher;
-                 })
-                 .WithMessage("Работник не соответствует категории учителя!");
+                .WithMessage("Куда не должно быть пустым или null");
+
+            RuleFor(x => x.Price)
+               .NotNull()
+               .WithMessage("Стоимость не должен быть null")
+               .Must(x => x >= 0)
+               .WithMessage("Стоимость не может быть отрицательной");
+
         }
     }
 }

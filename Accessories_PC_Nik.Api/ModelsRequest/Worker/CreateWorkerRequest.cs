@@ -1,9 +1,10 @@
-﻿using Accessories_PC_Nik.Api.Models.Enums;
-using Accessories_PC_Nik.Context.Contracts.Enums;
-using Accessories_PC_Nik.Services.Contracts.Models;
+﻿using Accessories_PC_Nik.Context.Contracts.Enums;
 
-namespace Accessories_PC_Nik.Api.ModelsRequest.Employee
+namespace Accessories_PC_Nik.Api.ModelsRequest.Worker
 {
+    /// <summary>
+    /// Модель запроса создания работника 
+    /// </summary>
     public class CreateWorkerRequest
     {
         /// <summary>

@@ -14,6 +14,7 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
 
             builder.Property(x => x.TypeComponents).IsRequired();
             builder.Property(x => x.MaterialType).IsRequired();
+            builder.Property(x => x.Description).HasMaxLength(300);
             builder.Property(x => x.Price).IsRequired();
             builder.Property(x => x.Count).IsRequired();
 

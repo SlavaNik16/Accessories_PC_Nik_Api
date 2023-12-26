@@ -21,6 +21,16 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .NotDeletedAt()
                 .AnyAsync(x => x.Id == id);
 
+        Task<bool> IClientsReadRepository.AnyByPhoneAsync(string phone, CancellationToken cancellationToken)
+          => reader.Read<Client>()
+              .NotDeletedAt()
+              .AnyAsync(x => x.Phone == phone);
+
+        Task<bool> IClientsReadRepository.AnyByEmailAsync(string email, CancellationToken cancellationToken)
+          => reader.Read<Client>()
+              .NotDeletedAt()
+              .AnyAsync(x => x.Email == email);
+
         Task<IReadOnlyCollection<Client>> IClientsReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Client>()
                 .NotDeletedAt()

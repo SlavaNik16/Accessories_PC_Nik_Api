@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Accessories_PC_Nik.Api.ModelsRequest.Discipline;
+using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
 
-namespace Accessories_PC_Nik.Api.Validators.Discipline
+namespace Accessories_PC_Nik.Api.Validators.AccessKey
 {
     /// <summary>
     /// Валидатор класса <see cref="CreateAccessKeyRequest"/>

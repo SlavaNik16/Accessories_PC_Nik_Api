@@ -1,12 +1,14 @@
 ﻿using Accessories_PC_Nik.Context.Contracts.Enums;
-using Accessories_PC_Nik.Services.Contracts.Models;
 
-namespace Accessories_PC_Nik.Api.ModelsRequest.Group
+namespace Accessories_PC_Nik.Api.ModelsRequest.Component
 {
+    /// <summary>
+    /// Модель запроса создания компонента 
+    /// </summary>
     public class CreateComponentRequest
     {
         /// <summary>
-        /// Тип
+        /// Тип компонента
         /// </summary>
         public TypeComponents TypeComponents { get; set; }
 

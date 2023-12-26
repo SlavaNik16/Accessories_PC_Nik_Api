@@ -1,9 +1,9 @@
 ﻿using Accessories_PC_Nik.Services.Contracts.Enums;
 
-namespace Accessories_PC_Nik.Api.ModelsRequest.Discipline
+namespace Accessories_PC_Nik.Api.ModelsRequest.AccessKey
 {
     /// <summary>
-    /// Модель запроса создания дисциплины
+    /// Модель запроса создания ключа уровня доступа
     /// </summary>
     public class CreateAccessKeyRequest
     {

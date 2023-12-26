@@ -14,8 +14,9 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
 
             builder.Property(x => x.Name).IsRequired().HasMaxLength(80);
             builder.Property(x => x.Surname).IsRequired().HasMaxLength(80);
+            builder.Property(x => x.Patronymic).HasMaxLength(80);
             builder.Property(x => x.Email).IsRequired();
-            builder.Property(x => x.Phone).IsRequired();
+            builder.Property(x => x.Phone).IsRequired().HasMaxLength(20);
             builder.Property(x => x.Balance).IsRequired();
 
             builder

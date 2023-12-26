@@ -1,52 +1,66 @@
-﻿using FluentValidation;
-using Accessories_PC_Nik.Api.ModelsRequest.Document;
-using Accessories_PC_Nik.Repositories.Contracts;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.Client;
+using Accessories_PC_Nik.Repositories.Contracts.Interface;
+using FluentValidation;
 
-namespace Accessories_PC_Nik.Api.Validators.Document
+namespace Accessories_PC_Nik.Api.Validators.Client
 {
     /// <summary>
-    /// 
+    /// Валидатор класса <see cref="CreateClientRequest"/>
     /// </summary>
     public class CreateClientRequestValidator : AbstractValidator<CreateClientRequest>
     {
         /// <summary>
-        /// 
+        /// Инициализирую <see cref="CreateClientRequestValidator"/>
         /// </summary>
-        public CreateClientRequestValidator(IPersonReadRepository personReadRepository)
+        public CreateClientRequestValidator(IClientsReadRepository clientsReadRepository)
         {
-            RuleFor(x => x.Number)
+            RuleFor(x => x.Surname)
+               .NotNull()
+               .NotEmpty()
+               .WithMessage("Фамилия не должна быть пустым или null!")
+               .MaximumLength(80)
+               .WithMessage("Фамилия должна быть не более 80 символов!");
+
+            RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Номер не должен быть пустым или null")
-                .MaximumLength(8)
-                .WithMessage("Номер больше 8 символов");
+                .WithMessage("Имя не должно быть пустым или null!")
+                .MaximumLength(80)
+                .WithMessage("Имя должно быть не более 80 символов!");
 
-            RuleFor(x => x.Series)
+            RuleFor(x => x.Patronymic)
+                .MaximumLength(80)
+                .WithMessage("Отчество должно быть не более 80 символов!");
+
+            RuleFor(x => x.Phone)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Серия не должна быть пустым или null")
-                .MaximumLength(12)
-                .WithMessage("Серия больше 12 символов");
-
-            RuleFor(x => x.IssuedAt)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Дата выдачи не должна быть пустым или null");
-
-            RuleFor(x => x.DocumentType)
-                .NotNull()
-                .WithMessage("Тип документа не должен быть null");
-
-            RuleFor(x => x.PersonId)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Персона не должна быть пустым или null")
-                .MustAsync(async (id, CancellationToken) =>
+                .WithMessage("Телефон не должен быть пустым или null!")
+                .MaximumLength(20)
+                .WithMessage("Такого телефона не существует!")
+                .MustAsync(async (phone, cancellationToken) =>
                 {
-                    var personExists = await personReadRepository.AnyByIdAsync(id, CancellationToken);
-                    return personExists;
+                    var isPhoneExists = await clientsReadRepository.AnyByPhoneAsync(phone, cancellationToken);
+                    return !isPhoneExists;
                 })
-                .WithMessage("Такой персоны не существует!");
+                .WithMessage("Телефон должен быть уникальным!");
+
+            RuleFor(x => x.Email)
+               .NotNull()
+               .NotEmpty()
+               .WithMessage("Почта не должна быть пустой или null!")
+               .EmailAddress()
+               .WithMessage("Неправильный формат почты!")
+               .MustAsync(async (email, cancellationToken) =>
+               {
+                   var isEmailExist = await clientsReadRepository.AnyByEmailAsync(email, cancellationToken);
+                   return !isEmailExist;
+               })
+               .WithMessage("Почта должна быть уникальной!");
+
+            RuleFor(x => x.Balance)
+                .NotNull()
+                .WithMessage("Баланс не должен быть null!");
         }
     }
 }

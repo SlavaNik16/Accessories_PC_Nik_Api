@@ -1,7 +1,8 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Models;
-
-namespace Accessories_PC_Nik.Api.ModelsRequest.TimeTableItemRequest
+﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Order
 {
+    /// <summary>
+    /// Модель запроса создания заказа 
+    /// </summary>
     public class CreateOrderRequest
     {
         /// <summary>

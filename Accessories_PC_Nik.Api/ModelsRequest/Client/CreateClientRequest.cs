@@ -1,8 +1,8 @@
-﻿using Accessories_PC_Nik.Api.Models.Enums;
-using Accessories_PC_Nik.Services.Contracts.Models;
-
-namespace Accessories_PC_Nik.Api.ModelsRequest.Document
+﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Client
 {
+    /// <summary>
+    /// Модель запроса создания клиента 
+    /// </summary>
     public class CreateClientRequest
     {
         /// <summary>

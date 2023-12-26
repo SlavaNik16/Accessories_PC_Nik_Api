@@ -1,5 +1,4 @@
-﻿using Accessories_PC_Nik.Api.ModelsRequest.Employee;
-using Accessories_PC_Nik.Api.ModelsRequest.TimeTableItem;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.Worker;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using FluentValidation;
 

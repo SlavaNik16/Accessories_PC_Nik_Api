@@ -1,5 +1,9 @@
-﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Person
+﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Delivery
 {
+
+    /// <summary>
+    /// Модель запроса создания доставки 
+    /// </summary>
     public class CreateDeliveryRequest
     {
         /// <summary>

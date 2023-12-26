@@ -1,5 +1,8 @@
-﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Document
+﻿namespace Accessories_PC_Nik.Api.ModelsRequest.Client
 {
+    /// <summary>
+    /// Модель запроса изменения клиента 
+    /// </summary>
     public class EditClientRequest : CreateClientRequest
     {
         /// <summary>

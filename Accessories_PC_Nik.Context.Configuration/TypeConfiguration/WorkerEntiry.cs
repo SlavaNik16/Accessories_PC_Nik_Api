@@ -15,7 +15,7 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
             builder.Property(x => x.Number).IsRequired().HasMaxLength(10);
             builder.Property(x => x.Series).IsRequired().HasMaxLength(12);
             builder.Property(x => x.IssuedAt).IsRequired();
-            builder.Property(x => x.IssuedBy).IsRequired();
+            builder.Property(x => x.IssuedBy).IsRequired().HasMaxLength(300);
             builder.Property(x => x.DocumentType).IsRequired();
             builder.Property(x => x.AccessLevel).IsRequired();
             builder.Property(x => x.ClientId).IsRequired();
