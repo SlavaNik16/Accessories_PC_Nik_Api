@@ -32,9 +32,9 @@ namespace Accessories_PC_Nik.Api.Validators.Order
             RuleFor(x => x.ComponentId)
                 .MustAsync(async (id, CancellationToken) =>
                 {
-                   if (id == null) return true;
-                   var componentExists = await componentsReadRepository.AnyByIdAsync(id.Value, CancellationToken);
-                   return componentExists;
+                    if (id == null) return true;
+                    var componentExists = await componentsReadRepository.AnyByIdAsync(id.Value, CancellationToken);
+                    return componentExists;
                 })
                 .WithMessage("Такого компонента не существует!");
 

@@ -1,6 +1,5 @@
 ﻿using Accessories_PC_Nik.Api.ModelsRequest.Service;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using Accessories_PC_Nik.Repositories.Implementations;
 using FluentValidation;
 
 namespace Accessories_PC_Nik.Api.Validators.Service

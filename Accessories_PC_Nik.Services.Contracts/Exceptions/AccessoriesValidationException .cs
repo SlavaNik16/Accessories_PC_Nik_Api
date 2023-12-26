@@ -1,5 +1,4 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Exceptions;
-using Accessories_PC_Nik.Shared;
+﻿using Accessories_PC_Nik.Shared;
 
 namespace Accessories_PC_Nik.Services.Contracts.Exceptions
 {

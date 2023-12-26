@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
+using FluentValidation;
 
 namespace Accessories_PC_Nik.Api.Validators.AccessKey
 {

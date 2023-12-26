@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
+using FluentValidation;
 
 namespace Accessories_PC_Nik.Api.Validators.AccessKey
 {
@@ -13,7 +13,7 @@ namespace Accessories_PC_Nik.Api.Validators.AccessKey
         /// </summary>
         public CreateAccessKeyRequestValidator()
         {
-            RuleFor(x=>x.Key)
+            RuleFor(x => x.Key)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Ключ не должен быть пустым или null");

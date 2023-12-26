@@ -57,5 +57,5 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
         }
 
     }
-    
+
 }

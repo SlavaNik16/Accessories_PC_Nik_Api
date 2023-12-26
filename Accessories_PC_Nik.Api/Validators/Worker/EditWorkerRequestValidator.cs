@@ -9,10 +9,10 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
     /// Валидатор класса <see cref="EditWorkerRequest"/>
     /// </summary>
     public class EditWorkerRequestValidator : AbstractValidator<EditWorkerRequest>
-    { 
-          /// <summary>
-          /// Инициализирую <see cref="EditWorkerRequestValidator"/>
-          /// </summary>
+    {
+        /// <summary>
+        /// Инициализирую <see cref="EditWorkerRequestValidator"/>
+        /// </summary>
         public EditWorkerRequestValidator(IClientsReadRepository clientsReadRepository)
         {
 

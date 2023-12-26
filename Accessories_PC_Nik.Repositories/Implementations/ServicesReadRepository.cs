@@ -24,7 +24,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
         Task<bool> IServicesReadRepository.AnyByNameAsync(string name, CancellationToken cancellationToken)
             => reader.Read<Service>()
                 .NotDeletedAt()
-                .AnyAsync(x=>x.Name == name, cancellationToken);
+                .AnyAsync(x => x.Name == name, cancellationToken);
 
         Task<IReadOnlyCollection<Service>> IServicesReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Service>()

@@ -10,7 +10,7 @@ namespace Accessories_PC_Nik.Api.ModelsRequest.Worker
         /// <summary>
         /// Номер документа
         /// </summary>
-        public string Number { get; set; } 
+        public string Number { get; set; }
 
         /// <summary>
         /// Серия документа

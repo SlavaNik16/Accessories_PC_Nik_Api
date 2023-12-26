@@ -2,11 +2,11 @@
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Anchors;
+using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
-using Accessories_PC_Nik.Services.Contracts.Exceptions;
 
 namespace Accessories_PC_Nik.Services.Implementations
 {
@@ -31,7 +31,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.mapper = mapper;
         }
 
-        
+
 
         async Task<IEnumerable<WorkerModel>> IWorkersService.GetAllAsync(CancellationToken cancellationToken)
         {
@@ -98,7 +98,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             targetWorker.Series = source.Series;
             targetWorker.IssuedAt = source.IssuedAt;
             targetWorker.IssuedBy = source.IssuedBy;
-            targetWorker.DocumentType = source.DocumentType; 
+            targetWorker.DocumentType = source.DocumentType;
             targetWorker.AccessLevel = source.AccessLevel;
 
             var client = await clientsReadRepository.GetByIdAsync(source.ClientId, cancellationToken);
@@ -108,7 +108,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             workersWriteRepository.Update(targetWorker);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<WorkerModel>(targetWorker);
-        } 
+        }
 
         async Task IWorkersService.DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
