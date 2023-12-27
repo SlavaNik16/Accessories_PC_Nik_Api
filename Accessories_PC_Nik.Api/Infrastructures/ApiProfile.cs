@@ -42,7 +42,6 @@ namespace Accessories_PC_Nik.Api.Infrastructures
             CreateMap<AccessKeyModel, AccessKeyResponse>(MemberList.Destination)
                  .ForMember(x => x.Types, opt => opt.MapFrom(y => y.Types.GetDisplayName()));
             CreateMap<CreateAccessKeyRequest, AccessKeyRequestModel>(MemberList.Destination);
-            CreateMap<EditAccessKeyRequest, AccessKeyRequestModel>(MemberList.Destination);
 
             CreateMap<ClientModel, ClientsResponse>(MemberList.Destination)
                  .ForMember(x => x.FI0,

@@ -47,6 +47,11 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// </summary>
         public Client? Client { get; set; }
 
+        /// <summary>
+        /// навигация для связи 1 ко многим
+        /// </summary>
+        public ICollection<AccessKey> AccessKeys { get; set; }
+
 
 
 

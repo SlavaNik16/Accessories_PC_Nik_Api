@@ -14,9 +14,9 @@ namespace Accessories_PC_Nik.Context.Configuration.EntityTypeConfiguration
 
             builder.Property(x => x.Key).IsRequired();
             builder.Property(x => x.Types).IsRequired();
+            builder.Property(x => x.WorkerId).IsRequired();
 
             builder.HasIndex(x => x.Types)
-                .IsUnique()
                 .HasFilter($"{nameof(AccessKey.DeletedAt)} is null")
                 .HasDatabaseName($"IX_{nameof(AccessKey)}_" +
                                  $"{nameof(AccessKey.Id)}");

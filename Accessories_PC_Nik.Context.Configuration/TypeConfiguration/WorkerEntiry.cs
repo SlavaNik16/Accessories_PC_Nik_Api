@@ -20,6 +20,11 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
             builder.Property(x => x.AccessLevel).IsRequired();
             builder.Property(x => x.ClientId).IsRequired();
 
+            builder
+             .HasMany(x => x.AccessKeys)
+             .WithOne(x => x.Worker)
+             .HasForeignKey(x => x.WorkerId);
+
             builder.HasIndex(x => x.Number)
                 .IsUnique()
                 .HasFilter($"{nameof(Worker.DeletedAt)} is null")

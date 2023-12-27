@@ -5,6 +5,7 @@ using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Anchors;
 using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using Accessories_PC_Nik.Services.Contracts.Models;
 using AutoMapper;
 
@@ -14,15 +15,18 @@ namespace Accessories_PC_Nik.Services.Implementations
     {
         private readonly IAccessKeyReadRepository accessKeyReadRepository;
         private readonly IAccessKeyWriteRepository accessKeyWriteRepository;
+        private readonly IWorkersReadRepository workersReadRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         public AccessKeyService(IAccessKeyReadRepository accessKeyReadRepository,
             IAccessKeyWriteRepository accessKeyWriteRepository,
+            IWorkersReadRepository workersReadRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             this.accessKeyReadRepository = accessKeyReadRepository;
             this.accessKeyWriteRepository = accessKeyWriteRepository;
+            this.workersReadRepository = workersReadRepository;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
@@ -42,14 +46,22 @@ namespace Accessories_PC_Nik.Services.Implementations
 
             return mapper.Map<AccessKeyModel>(item);
         }
-        async Task<AccessKeyModel> IAccessKeyService.AddAsync(AccessLevelTypes accessKeyTypesModel, CancellationToken cancellationToken)
+        async Task<AccessKeyModel> IAccessKeyService.AddAsync(AccessKeyRequestModel source, CancellationToken cancellationToken)
         {
             var item = new AccessKey
             {
                 Id = Guid.NewGuid(),
                 Key = Guid.NewGuid(),
-                Types = accessKeyTypesModel
+                Types = source.Types,
+                WorkerId = source.WorkerId,
             };
+
+            var workerExists = await workersReadRepository.AnyByWorkerWithTypeAsync(source.WorkerId, source.Types, cancellationToken);
+            if (!workerExists)
+            {
+                throw new AccessoriesInvalidOperationException($"Данный сотрудник не обладает правами, создавать ключ: c таким же уровнем или выше своего уровня доступа");
+            }
+
             accessKeyWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<AccessKeyModel>(item);

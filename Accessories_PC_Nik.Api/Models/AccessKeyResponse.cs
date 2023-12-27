@@ -1,4 +1,6 @@
-﻿namespace Accessories_PC_Nik.Api.Models
+﻿using Accessories_PC_Nik.Context.Contracts.Enums;
+
+namespace Accessories_PC_Nik.Api.Models
 {
     /// <summary>
     /// Модель ответа сущности ключей доступа
@@ -19,5 +21,17 @@
         /// Уровень привилегий
         /// </summary>
         public string Types { get; set; }
+
+        /// <summary>
+        /// ФИО работник, который создает ключ доступа
+        /// </summary>
+        public string FIO { get; set; }
+
+        /// <summary>
+        /// Его права
+        /// </summary>
+        public string AccessLevel { get; set; }
+
+
     }
 }

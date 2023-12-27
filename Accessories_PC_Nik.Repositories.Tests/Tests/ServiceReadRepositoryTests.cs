@@ -6,6 +6,9 @@ using Xunit;
 
 namespace Accessories_PC_Nik.Repositories.Tests.Tests
 {
+    /// <summary>
+    /// Тесты для <see cref="IServicesReadRepository"/>
+    /// </summary>
     public class ServiceReadRepositoryTests : AccessoriesContextInMemory
     {
         private readonly IServicesReadRepository servicesReadRepository;
