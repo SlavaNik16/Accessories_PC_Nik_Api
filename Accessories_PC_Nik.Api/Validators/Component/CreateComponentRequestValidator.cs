@@ -14,6 +14,13 @@ namespace Accessories_PC_Nik.Api.Validators.Component
         public CreateComponentRequestValidator()
         {
 
+            RuleFor(x => x.Name)
+              .NotNull()
+              .NotEmpty()
+              .WithMessage("Имя не должно быть пустым или null")
+              .MaximumLength(80)
+              .WithMessage("Слишком больше имя. Оно должно быть не более 80 символов!");
+
             RuleFor(x => x.TypeComponents)
                 .NotNull()
                 .WithMessage("Тип компонента не должен быть null");

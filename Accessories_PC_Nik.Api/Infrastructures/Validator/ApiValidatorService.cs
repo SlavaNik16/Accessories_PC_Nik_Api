@@ -17,6 +17,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
         private readonly Dictionary<Type, IValidator> validators = new Dictionary<Type, IValidator>();
 
         public ApiValidatorService(IClientsReadRepository clientReadRepository,
+              IWorkersReadRepository workersReadRepository,
               IComponentsReadRepository componentsReadRepository,
               IServicesReadRepository servicesReadRepository,
               IDeliveryReadRepository deliveryReadRepository)
@@ -45,8 +46,8 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
             Register<CreateServiceRequestValidator>(servicesReadRepository);
             Register<EditServiceRequestValidator>(servicesReadRepository);
 
-            Register<CreateWorkerRequestValidator>(clientReadRepository);
-            Register<EditWorkerRequestValidator>(clientReadRepository);
+            Register<CreateWorkerRequestValidator>(clientReadRepository, workersReadRepository);
+            Register<EditWorkerRequestValidator>(clientReadRepository, workersReadRepository);
         }
 
         ///<summary>
@@ -90,7 +91,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
 
             if (!result.IsValid)
             {
-                throw new TimeTableValidationException(result.Errors.Select(x =>
+                throw new AccessoriesValidationException(result.Errors.Select(x =>
                 InvalidateItemModel.New(x.PropertyName, x.ErrorMessage)));
             }
         }

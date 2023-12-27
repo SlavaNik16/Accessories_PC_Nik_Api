@@ -1,5 +1,9 @@
-﻿using Accessories_PC_Nik.Api.Models;
+﻿using Accessories_PC_Nik.Api.Attribute;
+using Accessories_PC_Nik.Api.Infrastructures.Validator;
+using Accessories_PC_Nik.Api.Models;
+using Accessories_PC_Nik.Api.ModelsRequest.Client;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,15 +18,18 @@ namespace Accessories_PC_Nik.Api.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly IClientsService clientsService;
+        private readonly IApiValidatorService validatorService;
         private readonly IMapper mapper;
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="ClientsController"/>
         /// </summary>
         public ClientsController(IClientsService clientsService,
+            IApiValidatorService validatorService,
             IMapper mapper)
         {
             this.clientsService = clientsService;
+            this.validatorService = validatorService;
             this.mapper = mapper;
         }
 
@@ -30,7 +37,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает список всех клиентов
         /// </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ClientsResponse>), StatusCodes.Status200OK)]
+        [ApiOk(typeof(IEnumerable<ClientsResponse>))]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await clientsService.GetAllAsync(cancellationToken);
@@ -41,13 +48,57 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает список клиента по Id
         /// </summary>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ClientsResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiOk(typeof(ClientsResponse))]
+        [ApiNotFound]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await clientsService.GetByIdAsync(id, cancellationToken);
             if (item == null) return NotFound($"Не удалось найти клиента с идентификатором {id}");
             return Ok(mapper.Map<ClientsResponse>(item));
+        }
+
+        /// <summary>
+        /// Создаёт нового клиента
+        /// </summary>
+        [HttpPost]
+        [ApiOk(typeof(ClientsResponse))]
+        [ApiConflict]
+        public async Task<IActionResult> Create(CreateClientRequest request, CancellationToken cancellationToken)
+        {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
+            var clientRequestModel = mapper.Map<ClientRequestModel>(request);
+            var result = await clientsService.AddAsync(clientRequestModel, cancellationToken);
+            return Ok(mapper.Map<ClientsResponse>(result));
+        }
+
+        /// <summary>
+        /// Редактирует существующего клиента
+        /// </summary>
+        [HttpPut]
+        [ApiOk(typeof(ClientsResponse))]
+        [ApiNotFound]
+        [ApiConflict]
+        public async Task<IActionResult> Edit(EditClientRequest request, CancellationToken cancellationToken)
+        {
+            await validatorService.ValidateAsync(request, cancellationToken);
+
+            var model = mapper.Map<ClientRequestModel>(request);
+            var result = await clientsService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<ClientsResponse>(result));
+        }
+
+        /// <summary>
+        /// Удаляет существующего клиента
+        /// </summary>
+        [HttpDelete("{id}")]
+        [ApiOk]
+        [ApiNotFound]
+        [ApiNotAcceptable]
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+        {
+            await clientsService.DeleteAsync(id, cancellationToken);
+            return Ok();
         }
     }
 }

@@ -44,10 +44,10 @@ namespace Accessories_PC_Nik.Services.Implementations
         {
             var orders = await orderReadRepository.GetAllAsync(cancellationToken);
 
-            var servicesId = orders.Select(x => x.ServiceId).Distinct().Cast<Guid>();
-            var componentsId = orders.Select(x => x.ComponentId).Distinct().Cast<Guid>();
-            var deliveriesId = orders.Select(x => x.DeliveryId).Distinct().Cast<Guid>();
-            var clientsId = orders.Select(x => x.ClientId).Distinct().Cast<Guid>();
+            var servicesId = orders.Where(x => x.ServiceId!.HasValue).Select(x => x.ServiceId!.Value).Distinct();
+            var componentsId = orders.Where(x => x.ComponentId!.HasValue).Select(x => x.ComponentId!.Value).Distinct();
+            var deliveriesId = orders.Where(x => x.DeliveryId!.HasValue).Select(x => x.DeliveryId!.Value).Distinct();
+            var clientsId = orders.Select(x => x.ClientId).Distinct();
 
             var services = await servicesReadRepository.GetByIdsAsync(servicesId, cancellationToken);
             var components = await componentsReadRepository.GetByIdsAsync(componentsId, cancellationToken);
@@ -70,11 +70,13 @@ namespace Accessories_PC_Nik.Services.Implementations
                 {
                     ord.Components = mapper.Map<ComponentModel>(component);
                 }
+
                 //В заказы должен быть хотя бы 1 услуга или покупка
                 if (ord.Components == null && ord.Services == null)
                 {
                     continue;
                 }
+
                 if (order.DeliveryId.HasValue &&
                     deliveries.TryGetValue(order.DeliveryId!.Value, out var delivery))
                 {
@@ -85,7 +87,7 @@ namespace Accessories_PC_Nik.Services.Implementations
                     continue;
                 }
 
-                ord.Clients = mapper.Map<Contracts.Models.ClientModel>(client);
+                ord.Clients = mapper.Map<ClientModel>(client);
 
                 listOrders.Add(ord);
             }
@@ -133,6 +135,12 @@ namespace Accessories_PC_Nik.Services.Implementations
                 Comment = source.Comment,
 
             };
+
+            if (item.ComponentId == Guid.Empty && item.ServiceId == Guid.Empty)
+            {
+                throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
+            }
+
             orderWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<OrderModel>(item);
@@ -164,6 +172,11 @@ namespace Accessories_PC_Nik.Services.Implementations
             var delivery = await deliveryReadRepository.GetByIdAsync(source.DeliveryId!.Value, cancellationToken);
             targetOrder.DeliveryId = delivery!.Id;
             targetOrder.Delivery = delivery;
+
+            if (targetOrder.ComponentId == Guid.Empty && targetOrder.ServiceId == Guid.Empty)
+            {
+                throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
+            }
 
             orderWriteRepository.Update(targetOrder);
             await unitOfWork.SaveChangesAsync(cancellationToken);

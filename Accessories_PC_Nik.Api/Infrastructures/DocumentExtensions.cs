@@ -20,6 +20,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 c.SwaggerDoc("Services", new OpenApiInfo { Title = "Сущность услуг", Version = "v1" });
                 c.SwaggerDoc("Delivery", new OpenApiInfo { Title = "Сущность доставки", Version = "v1" });
                 c.SwaggerDoc("Order", new OpenApiInfo { Title = "Сущность заказов", Version = "v1" });
+                c.SwaggerDoc("AccessKey", new OpenApiInfo { Title = "Сущность ключей доступа", Version = "v1" });
 
                 var filePath = Path.Combine(AppContext.BaseDirectory, "Accessories_PC_Nik.Api.xml");
                 c.IncludeXmlComments(filePath);
@@ -39,6 +40,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 x.SwaggerEndpoint("Services/swagger.json", "Услуги");
                 x.SwaggerEndpoint("Delivery/swagger.json", "Доставка");
                 x.SwaggerEndpoint("Order/swagger.json", "Заказы");
+                x.SwaggerEndpoint("AccessKey/swagger.json", "Ключи доступа");
             });
         }
     }

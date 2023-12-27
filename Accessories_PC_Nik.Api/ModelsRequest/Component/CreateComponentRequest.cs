@@ -7,6 +7,12 @@ namespace Accessories_PC_Nik.Api.ModelsRequest.Component
     /// </summary>
     public class CreateComponentRequest
     {
+
+        /// <summary>
+        /// Название
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// Тип компонента
         /// </summary>

@@ -9,7 +9,7 @@
         /// <summary>
         /// Название
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
         /// <summary>
         /// Описание
@@ -24,7 +24,7 @@
         /// <summary>
         /// Цена за услугу
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0;
 
         /// <summary>
         /// навигация для связи 1 ко многим

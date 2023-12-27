@@ -25,13 +25,6 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
                 .HasFilter($"{nameof(Worker.DeletedAt)} is null")
                 .HasDatabaseName($"IX_{nameof(Worker)}_" +
                              $"{nameof(Worker.Number)}");
-
-            builder.HasIndex(x => x.Series)
-                 .IsUnique()
-                 .HasFilter($"{nameof(Worker.DeletedAt)} is null")
-                 .HasDatabaseName($"IX_{nameof(Worker)}_" +
-                              $"{nameof(Worker.Series)}");
-
         }
     }
 }

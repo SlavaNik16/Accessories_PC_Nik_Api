@@ -13,7 +13,8 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
         /// <summary>
         /// Инициализирую <see cref="EditWorkerRequestValidator"/>
         /// </summary>
-        public EditWorkerRequestValidator(IClientsReadRepository clientsReadRepository)
+        public EditWorkerRequestValidator(IClientsReadRepository clientsReadRepository, 
+            IWorkersReadRepository workersReadRepository)
         {
 
             RuleFor(x => x.Id)
@@ -26,7 +27,13 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
                .NotEmpty()
                .WithMessage("Номер не должен быть пустым или null")
                .MaximumLength(10)
-               .WithMessage("Номер не может быть больше 10 символов");
+               .WithMessage("Номер не может быть больше 10 символов")
+               .MustAsync(async (number, CancellationToken) =>
+               {
+                   var workerExists = await workersReadRepository.AnyByNumberAsync(number, CancellationToken);
+                   return workerExists;
+               })
+                .WithMessage("Номер должен быть уникальным!");
 
             RuleFor(x => x.Series)
                 .NotNull()

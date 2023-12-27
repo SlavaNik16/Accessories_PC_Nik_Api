@@ -1,4 +1,5 @@
 ﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
+using Accessories_PC_Nik.Context.Configuration.Anchor;
 using Accessories_PC_Nik.Context.Contracts.Interface;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,12 @@ namespace Accessories_PC_Nik.Context
 
         public AccessoriesContext(DbContextOptions<AccessoriesContext> options)
             : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IContextConfigurationAnchor).Assembly);
+        }
 
         IQueryable<TEntity> IDbRead.Read<TEntity>()
             => base.Set<TEntity>()

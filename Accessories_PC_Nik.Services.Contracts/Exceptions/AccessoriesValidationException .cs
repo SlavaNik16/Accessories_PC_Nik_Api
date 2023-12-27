@@ -5,7 +5,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Exceptions
     /// <summary>
     /// Ошибки валидации
     /// </summary>
-    public class TimeTableValidationException : AccessoriesException
+    public class AccessoriesValidationException : AccessoriesException
     {
         /// <summary>
         /// Ошибки
@@ -13,9 +13,9 @@ namespace Accessories_PC_Nik.Services.Contracts.Exceptions
         public IEnumerable<InvalidateItemModel> Errors { get; }
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="AdministrationValidationException"/>
+        /// Инициализирует новый экземпляр <see cref="AccessoriesValidationException"/>
         /// </summary>
-        public TimeTableValidationException(IEnumerable<InvalidateItemModel> errors)
+        public AccessoriesValidationException(IEnumerable<InvalidateItemModel> errors)
         {
             Errors = errors;
         }

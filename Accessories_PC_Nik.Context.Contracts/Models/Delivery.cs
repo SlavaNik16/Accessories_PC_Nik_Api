@@ -9,17 +9,17 @@
         /// <summary>
         /// Откуда привезти
         /// </summary>
-        public DateTimeOffset From { get; set; }
+        public string From { get; set; }
 
         /// <summary>
         /// Куда привезти
         /// </summary>
-        public DateTimeOffset To { get; set; }
+        public string To { get; set; }
 
         /// <summary>
         /// Стоимость доставки
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0;
 
         /// <summary>
         /// навигация для связи 1 ко многим
