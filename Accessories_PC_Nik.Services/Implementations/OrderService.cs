@@ -44,7 +44,7 @@ namespace Accessories_PC_Nik.Services.Implementations
         {
             var orders = await orderReadRepository.GetAllAsync(cancellationToken);
 
-            var servicesId = orders.Where(x=>x.ServiceId!.HasValue).Select(x => x.ServiceId!.Value).Distinct();
+            var servicesId = orders.Where(x => x.ServiceId!.HasValue).Select(x => x.ServiceId!.Value).Distinct();
             var componentsId = orders.Where(x => x.ComponentId!.HasValue).Select(x => x.ComponentId!.Value).Distinct();
             var deliveriesId = orders.Where(x => x.DeliveryId!.HasValue).Select(x => x.DeliveryId!.Value).Distinct();
             var clientsId = orders.Select(x => x.ClientId).Distinct();
@@ -136,7 +136,7 @@ namespace Accessories_PC_Nik.Services.Implementations
 
             };
 
-            if(item.ComponentId == Guid.Empty && item.ServiceId == Guid.Empty)
+            if (item.ComponentId == Guid.Empty && item.ServiceId == Guid.Empty)
             {
                 throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
             }

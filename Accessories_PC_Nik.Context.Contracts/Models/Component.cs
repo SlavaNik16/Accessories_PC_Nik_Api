@@ -6,7 +6,7 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
     /// Комплектующие ПК
     /// </summary>
     public class Component : BaseAuditEntity
-    { 
+    {
         /// <summary>
         /// Название
         /// </summary>

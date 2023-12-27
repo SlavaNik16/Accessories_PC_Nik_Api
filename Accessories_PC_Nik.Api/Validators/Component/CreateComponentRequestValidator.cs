@@ -1,5 +1,4 @@
 ﻿using Accessories_PC_Nik.Api.ModelsRequest.Component;
-using Accessories_PC_Nik.Repositories.Implementations;
 using FluentValidation;
 
 namespace Accessories_PC_Nik.Api.Validators.Component
