@@ -19,17 +19,17 @@ namespace Accessories_PC_Nik.Repositories.Implementations
         Task<bool> IClientsReadRepository.AnyByIdAsync(Guid id, CancellationToken cancellationToken)
             => reader.Read<Client>()
                 .NotDeletedAt()
-                .AnyAsync(x => x.Id == id);
+                .AnyAsync(x => x.Id == id, cancellationToken);
 
         Task<bool> IClientsReadRepository.AnyByPhoneAsync(string phone, CancellationToken cancellationToken)
           => reader.Read<Client>()
               .NotDeletedAt()
-              .AnyAsync(x => x.Phone == phone);
+              .AnyAsync(x => x.Phone == phone, cancellationToken);
 
         Task<bool> IClientsReadRepository.AnyByEmailAsync(string email, CancellationToken cancellationToken)
           => reader.Read<Client>()
               .NotDeletedAt()
-              .AnyAsync(x => x.Email == email);
+              .AnyAsync(x => x.Email == email, cancellationToken);
 
         Task<IReadOnlyCollection<Client>> IClientsReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Client>()
@@ -49,6 +49,6 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .NotDeletedAt()
                 .ByIds(ids)
                 .OrderBy(x => x.Name)
-                .ToDictionaryAsync(key => key.Id);
+                .ToDictionaryAsync(key => key.Id, cancellationToken);
     }
 }

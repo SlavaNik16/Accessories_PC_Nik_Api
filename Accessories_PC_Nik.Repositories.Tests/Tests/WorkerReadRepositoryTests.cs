@@ -90,5 +90,42 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
                 .NotBeNull()
                 .And.BeEquivalentTo(target);
         }
+
+        /// <summary>
+        /// Получение ответа, существует ли такой номер - не существует
+        /// </summary>
+        [Fact]
+        public async Task AnyByNumberWorkerFalse()
+        {
+            //Arrange
+            var target = TestDataGenerator.Worker();
+
+            // Act
+            var result = await workersReadRepository.AnyByNumberAsync(target.Number, CancellationToken);
+
+            // Assert
+            result.Should()
+                .BeFalse();
+        }
+
+        /// <summary>
+        /// Получение ответа, существует ли такой номер - существует
+        /// </summary>
+        [Fact]
+        public async Task AnyByNumberWorkerTrue()
+        {
+            //Arrange
+            var target = TestDataGenerator.Worker();
+            await Context.Workers.AddAsync(target);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await workersReadRepository.AnyByNumberAsync(target.Number, CancellationToken);
+
+            // Assert
+            result.Should()
+                .BeTrue();
+        }
     }
+
 }

@@ -38,7 +38,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .NotDeletedAt()
                 .ByIds(ids)
                 .OrderBy(x => x.MaterialType)
-                .ToDictionaryAsync(key => key.Id);
+                .ToDictionaryAsync(key => key.Id, cancellationToken);
 
     }
 }

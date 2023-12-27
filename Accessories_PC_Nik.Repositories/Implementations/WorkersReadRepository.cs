@@ -16,6 +16,11 @@ namespace Accessories_PC_Nik.Repositories.Implementations
             this.reader = reader;
         }
 
+        Task<bool> IWorkersReadRepository.AnyByNumberAsync(string number, CancellationToken cancellationToken)
+            => reader.Read<Worker>()
+                .NotDeletedAt()
+                .AnyAsync(x => x.Number == number, cancellationToken);
+
         Task<IReadOnlyCollection<Worker>> IWorkersReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Worker>()
                 .NotDeletedAt()

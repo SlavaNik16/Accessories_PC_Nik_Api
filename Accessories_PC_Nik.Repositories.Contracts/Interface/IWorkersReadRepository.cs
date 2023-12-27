@@ -15,5 +15,10 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         /// Получить <see cref="Worker"/> по идентификатору
         /// </summary>
         Task<Worker?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получить ответ, используется ли этот номер
+        /// </summary>
+        Task<bool> AnyByNumberAsync(string number, CancellationToken cancellationToken);
     }
 }
