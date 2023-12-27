@@ -20,12 +20,11 @@ namespace Accessories_PC_Nik.Context.Configuration.TypeConfiguration
             builder.Property(x => x.AccessLevel).IsRequired();
             builder.Property(x => x.ClientId).IsRequired();
 
-            builder.HasIndex(x => new { x.Number, x.Series })
+            builder.HasIndex(x => x.Number)
                 .IsUnique()
                 .HasFilter($"{nameof(Worker.DeletedAt)} is null")
                 .HasDatabaseName($"IX_{nameof(Worker)}_" +
-                             $"{nameof(Worker.Number)}_" +
-                             $"{nameof(Worker.Series)}");
+                             $"{nameof(Worker.Number)}");
         }
     }
 }

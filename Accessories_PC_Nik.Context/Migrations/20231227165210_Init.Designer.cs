@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accessories_PC_Nik.Context.Migrations
 {
     [DbContext(typeof(AccessoriesContext))]
-    [Migration("20231226181032_ChangeFromToDelivery")]
-    partial class ChangeFromToDelivery
+    [Migration("20231227165210_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,8 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
@@ -51,11 +52,17 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AccessKeys");
+                    b.HasIndex("Types")
+                        .IsUnique()
+                        .HasDatabaseName("IX_AccessKey_Id")
+                        .HasFilter("DeletedAt is null");
+
+                    b.ToTable("TAccessKey", (string)null);
                 });
 
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Client", b =>
@@ -72,40 +79,56 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Patronymic")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Client_Email")
+                        .HasFilter("DeletedAt is null");
+
+                    b.HasIndex("Phone")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Client_Phone")
+                        .HasFilter("DeletedAt is null");
+
+                    b.ToTable("TClient", (string)null);
                 });
 
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Component", b =>
@@ -122,20 +145,23 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<int>("MaterialType")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -148,11 +174,20 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Components");
+                    b.HasIndex("MaterialType")
+                        .HasDatabaseName("IX_Component_MaterialType_Id")
+                        .HasFilter("DeletedAt is null");
+
+                    b.HasIndex("TypeComponents")
+                        .HasDatabaseName("IX_Component_TypeComponents_Id")
+                        .HasFilter("DeletedAt is null");
+
+                    b.ToTable("TComponent", (string)null);
                 });
 
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Delivery", b =>
@@ -166,14 +201,15 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("From")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -187,11 +223,16 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Deliveries");
+                    b.HasIndex("From")
+                        .HasDatabaseName("IX_Delivery_From")
+                        .HasFilter("DeletedAt is null");
+
+                    b.ToTable("TDelivery", (string)null);
                 });
 
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Order", b =>
@@ -214,7 +255,8 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
@@ -233,7 +275,8 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -243,9 +286,13 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.HasIndex("DeliveryId");
 
+                    b.HasIndex("OrderTime")
+                        .HasDatabaseName("IX_Order_OrderTime_Id")
+                        .HasFilter("DeletedAt is null");
+
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("TOrder", (string)null);
                 });
 
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Service", b =>
@@ -259,20 +306,23 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<float>("Duration")
                         .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -282,11 +332,17 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services");
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Service_Name")
+                        .HasFilter("DeletedAt is null");
+
+                    b.ToTable("TService", (string)null);
                 });
 
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Worker", b =>
@@ -306,7 +362,8 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
@@ -319,28 +376,37 @@ namespace Accessories_PC_Nik.Context.Migrations
 
                     b.Property<string>("IssuedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Series")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Workers");
+                    b.HasIndex("Number")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Worker_Number")
+                        .HasFilter("DeletedAt is null");
+
+                    b.ToTable("TWorker", (string)null);
                 });
 
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Order", b =>
