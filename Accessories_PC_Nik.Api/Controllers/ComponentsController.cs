@@ -37,7 +37,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает список всех компонентов
         /// </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ComponentsResponse>), StatusCodes.Status200OK)]
+        [ApiOk(typeof(IEnumerable<ComponentsResponse>))]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await componentsService.GetAllAsync(cancellationToken);
@@ -48,8 +48,8 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает компонент по Id
         /// </summary>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ComponentsResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiOk(typeof(ComponentsResponse))]
+        [ApiNotFound]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await componentsService.GetByIdAsync(id, cancellationToken);

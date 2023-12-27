@@ -15,7 +15,7 @@ namespace Accessories_PC_Nik.Api.Controllers
     [ApiController]
     [Route("[controller]")]
     [ApiExplorerSettings(GroupName = "Workers")]
-    public class WorkersController : Controller
+    public class WorkersController : ControllerBase
     {
         private readonly IWorkersService workersService;
         private readonly IApiValidatorService validatorService;
@@ -38,7 +38,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает список всех работников
         /// </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<WorkersResponse>), StatusCodes.Status200OK)]
+        [ApiOk(typeof(IEnumerable<WorkersResponse>))]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await workersService.GetAllAsync(cancellationToken);
@@ -49,8 +49,8 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает работника по Id
         /// </summary>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(WorkersResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiOk(typeof(WorkersResponse))]
+        [ApiNotFound]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await workersService.GetByIdAsync(id, cancellationToken);

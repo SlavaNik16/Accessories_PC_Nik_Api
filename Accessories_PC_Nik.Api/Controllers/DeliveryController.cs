@@ -37,7 +37,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает список всех доставок
         /// </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<DeliveryResponse>), StatusCodes.Status200OK)]
+        [ApiOk(typeof(IEnumerable<DeliveryResponse>))]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await deliveryService.GetAllAsync(cancellationToken);
@@ -48,8 +48,8 @@ namespace Accessories_PC_Nik.Api.Controllers
         /// Получает доставку по Id
         /// </summary>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(DeliveryResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiOk(typeof(DeliveryResponse))]
+        [ApiNotFound]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await deliveryService.GetByIdAsync(id, cancellationToken);
