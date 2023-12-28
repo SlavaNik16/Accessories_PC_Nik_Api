@@ -1,4 +1,5 @@
-﻿using Accessories_PC_Nik.Context.Tests;
+﻿using Accessories_PC_Nik.Context.Contracts.Enums;
+using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
 using FluentAssertions;
@@ -89,6 +90,43 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
             result.Should()
                 .NotBeNull()
                 .And.BeEquivalentTo(target);
+        }
+
+        /// <summary>
+        /// Получить <see cref="AccessLevelTypes"/> по идентификатору ключа - отсутствие
+        /// </summary>
+        [Fact]
+        public async Task GetAccessLevelByKeyEmpty()
+        {
+            //Arrange
+            var target = TestDataGenerator.AccessKey();
+
+            // Act
+            var result = await accessKeyReadRepository.GetAccessLevelByKeyAsync(target.Key, CancellationToken);
+
+            // Assert
+            result.Should()
+                .BeNull();
+        }
+
+        /// <summary>
+        /// Получить <see cref="AccessLevelTypes"/> по идентификатору ключа - нахождение
+        /// </summary>
+        [Fact]
+        public async Task GetAccessLevelByKeyValue()
+        {
+            //Arrange
+            var target = TestDataGenerator.AccessKey();
+            await Context.AccessKeys.AddAsync(target);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await accessKeyReadRepository.GetAccessLevelByKeyAsync(target.Key, CancellationToken);
+
+            // Assert
+            result.Should()
+                .NotBeNull();
+
         }
     }
 }
