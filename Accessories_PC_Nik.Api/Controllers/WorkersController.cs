@@ -6,6 +6,7 @@ using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Accessories_PC_Nik.Api.Controllers
 {
@@ -88,6 +89,19 @@ namespace Accessories_PC_Nik.Api.Controllers
 
             var model = mapper.Map<WorkerRequestModel>(request);
             var result = await workersService.EditAsync(model, cancellationToken);
+            return Ok(mapper.Map<WorkersResponse>(result));
+        }
+
+        /// <summary>
+        /// Редактирует существующего работника по ключу доступа
+        /// </summary>
+        [HttpPut("{id}")]
+        [ApiOk(typeof(WorkersResponse))]
+        [ApiNotFound]
+        [ApiConflict]
+        public async Task<IActionResult> EditAccessKey(Guid id, [Required] Guid key, CancellationToken cancellationToken)
+        {
+            var result = await workersService.EditAccessKeyAsync(id, key, cancellationToken);
             return Ok(mapper.Map<WorkersResponse>(result));
         }
 

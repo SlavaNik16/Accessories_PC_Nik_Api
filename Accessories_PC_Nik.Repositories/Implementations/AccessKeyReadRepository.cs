@@ -1,5 +1,6 @@
 ﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
 using Accessories_PC_Nik.Common.Entity.Repositories;
+using Accessories_PC_Nik.Context.Contracts.Enums;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Anchors;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
@@ -28,5 +29,14 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
 
+        async Task<AccessLevelTypes?> IAccessKeyReadRepository.GetAccessLevelByKeyAsync(Guid key, CancellationToken cancellationToken)
+        {
+            var accessKey = await reader.Read<AccessKey>()
+                .NotDeletedAt()
+                .FirstOrDefaultAsync(x => x.Key == key, cancellationToken);
+            if (accessKey == null) return null;
+
+            return accessKey.Types;
+        }
     }
 }

@@ -15,18 +15,21 @@ namespace Accessories_PC_Nik.Services.Implementations
         private readonly IWorkersReadRepository workersReadRepository;
         private readonly IClientsReadRepository clientsReadRepository;
         private readonly IWorkersWriteRepository workersWriteRepository;
+        private readonly IAccessKeyReadRepository accessKeyReadRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public WorkersService(IWorkersReadRepository workersReadRepository,
             IWorkersWriteRepository workersWriteRepository,
             IClientsReadRepository clientsReadRepository,
+            IAccessKeyReadRepository accessKeyReadRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             this.workersReadRepository = workersReadRepository;
             this.workersWriteRepository = workersWriteRepository;
             this.clientsReadRepository = clientsReadRepository;
+            this.accessKeyReadRepository = accessKeyReadRepository;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
@@ -84,6 +87,26 @@ namespace Accessories_PC_Nik.Services.Implementations
             workersWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<WorkerModel>(item);
+        }
+
+        async Task<WorkerModel> IWorkersService.EditAccessKeyAsync(Guid id, Guid key, CancellationToken cancellationToken)
+        {
+            var targetWorker = await workersReadRepository.GetByIdAsync(id, cancellationToken);
+            if (targetWorker == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Client>(id);
+            }
+
+            var targetAccessLevel = await  accessKeyReadRepository.GetAccessLevelByKeyAsync(key, cancellationToken);
+            if(targetAccessLevel == null)
+            {
+                throw new AccessoriesInvalidOperationException($"Такого ключа нет в наличии!");
+            }
+            targetWorker.AccessLevel = targetAccessLevel.Value;
+
+            workersWriteRepository.Update(targetWorker);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+            return mapper.Map<WorkerModel>(targetWorker);
         }
 
         async Task<WorkerModel> IWorkersService.EditAsync(WorkerRequestModel source, CancellationToken cancellationToken)
