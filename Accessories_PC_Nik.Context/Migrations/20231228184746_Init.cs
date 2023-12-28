@@ -9,24 +9,6 @@ namespace Accessories_PC_Nik.Context.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "TAccessKey",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Key = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Types = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TAccessKey", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TClient",
                 columns: table => new
                 {
@@ -181,12 +163,41 @@ namespace Accessories_PC_Nik.Context.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TAccessKey",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Key = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Types = table.Column<int>(type: "int", nullable: false),
+                    WorkerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TAccessKey", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TAccessKey_TWorker_WorkerId",
+                        column: x => x.WorkerId,
+                        principalTable: "TWorker",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AccessKey_Id",
                 table: "TAccessKey",
                 column: "Types",
-                unique: true,
                 filter: "DeletedAt is null");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TAccessKey_WorkerId",
+                table: "TAccessKey",
+                column: "WorkerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Client_Email",

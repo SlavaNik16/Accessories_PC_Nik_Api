@@ -65,10 +65,22 @@ namespace Accessories_PC_Nik.Services.Implementations
                 throw new AccessoriesEntityNotFoundException<Client>(source.Id);
             }
 
+            var isNameExists = await servicesReadRepository.AnyByNameAsync(source.Name, cancellationToken);
+            if (isNameExists)
+            {
+                var isNameIsIdExists = await servicesReadRepository.AnyByNameIsIdAsync(source.Name, source.Id, cancellationToken);
+                if (!isNameIsIdExists)
+                {
+                    throw new AccessoriesInvalidOperationException($"Данное имя должно уникально при изменение с другими услугами!");
+                }
+            }
+
             targetService.Name = source.Name;
             targetService.Description = source.Description;
             targetService.Duration = source.Duration;
             targetService.Price = source.Price;
+
+
 
             servicesWriteRepository.Update(targetService);
             await unitOfWork.SaveChangesAsync(cancellationToken);

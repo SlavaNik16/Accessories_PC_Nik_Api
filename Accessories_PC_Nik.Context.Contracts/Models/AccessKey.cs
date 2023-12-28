@@ -16,5 +16,12 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// Тип получения уровня доступа при данном ключе <see cref="Key"/>
         /// </summary>
         public AccessLevelTypes Types { get; set; }
+
+        /// <summary>
+        /// Какой работник создает ключ доступа
+        /// </summary>
+        public Guid WorkerId { get; set; }
+
+        public Worker Worker { get; set; }
     }
 }

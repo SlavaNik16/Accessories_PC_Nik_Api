@@ -136,7 +136,7 @@ namespace Accessories_PC_Nik.Services.Implementations
 
             };
 
-            if (item.ComponentId == Guid.Empty && item.ServiceId == Guid.Empty)
+            if (item.ComponentId == null && item.ServiceId == null)
             {
                 throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
             }
@@ -157,26 +157,37 @@ namespace Accessories_PC_Nik.Services.Implementations
             targetOrder.OrderTime = source.OrderTime;
             targetOrder.Comment = source.Comment;
 
+            if (source.ComponentId == null && source.ServiceId == null)
+            {
+                throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
+            }
+
             var client = await clientsReadRepository.GetByIdAsync(source.ClientId, cancellationToken);
             targetOrder.ClientId = client!.Id;
             targetOrder.Client = client;
 
-            var service = await servicesReadRepository.GetByIdAsync(source.ServiceId!.Value, cancellationToken);
-            targetOrder.ServiceId = service!.Id;
-            targetOrder.Service = service;
-
-            var component = await componentsReadRepository.GetByIdAsync(source.ComponentId!.Value, cancellationToken);
-            targetOrder.ComponentId = component!.Id;
-            targetOrder.Component = component;
-
-            var delivery = await deliveryReadRepository.GetByIdAsync(source.DeliveryId!.Value, cancellationToken);
-            targetOrder.DeliveryId = delivery!.Id;
-            targetOrder.Delivery = delivery;
-
-            if (targetOrder.ComponentId == Guid.Empty && targetOrder.ServiceId == Guid.Empty)
+            if (source.ServiceId.HasValue)
             {
-                throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
+                var service = await servicesReadRepository.GetByIdAsync(source.ServiceId.Value, cancellationToken);
+                targetOrder.ServiceId = service!.Id;
+                targetOrder.Service = service;
             }
+
+            if (source.ComponentId.HasValue)
+            {
+                var component = await componentsReadRepository.GetByIdAsync(source.ComponentId.Value, cancellationToken);
+                targetOrder.ComponentId = component!.Id;
+                targetOrder.Component = component;
+            }
+
+            if (source.DeliveryId.HasValue)
+            {
+                var delivery = await deliveryReadRepository.GetByIdAsync(source.DeliveryId.Value, cancellationToken);
+                targetOrder.DeliveryId = delivery!.Id;
+                targetOrder.Delivery = delivery;
+            }
+
+
 
             orderWriteRepository.Update(targetOrder);
             await unitOfWork.SaveChangesAsync(cancellationToken);

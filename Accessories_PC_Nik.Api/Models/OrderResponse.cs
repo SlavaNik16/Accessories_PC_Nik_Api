@@ -27,9 +27,24 @@ namespace Accessories_PC_Nik.Api.Models
         public string NameService { get; set; }
 
         /// <summary>
+        /// Продолжительность услуги (возможно в часах)
+        /// </summary>
+        public float Duration { get; set; }
+
+        /// <summary>
+        /// Стоимость услуги
+        /// </summary>
+        public decimal PriceService { get; set; }
+
+        /// <summary>
         /// Тип Компонента
         /// </summary>
         public string TypeComponents { get; set; }
+
+        /// <summary>
+        /// Стоимость компонента
+        /// </summary>
+        public decimal PriceComponent { get; set; }
 
         /// <summary>
         /// Кол-во товара
@@ -43,17 +58,17 @@ namespace Accessories_PC_Nik.Api.Models
         /// <summary>
         /// Откуда привезти
         /// </summary>
-        public DateTimeOffset From { get; set; }
+        public string From { get; set; }
 
         /// <summary>
         /// Куда привезти
         /// </summary>
-        public DateTimeOffset To { get; set; }
+        public string To { get; set; }
 
         /// <summary>
         /// Стоимость доставки
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal PriceDelivery { get; set; }
 
         /// <summary>
         /// Комментарий к заказу

@@ -13,7 +13,7 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
         /// <summary>
         /// Инициализирую <see cref="EditWorkerRequestValidator"/>
         /// </summary>
-        public EditWorkerRequestValidator(IClientsReadRepository clientsReadRepository, 
+        public EditWorkerRequestValidator(IClientsReadRepository clientsReadRepository,
             IWorkersReadRepository workersReadRepository)
         {
 

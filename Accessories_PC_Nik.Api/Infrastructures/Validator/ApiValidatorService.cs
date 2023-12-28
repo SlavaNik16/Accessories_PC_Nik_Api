@@ -22,8 +22,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
               IServicesReadRepository servicesReadRepository,
               IDeliveryReadRepository deliveryReadRepository)
         {
-            Register<CreateAccessKeyRequestValidator>();
-            Register<EditAccessKeyRequestValidator>();
+            Register<CreateAccessKeyRequestValidator>(workersReadRepository);
 
             Register<CreateClientRequestValidator>(clientReadRepository);
             Register<EditClientRequestValidator>(clientReadRepository);

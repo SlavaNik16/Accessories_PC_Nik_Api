@@ -25,14 +25,7 @@ namespace Accessories_PC_Nik.Api.Validators.Service
                 .NotEmpty()
                 .WithMessage("Имя не должно быть пустым или null")
                 .MaximumLength(200)
-                .WithMessage("Слишком больше имя. Оно должно быть не более 200 символов!")
-                .MustAsync(async (name, cancellationToken) =>
-                {
-                    var isNameExists = await servicesReadRepository.AnyByNameAsync(name, cancellationToken);
-                    return !isNameExists;
-                })
-                .WithMessage("Имя должно быть уникальным!");
-
+                .WithMessage("Слишком больше имя. Оно должно быть не более 200 символов!");
 
             RuleFor(x => x.Description)
                 .MaximumLength(300)

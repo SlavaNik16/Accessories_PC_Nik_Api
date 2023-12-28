@@ -21,6 +21,11 @@
         public string Phone { get; set; }
 
         /// <summary>
+        /// Почта
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
         /// Баланс
         /// </summary>
         public decimal Balance { get; set; } = 0;

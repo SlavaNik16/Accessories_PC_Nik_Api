@@ -1,8 +1,9 @@
 ﻿using Accessories_PC_Nik.Api.Attribute;
 using Accessories_PC_Nik.Api.Infrastructures.Validator;
 using Accessories_PC_Nik.Api.Models;
-using Accessories_PC_Nik.Context.Contracts.Enums;
+using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
 using Accessories_PC_Nik.Services.Contracts.Interface;
+using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,12 +63,12 @@ namespace Accessories_PC_Nik.Api.Controllers
         [HttpPost]
         [ApiOk(typeof(AccessKeyResponse))]
         [ApiConflict]
-        public async Task<IActionResult> Create(AccessLevelTypes request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(CreateAccessKeyRequest request, CancellationToken cancellationToken)
         {
-            //await validatorService.ValidateAsync(request, cancellationToken);
+            await validatorService.ValidateAsync(request, cancellationToken);
 
-            //var accessKeyRequestModel = mapper.Map<AccessKeyRequestModel>(request);
-            var result = await accessKeyService.AddAsync(request, cancellationToken);
+            var accessKeyRequestModel = mapper.Map<AccessKeyRequestModel>(request);
+            var result = await accessKeyService.AddAsync(accessKeyRequestModel, cancellationToken);
             return Ok(mapper.Map<AccessKeyResponse>(result));
         }
 

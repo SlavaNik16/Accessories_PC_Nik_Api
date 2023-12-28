@@ -1,4 +1,4 @@
-﻿using Accessories_PC_Nik.Services.Contracts.Enums;
+﻿using Accessories_PC_Nik.Context.Contracts.Enums;
 
 namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
 {
@@ -10,8 +10,13 @@ namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Тип получения уровня доступа при данном ключе <see cref="Key"/>
+        /// Тип получения уровня доступа при данном ключе
         /// </summary>
-        public AccessLevelTypesModel Types { get; set; }
+        public AccessLevelTypes Types { get; set; }
+
+        /// <summary>
+        /// Какой работник создает ключ доступа
+        /// </summary>
+        public Guid WorkerId { get; set; }
     }
 }
