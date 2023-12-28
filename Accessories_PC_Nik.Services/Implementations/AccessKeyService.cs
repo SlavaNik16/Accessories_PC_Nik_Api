@@ -1,5 +1,4 @@
 ﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
-using Accessories_PC_Nik.Context.Contracts.Enums;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Services.Anchors;
@@ -16,17 +15,20 @@ namespace Accessories_PC_Nik.Services.Implementations
         private readonly IAccessKeyReadRepository accessKeyReadRepository;
         private readonly IAccessKeyWriteRepository accessKeyWriteRepository;
         private readonly IWorkersReadRepository workersReadRepository;
+        private readonly IClientsReadRepository clientsReadRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         public AccessKeyService(IAccessKeyReadRepository accessKeyReadRepository,
             IAccessKeyWriteRepository accessKeyWriteRepository,
             IWorkersReadRepository workersReadRepository,
+            IClientsReadRepository clientsReadRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             this.accessKeyReadRepository = accessKeyReadRepository;
             this.accessKeyWriteRepository = accessKeyWriteRepository;
             this.workersReadRepository = workersReadRepository;
+            this.clientsReadRepository = clientsReadRepository;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
@@ -36,15 +38,39 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<IEnumerable<AccessKeyModel>> IAccessKeyService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await accessKeyReadRepository.GetAllAsync(cancellationToken);
-            return mapper.Map<IEnumerable<AccessKeyModel>>(result);
+
+            var workersId = result.Select(x => x.WorkerId).Distinct();
+
+            var workers = await workersReadRepository.GetByIdsAsync(workersId, cancellationToken);
+
+            var listAccessKey = new List<AccessKeyModel>();
+
+            foreach (var accessKey in result)
+            {
+                var access = mapper.Map<AccessKeyModel>(accessKey);
+
+                if (workers.TryGetValue(accessKey.WorkerId, out var worker))
+                {
+                    access.Worker = mapper.Map<WorkerModel>(worker);
+                    var client = await clientsReadRepository.GetByIdAsync(worker.ClientId, cancellationToken);
+                    if (client == null) continue;
+                    access.WorkerClient = mapper.Map<ClientModel>(client);
+                }
+                listAccessKey.Add(access);
+            }
+            return listAccessKey;
         }
 
         async Task<AccessKeyModel?> IAccessKeyService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await accessKeyReadRepository.GetByIdAsync(id, cancellationToken);
             if (item == null) return null;
-
-            return mapper.Map<AccessKeyModel>(item);
+            var worker = await workersReadRepository.GetByIdAsync(item.WorkerId, cancellationToken);
+            var client = await clientsReadRepository.GetByIdAsync(worker!.ClientId, cancellationToken);
+            var accessKeyModel = mapper.Map<AccessKeyModel>(item);
+            accessKeyModel.Worker = mapper.Map<WorkerModel>(worker);
+            accessKeyModel.WorkerClient = mapper.Map<ClientModel>(client);
+            return accessKeyModel;
         }
         async Task<AccessKeyModel> IAccessKeyService.AddAsync(AccessKeyRequestModel source, CancellationToken cancellationToken)
         {
@@ -62,9 +88,19 @@ namespace Accessories_PC_Nik.Services.Implementations
                 throw new AccessoriesInvalidOperationException($"Данный сотрудник не обладает правами, создавать ключ: c таким же уровнем или выше своего уровня доступа");
             }
 
+            var worker = await workersReadRepository.GetByIdAsync(source.WorkerId,cancellationToken);
+            if(worker == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Worker>(source.WorkerId);
+            }
+            var client = await clientsReadRepository.GetByIdAsync(worker.ClientId, cancellationToken);
+            
             accessKeyWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
-            return mapper.Map<AccessKeyModel>(item);
+            var accessKeyModel = mapper.Map<AccessKeyModel>(item);
+            accessKeyModel.Worker = mapper.Map<WorkerModel>(worker);
+            accessKeyModel.WorkerClient = mapper.Map<ClientModel>(client);
+            return accessKeyModel;
         }
 
         async Task IAccessKeyService.DeleteAsync(Guid id, CancellationToken cancellationToken)

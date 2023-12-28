@@ -18,6 +18,11 @@ namespace Accessories_PC_Nik.Repositories.Contracts.Interface
         Task<Worker?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Получить <see cref="Worker"/> по идентификаторам
+        /// </summary>
+        Task<Dictionary<Guid, Worker>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+
+        /// <summary>
         /// Получить ответ, существует ли такой работник
         /// </summary>
         Task<bool> AnyByIdAsync(Guid id, CancellationToken cancellationToken);

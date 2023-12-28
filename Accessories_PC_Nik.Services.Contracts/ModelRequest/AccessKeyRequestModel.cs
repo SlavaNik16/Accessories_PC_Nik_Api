@@ -10,7 +10,7 @@ namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Тип получения уровня доступа при данном ключе <see cref="Key"/>
+        /// Тип получения уровня доступа при данном ключе
         /// </summary>
         public AccessLevelTypes Types { get; set; }
 

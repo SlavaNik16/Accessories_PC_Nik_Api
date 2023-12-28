@@ -26,5 +26,10 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// Какой работник создает ключ доступа
         /// </summary>
         public WorkerModel Worker { get; set; }
+
+        /// <summary>
+        /// Данные работника
+        /// </summary>
+        public ClientModel WorkerClient { get; set; }
     }
 }

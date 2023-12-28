@@ -30,7 +30,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
         Task<bool> IWorkersReadRepository.AnyByWorkerWithTypeAsync(Guid id, AccessLevelTypes accessLevelTypes, CancellationToken cancellationToken)
             => reader.Read<Worker>()
                 .ById(id)
-                .AnyAsync(x => x.AccessLevel >= accessLevelTypes, cancellationToken);
+                .AnyAsync(x => x.AccessLevel > accessLevelTypes, cancellationToken);
 
         Task<IReadOnlyCollection<Worker>> IWorkersReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Worker>()
@@ -43,5 +43,12 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .NotDeletedAt()
                 .ById(id)
                 .FirstOrDefaultAsync(cancellationToken);
+
+        Task<Dictionary<Guid, Worker>> IWorkersReadRepository.GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+         => reader.Read<Worker>()
+             .NotDeletedAt()
+             .ByIds(ids)
+             .OrderBy(x => x.CreatedAt)
+             .ToDictionaryAsync(key => key.Id, cancellationToken);
     }
 }

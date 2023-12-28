@@ -53,12 +53,16 @@ namespace Accessories_PC_Nik.Context.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<Guid>("WorkerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Types")
-                        .IsUnique()
                         .HasDatabaseName("IX_AccessKey_Id")
                         .HasFilter("DeletedAt is null");
+
+                    b.HasIndex("WorkerId");
 
                     b.ToTable("TAccessKey", (string)null);
                 });
@@ -407,6 +411,17 @@ namespace Accessories_PC_Nik.Context.Migrations
                     b.ToTable("TWorker", (string)null);
                 });
 
+            modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.AccessKey", b =>
+                {
+                    b.HasOne("Accessories_PC_Nik.Context.Contracts.Models.Worker", "Worker")
+                        .WithMany("AccessKeys")
+                        .HasForeignKey("WorkerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Worker");
+                });
+
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Order", b =>
                 {
                     b.HasOne("Accessories_PC_Nik.Context.Contracts.Models.Client", "Client")
@@ -467,6 +482,11 @@ namespace Accessories_PC_Nik.Context.Migrations
             modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Service", b =>
                 {
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Accessories_PC_Nik.Context.Contracts.Models.Worker", b =>
+                {
+                    b.Navigation("AccessKeys");
                 });
 #pragma warning restore 612, 618
         }
