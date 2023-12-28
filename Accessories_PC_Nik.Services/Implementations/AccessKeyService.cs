@@ -88,13 +88,13 @@ namespace Accessories_PC_Nik.Services.Implementations
                 throw new AccessoriesInvalidOperationException($"Данный сотрудник не обладает правами, создавать ключ: c таким же уровнем или выше своего уровня доступа");
             }
 
-            var worker = await workersReadRepository.GetByIdAsync(source.WorkerId,cancellationToken);
-            if(worker == null)
+            var worker = await workersReadRepository.GetByIdAsync(source.WorkerId, cancellationToken);
+            if (worker == null)
             {
                 throw new AccessoriesEntityNotFoundException<Worker>(source.WorkerId);
             }
             var client = await clientsReadRepository.GetByIdAsync(worker.ClientId, cancellationToken);
-            
+
             accessKeyWriteRepository.Add(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             var accessKeyModel = mapper.Map<AccessKeyModel>(item);

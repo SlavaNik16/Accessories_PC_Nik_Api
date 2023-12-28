@@ -22,6 +22,6 @@ namespace Accessories_PC_Nik.Context.Contracts.Models
         /// </summary>
         public Guid WorkerId { get; set; }
 
-        public Worker Worker { get; set; }     
+        public Worker Worker { get; set; }
     }
 }

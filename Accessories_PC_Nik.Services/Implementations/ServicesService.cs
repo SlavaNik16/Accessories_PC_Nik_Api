@@ -80,7 +80,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             targetService.Duration = source.Duration;
             targetService.Price = source.Price;
 
-            
+
 
             servicesWriteRepository.Update(targetService);
             await unitOfWork.SaveChangesAsync(cancellationToken);

@@ -42,7 +42,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures
             CreateMap<AccessKeyModel, AccessKeyResponse>(MemberList.Destination)
                  .ForMember(x => x.Types, opt => opt.MapFrom(y => y.Types.GetDisplayName()))
                  .ForMember(x => x.FIO, opt => opt.MapFrom(y => y.WorkerClient != null ? $"{y.WorkerClient.Surname} {y.WorkerClient.Name} {y.WorkerClient.Patronymic ?? string.Empty}" : string.Empty))
-                 .ForMember(x => x.AccessLevel, opt => opt.MapFrom(y =>y.Worker.AccessLevel));
+                 .ForMember(x => x.AccessLevel, opt => opt.MapFrom(y => y.Worker.AccessLevel));
             CreateMap<CreateAccessKeyRequest, AccessKeyRequestModel>(MemberList.Destination);
 
             CreateMap<ClientModel, ClientsResponse>(MemberList.Destination)

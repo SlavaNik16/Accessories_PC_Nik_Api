@@ -216,7 +216,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByWorkerWithTypeFalse()
         {
             //Arrange
-            var target = TestDataGenerator.Worker(x=>x.AccessLevel = AccessLevelTypes.Assistant);
+            var target = TestDataGenerator.Worker(x => x.AccessLevel = AccessLevelTypes.Assistant);
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

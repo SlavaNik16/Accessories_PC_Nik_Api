@@ -2,7 +2,6 @@
 using Accessories_PC_Nik.Api.Infrastructures.Validator;
 using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
-using Accessories_PC_Nik.Context.Contracts.Enums;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Contracts.ModelRequest;
 using AutoMapper;

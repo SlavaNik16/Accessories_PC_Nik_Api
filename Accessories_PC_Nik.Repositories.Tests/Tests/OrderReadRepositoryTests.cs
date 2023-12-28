@@ -90,6 +90,6 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
                 .NotBeNull()
                 .And.BeEquivalentTo(target);
         }
-       
+
     }
 }

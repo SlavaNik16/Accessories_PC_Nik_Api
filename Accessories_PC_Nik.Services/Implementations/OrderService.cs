@@ -187,7 +187,7 @@ namespace Accessories_PC_Nik.Services.Implementations
                 targetOrder.Delivery = delivery;
             }
 
-          
+
 
             orderWriteRepository.Update(targetOrder);
             await unitOfWork.SaveChangesAsync(cancellationToken);

@@ -237,7 +237,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await servicesReadRepository.AnyByNameIsIdAsync(target.Name, target.Id,  CancellationToken);
+            var result = await servicesReadRepository.AnyByNameIsIdAsync(target.Name, target.Id, CancellationToken);
 
             // Assert
             result.Should()
