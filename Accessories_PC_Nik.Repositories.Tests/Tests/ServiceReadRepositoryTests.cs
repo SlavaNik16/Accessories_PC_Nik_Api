@@ -207,5 +207,41 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
             result.Should()
                 .BeTrue();
         }
+
+        /// <summary>
+        /// Получить ответ, изменяем ли мы имя, совпадающее по такому id в бд - не изменяем
+        /// </summary>
+        [Fact]
+        public async Task AnyByNameIsIdServiceFalse()
+        {
+            //Arrange
+            var target = TestDataGenerator.Service();
+
+            // Act
+            var result = await servicesReadRepository.AnyByNameIsIdAsync(target.Name, target.Id, CancellationToken);
+
+            // Assert
+            result.Should()
+                .BeFalse();
+        }
+
+        /// <summary>
+        /// Получить ответ, изменяем ли мы имя, совпадающее по такому id в бд - изменяем
+        /// </summary>
+        [Fact]
+        public async Task AnyByNameIsIdServiceTrue()
+        {
+            //Arrange
+            var target = TestDataGenerator.Service();
+            await Context.Services.AddAsync(target);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await servicesReadRepository.AnyByNameIsIdAsync(target.Name, target.Id,  CancellationToken);
+
+            // Assert
+            result.Should()
+                .BeTrue();
+        }
     }
 }

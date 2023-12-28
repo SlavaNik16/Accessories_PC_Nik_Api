@@ -29,6 +29,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
 
         Task<bool> IWorkersReadRepository.AnyByWorkerWithTypeAsync(Guid id, AccessLevelTypes accessLevelTypes, CancellationToken cancellationToken)
             => reader.Read<Worker>()
+                .NotDeletedAt()
                 .ById(id)
                 .AnyAsync(x => x.AccessLevel > accessLevelTypes, cancellationToken);
 
