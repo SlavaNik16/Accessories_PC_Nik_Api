@@ -22,4 +22,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Accessories_PC_Nik.Context.Tests\Accessories_PC_Nik.Context.Tests.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Repositories\Accessories_PC_Nik.Repositories.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Services\Accessories_PC_Nik.Services.csproj" />
+  </ItemGroup>
+
 </Project>

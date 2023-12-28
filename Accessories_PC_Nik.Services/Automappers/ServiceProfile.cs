@@ -33,10 +33,10 @@ namespace Accessories_PC_Nik.Services.Automappers
             CreateMap<Delivery, DeliveryModel>(MemberList.Destination);
 
             CreateMap<Order, OrderModel>(MemberList.Destination)
-                .ForMember(opt => opt.Services, next => next.Ignore())
-                .ForMember(opt => opt.Components, next => next.Ignore())
+                .ForMember(opt => opt.Service, next => next.Ignore())
+                .ForMember(opt => opt.Component, next => next.Ignore())
                 .ForMember(opt => opt.Delivery, next => next.Ignore())
-                .ForMember(opt => opt.Clients, next => next.Ignore());
+                .ForMember(opt => opt.Client, next => next.Ignore());
 
             CreateMap<Service, ServiceModel>(MemberList.Destination);
 

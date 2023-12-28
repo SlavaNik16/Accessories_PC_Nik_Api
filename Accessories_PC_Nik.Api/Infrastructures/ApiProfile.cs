@@ -65,17 +65,17 @@ namespace Accessories_PC_Nik.Api.Infrastructures
 
             CreateMap<OrderModel, OrderResponse>(MemberList.Destination)
                 .ForMember(x => x.NameService,
-                    opt => opt.MapFrom(y => y.Services != null ? y.Services.Name : string.Empty))
+                    opt => opt.MapFrom(y => y.Service != null ? y.Service.Name : string.Empty))
                 .ForMember(x => x.PriceService,
-                    opt => opt.MapFrom(y => y.Services != null ? y.Services.Price : 0))
+                    opt => opt.MapFrom(y => y.Service != null ? y.Service.Price : 0))
                 .ForMember(x => x.Duration,
-                    opt => opt.MapFrom(y => y.Services != null ? y.Services.Duration : 0))
+                    opt => opt.MapFrom(y => y.Service != null ? y.Service.Duration : 0))
                  .ForMember(x => x.PriceComponent,
-                    opt => opt.MapFrom(y => y.Components != null ? y.Components.Price : 0))
+                    opt => opt.MapFrom(y => y.Component != null ? y.Component.Price : 0))
                 .ForMember(x => x.TypeComponents,
-                    opt => opt.MapFrom(y => y.Components != null ? y.Components.TypeComponents.GetDisplayName() : string.Empty))
+                    opt => opt.MapFrom(y => y.Component != null ? y.Component.TypeComponents.GetDisplayName() : string.Empty))
                     .ForMember(x => x.Count,
-                    opt => opt.MapFrom(y => y.Components != null ? y.Components.Count : 0))
+                    opt => opt.MapFrom(y => y.Component != null ? y.Component.Count : 0))
                 .ForMember(x => x.PriceDelivery,
                     opt => opt.MapFrom(y => y.Delivery != null ? y.Delivery.Price : 0))
                 .ForMember(x => x.From,
@@ -83,9 +83,9 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 .ForMember(x => x.To,
                     opt => opt.MapFrom(y => y.Delivery != null ? y.Delivery.To : string.Empty))
                 .ForMember(x => x.FIO,
-                    opt => opt.MapFrom(y => $"{y.Clients.Surname} {y.Clients.Name} {y.Clients.Patronymic ?? string.Empty}"))
+                    opt => opt.MapFrom(y => $"{y.Client.Surname} {y.Client.Name} {y.Client.Patronymic ?? string.Empty}"))
                 .ForMember(x => x.Phone,
-                    opt => opt.MapFrom(y => y.Clients.Phone));
+                    opt => opt.MapFrom(y => y.Client.Phone));
             CreateMap<CreateOrderRequest, OrderRequestModel>(MemberList.Destination);
             CreateMap<EditOrderRequest, OrderRequestModel>(MemberList.Destination);
 

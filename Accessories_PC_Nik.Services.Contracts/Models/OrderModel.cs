@@ -14,22 +14,18 @@ namespace Accessories_PC_Nik.Services.Contracts.Models
         /// <summary>
         /// Номер пользователя товара
         /// </summary>
-        public ClientModel Clients { get; set; }
+        public ClientModel Client { get; set; }
 
         /// <summary>
         /// Выбранная услуга
         /// </summary>
-        public ServiceModel? Services { get; set; }
+        public ServiceModel? Service { get; set; }
 
         /// <summary>
         /// Выбранный товар 
         /// </summary>
-        public ComponentModel? Components { get; set; }
+        public ComponentModel? Component { get; set; }
 
-        /// <summary>
-        /// Кол-во товара
-        /// </summary>
-        public int Count { get; set; } = 0;
         /// <summary>
         /// Время заказа
         /// </summary>

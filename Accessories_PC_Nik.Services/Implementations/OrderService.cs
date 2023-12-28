@@ -63,16 +63,16 @@ namespace Accessories_PC_Nik.Services.Implementations
                 if (order.ServiceId.HasValue &&
                    services.TryGetValue(order.ServiceId!.Value, out var service))
                 {
-                    ord.Services = mapper.Map<ServiceModel>(service);
+                    ord.Service = mapper.Map<ServiceModel>(service);
                 }
                 if (order.ComponentId.HasValue &&
                     components.TryGetValue(order.ComponentId!.Value, out var component))
                 {
-                    ord.Components = mapper.Map<ComponentModel>(component);
+                    ord.Component = mapper.Map<ComponentModel>(component);
                 }
 
                 //В заказы должен быть хотя бы 1 услуга или покупка
-                if (ord.Components == null && ord.Services == null)
+                if (ord.Component == null && ord.Service == null)
                 {
                     continue;
                 }
@@ -87,7 +87,7 @@ namespace Accessories_PC_Nik.Services.Implementations
                     continue;
                 }
 
-                ord.Clients = mapper.Map<ClientModel>(client);
+                ord.Client = mapper.Map<ClientModel>(client);
 
                 listOrders.Add(ord);
             }
@@ -104,12 +104,12 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (item.ServiceId.HasValue)
             {
                 var service = await servicesReadRepository.GetByIdAsync(item.ServiceId!.Value, cancellationToken);
-                order.Services = mapper.Map<ServiceModel>(service);
+                order.Service = mapper.Map<ServiceModel>(service);
             }
             if (item.ComponentId.HasValue)
             {
                 var component = await componentsReadRepository.GetByIdAsync(item.ComponentId!.Value, cancellationToken);
-                order.Components = mapper.Map<ComponentModel>(component);
+                order.Component = mapper.Map<ComponentModel>(component);
             }
             if (item.DeliveryId.HasValue)
             {
@@ -118,7 +118,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             }
 
             var client = await deliveryReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
-            order.Clients = mapper.Map<ClientModel>(client);
+            order.Client = mapper.Map<ClientModel>(client);
             return order;
         }
 
