@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Accessories_PC_Nik.Api\Accessories_PC_Nik.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ValidatorsTests\AccessKey\" />
+  </ItemGroup>
+
 </Project>
