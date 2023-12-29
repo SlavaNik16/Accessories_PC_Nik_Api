@@ -19,7 +19,7 @@ namespace Accessories_PC_Nik.Repositories.Implementations
         Task<IReadOnlyCollection<Order>> IOrderReadRepository.GetAllAsync(CancellationToken cancellationToken)
             => reader.Read<Order>()
                 .NotDeletedAt()
-                .OrderBy(x => x.ClientId)
+                .OrderBy(x => x.CreatedAt)
                 .ToReadOnlyCollectionAsync(cancellationToken);
 
         Task<Order?> IOrderReadRepository.GetByIdAsync(Guid id, CancellationToken cancellationToken)

@@ -97,7 +97,10 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<OrderModel?> IOrderService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await orderReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Order>(id);
+            }
 
             var order = mapper.Map<OrderModel>(item);
 
@@ -199,10 +202,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (targetComponent == null)
             {
                 throw new AccessoriesEntityNotFoundException<Order>(id);
-            }
-            if (targetComponent.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Заказ с идентификатором {id} уже удален");
             }
 
             orderWriteRepository.Delete(targetComponent);

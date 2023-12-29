@@ -1,5 +1,4 @@
-﻿using Accessories_PC_Nik.Common.Entity.InterfaceDB;
-using Accessories_PC_Nik.Context.Contracts.Models;
+﻿using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Implementations;
 using Accessories_PC_Nik.Services.Automappers;
@@ -9,12 +8,6 @@ using Accessories_PC_Nik.Services.Implementations;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Accessories_PC_Nik.Services.Tests.Tests
@@ -55,14 +48,14 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         }
 
         /// <summary>
-        /// Получение списка услуг и возвращает данные
+        /// Получение списка доставок и возвращает данные
         /// </summary>
         [Fact]
         public async Task GetAllShouldReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Service();
-            await Context.Services.AddRangeAsync(target, TestDataGeneratorService.Service(x => x.DeletedAt = DateTimeOffset.UtcNow));
+            var target = TestDataGeneratorService.Delivery();
+            await Context.Deliveries.AddRangeAsync(target, TestDataGeneratorService.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -76,7 +69,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         }
 
         /// <summary>
-        /// Получение услуги по идентификатору возвращает ошибку
+        /// Получение доставки по идентификатору возвращает ошибку
         /// </summary>
         [Fact]
         public async Task GetByIdShouldReturnThrow()
@@ -88,19 +81,19 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             Func<Task> act = () => deliveryService.GetByIdAsync(id, CancellationToken);
 
             // Assert
-            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Service>>()
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Delivery>>()
                 .WithMessage($"*{id}*");
         }
 
         /// <summary>
-        /// Получение услуги по идентификатору возвращает данные
+        /// Получение доставки по идентификатору возвращает данные
         /// </summary>
         [Fact]
         public async Task GetByIdShouldReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Service();
-            await Context.Services.AddAsync(target);
+            var target = TestDataGeneratorService.Delivery();
+            await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -112,98 +105,98 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
                 .And.BeEquivalentTo(new
                 {
                     target.Id,
-                    target.Name,
-                    target.Duration,
+                    target.From,
+                    target.To,
                     target.Price,
                 });
         }
 
         // <summary>
-        /// Добавление услуги, возвращает ошибку  - базы данных
+        /// Добавление доставки, возвращает ошибку  - базы данных
         /// </summary>
         [Fact]
         public async Task AddShouldWorkReturnThrow()
         {
             //Arrange
-            var target = TestDataGeneratorService.ServiceRequestModel(x => x.Name = null);
+            var target = TestDataGeneratorService.DeliveryRequestModel(x => x.From = null);
 
             //Act
             Func<Task> act = () => deliveryService.AddAsync(target, CancellationToken);
 
             //Assert
             await act.Should().ThrowAsync<DbUpdateException>()
-                .WithMessage($"*{target.Name}*");
+                .WithMessage($"*{target.From}*");
         }
 
         // <summary>
-        /// Добавление услуги, возвращает данные
+        /// Добавление доставки, возвращает данные
         /// </summary>
         [Fact]
         public async Task AddShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.ServiceRequestModel();
+            var target = TestDataGeneratorService.DeliveryRequestModel();
 
             //Act
             var act = await deliveryService.AddAsync(target, CancellationToken);
 
             //Assert
-            var entity = Context.Services.Single(x =>
+            var entity = Context.Deliveries.Single(x =>
                 x.Id == act.Id &&
-                x.Name == target.Name &&
-                x.Duration == target.Duration &&
+                x.From == target.From &&
+                x.To == target.To &&
                 x.Price == target.Price
             );
             entity.Should().NotBeNull();
 
         }
         // <summary>
-        /// Изменение услуги, возвращает ошибку - услуга не найдена
+        /// Изменение доставки, возвращает ошибку - доставка не найдена
         /// </summary>
         [Fact]
         public async Task EditShouldWorkReturnThrow()
         {
             //Arrange
-            var targetModel = TestDataGeneratorService.ServiceRequestModel();
+            var targetModel = TestDataGeneratorService.DeliveryRequestModel();
 
             //Act
             Func<Task> act = () => deliveryService.EditAsync(targetModel, CancellationToken);
 
             //Assert
-            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Service>>()
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Delivery>>()
                 .WithMessage($"*{targetModel.Id}*");
         }
 
 
         /// <summary>
-        /// Изменение услуги, изменяет данные
+        /// Изменение доставки, изменяет данные
         /// </summary>
         [Fact]
         public async Task EditShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Service();
-            await Context.Services.AddAsync(target);
+            var target = TestDataGeneratorService.Delivery();
+            await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var targetModel = TestDataGeneratorService.ServiceRequestModel(x => x.Id = target.Id);
+            var targetModel = TestDataGeneratorService.DeliveryRequestModel(x => x.Id = target.Id);
 
             //Act
             var act = await deliveryService.EditAsync(targetModel, CancellationToken);
 
             //Assert
 
-            var entity = Context.Services.Single(x =>
+            var entity = Context.Deliveries.Single(x =>
                 x.Id == act.Id &&
-                x.Name == targetModel.Name &&
-                x.Duration == targetModel.Duration &&
+                x.From == targetModel.From &&
+                x.To == targetModel.To &&
                 x.Price == targetModel.Price
             );
             entity.Should().NotBeNull();
 
         }
         /// <summary>
-        /// Удаление услуги, возвращает ошибку - услуга не найдена
+        /// Удаление доставки, возвращает ошибку - доставка не найдена
         /// </summary>
         [Fact]
         public async Task DeleteShouldWorkReturnThrowNotFound()
@@ -215,38 +208,38 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             Func<Task> act = () => deliveryService.DeleteAsync(id, CancellationToken);
 
             // Assert
-            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Service>>()
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Delivery>>()
                .WithMessage($"*{id}*");
         }
 
         /// <summary>
-        /// Удаление услуги, возвращает ошибку - услуга уже удалена
+        /// Удаление доставки, возвращает ошибку - доставка уже удалена
         /// </summary>
         [Fact]
         public async Task DeleteShouldWorkReturnThrowNotFountByDeleted()
         {
             //Arrange
-            var target = TestDataGeneratorService.Service(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            await Context.Services.AddAsync(target);
+            var target = TestDataGeneratorService.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
             Func<Task> act = () => deliveryService.DeleteAsync(target.Id, CancellationToken);
 
             // Assert
-            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Service>>()
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Delivery>>()
               .WithMessage($"*{target.Id}*");
         }
 
         /// <summary>
-        /// Удаление услуги, возвращает - успешно
+        /// Удаление доставки, возвращает - успешно
         /// </summary>
         [Fact]
         public async Task DeleteShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Service();
-            await Context.Services.AddAsync(target);
+            var target = TestDataGeneratorService.Delivery();
+            await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -254,7 +247,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
 
             // Assert
             await act.Should().NotThrowAsync();
-            var entity = Context.Services.Single(x => x.Id == target.Id);
+            var entity = Context.Deliveries.Single(x => x.Id == target.Id);
             entity.Should().NotBeNull();
             entity.DeletedAt.Should().NotBeNull();
         }

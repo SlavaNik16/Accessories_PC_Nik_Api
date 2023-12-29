@@ -128,7 +128,7 @@ namespace Accessories_PC_Nik.Services.Tests
             settings?.Invoke(result);
             return result;
         }
-        static internal DeliveryRequestModel DeliveryModel(Action<DeliveryRequestModel>? settings = null)
+        static internal DeliveryRequestModel DeliveryRequestModel(Action<DeliveryRequestModel>? settings = null)
         {
             var result = new DeliveryRequestModel
             {
@@ -151,7 +151,7 @@ namespace Accessories_PC_Nik.Services.Tests
             return result;
         }
 
-        static internal OrderRequestModel OrderModel(Action<OrderRequestModel>? settings = null)
+        static internal OrderRequestModel OrderRequestModel(Action<OrderRequestModel>? settings = null)
         {
             var result = new OrderRequestModel
             {
