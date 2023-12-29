@@ -101,7 +101,7 @@ namespace Accessories_PC_Nik.Api.Controllers
         [ApiConflict]
         public async Task<IActionResult> EditAccessKey(Guid id, [Required] Guid key, CancellationToken cancellationToken)
         {
-            var result = await workersService.EditAccessKeyAsync(id, key, cancellationToken);
+            var result = await workersService.EditWithAccessKeyAsync(id, key, cancellationToken);
             return Ok(mapper.Map<WorkersResponse>(result));
         }
 

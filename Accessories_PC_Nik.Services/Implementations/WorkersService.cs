@@ -59,8 +59,10 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<WorkerModel?> IWorkersService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await workersReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
-
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Worker>(id);
+            }
 
             var client = await clientsReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
 
@@ -89,18 +91,18 @@ namespace Accessories_PC_Nik.Services.Implementations
             return mapper.Map<WorkerModel>(item);
         }
 
-        async Task<WorkerModel> IWorkersService.EditAccessKeyAsync(Guid id, Guid key, CancellationToken cancellationToken)
+        async Task<WorkerModel> IWorkersService.EditWithAccessKeyAsync(Guid id, Guid key, CancellationToken cancellationToken)
         {
             var targetWorker = await workersReadRepository.GetByIdAsync(id, cancellationToken);
             if (targetWorker == null)
             {
-                throw new AccessoriesEntityNotFoundException<Client>(id);
+                throw new AccessoriesEntityNotFoundException<Worker>(id);
             }
 
             var targetAccessLevel = await  accessKeyReadRepository.GetAccessLevelByKeyAsync(key, cancellationToken);
             if(targetAccessLevel == null)
             {
-                throw new AccessoriesInvalidOperationException($"Такого ключа нет в наличии!");
+                throw new AccessoriesInvalidOperationException("Такого ключа нет в наличии!");
             }
             targetWorker.AccessLevel = targetAccessLevel.Value;
 
@@ -114,7 +116,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetWorker = await workersReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetWorker == null)
             {
-                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+                throw new AccessoriesEntityNotFoundException<Worker>(source.Id);
             }
 
             targetWorker.Number = source.Number;
@@ -138,11 +140,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetWorker = await workersReadRepository.GetByIdAsync(id, cancellationToken);
             if (targetWorker == null)
             {
-                throw new AccessoriesEntityNotFoundException<Service>(id);
-            }
-            if (targetWorker.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Сервис с идентификатором {id} уже удален");
+                throw new AccessoriesEntityNotFoundException<Worker>(id);
             }
 
             workersWriteRepository.Delete(targetWorker);

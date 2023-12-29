@@ -35,9 +35,12 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<ServiceModel?> IServicesService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await servicesReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Service>(id);
+            }
 
-            return mapper.Map<ServiceModel>(item);
+             return mapper.Map<ServiceModel>(item);
         }
 
         async Task<ServiceModel> IServicesService.AddAsync(ServiceRequestModel source, CancellationToken cancellationToken)
@@ -62,7 +65,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetService = await servicesReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetService == null)
             {
-                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+                throw new AccessoriesEntityNotFoundException<Service>(source.Id);
             }
 
             var isNameExists = await servicesReadRepository.AnyByNameAsync(source.Name, cancellationToken);
@@ -92,10 +95,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (targetService == null)
             {
                 throw new AccessoriesEntityNotFoundException<Service>(id);
-            }
-            if (targetService.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Сервис с идентификатором {id} уже удален");
             }
 
             servicesWriteRepository.Delete(targetService);

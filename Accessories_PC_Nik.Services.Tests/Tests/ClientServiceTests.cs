@@ -1,12 +1,14 @@
 ﻿
+using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Implementations;
 using Accessories_PC_Nik.Services.Automappers;
+using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Services.Contracts.Interface;
-using Accessories_PC_Nik.Services.Contracts.Models;
 using Accessories_PC_Nik.Services.Implementations;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Accessories_PC_Nik.Services.Tests.Tests
@@ -34,23 +36,60 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         }
 
         /// <summary>
-        /// Получение персоны по идентификатору возвращает null
+        /// Получение списка клиентов и возвращает пустой список
         /// </summary>
         [Fact]
-        public async Task GetByIdShouldReturnNull()
+        public async Task GetAllShouldReturnNull()
+        {
+
+            // Act
+            var result = await clientService.GetAllAsync(CancellationToken);
+
+            // Assert
+            result.Should().BeEmpty();
+            
+        }
+
+        /// <summary>
+        /// Получение списка клиентов и возвращает данные
+        /// </summary>
+        [Fact]
+        public async Task GetAllShouldReturnValue()
+        {
+            //Arrange
+            var target = TestDataGeneratorService.Client();
+            await Context.Clients.AddRangeAsync(target, TestDataGeneratorService.Client(x=>x.DeletedAt = DateTimeOffset.UtcNow));
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            // Act
+            var result = await clientService.GetAllAsync(CancellationToken);
+
+            // Assert
+            result.Should()
+              .NotBeNull()
+              .And.HaveCount(1)
+              .And.ContainSingle(x => x.Id == target.Id);
+        }
+
+        /// <summary>
+        /// Получение клиента по идентификатору возвращает ошибку
+        /// </summary>
+        [Fact]
+        public async Task GetByIdShouldReturnThrow()
         {
             //Arrange
             var id = Guid.NewGuid();
 
             // Act
-            var result = await clientService.GetByIdAsync(id, CancellationToken);
+            Func<Task> act = () => clientService.GetByIdAsync(id, CancellationToken);
 
             // Assert
-            result.Should().Should().BeNull();
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Client>>()
+                .WithMessage($"*{id}*");
         }
 
         /// <summary>
-        /// Получение персоны по идентификатору возвращает данные
+        /// Получение клиента по идентификатору возвращает данные
         /// </summary>
         [Fact]
         public async Task GetByIdShouldReturnValue()
@@ -64,7 +103,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             var result = await clientService.GetByIdAsync(target.Id, CancellationToken);
 
             // Assert
-            result.Should().Should()
+            result.Should()
                 .NotBeNull()
                 .And.BeEquivalentTo(new
                 {
@@ -77,10 +116,27 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         }
 
         // <summary>
-        /// Добавление персоны, возвращает данные
+        /// Добавление клиента, возвращает ошибку  - базы данных
         /// </summary>
         [Fact]
-        public async Task AddShouldWork()
+        public async Task AddShouldWorkReturnThrow()
+        {
+            //Arrange
+            var target = TestDataGeneratorService.ClientRequestModel(x=>x.Name = null);
+
+            //Act
+            Func<Task> act = () => clientService.AddAsync(target, CancellationToken);
+
+            //Assert
+            await act.Should().ThrowAsync<DbUpdateException>()
+                .WithMessage($"*{target.Name}*");
+        }
+
+        // <summary>
+        /// Добавление клиента, возвращает данные
+        /// </summary>
+        [Fact]
+        public async Task AddShouldWorkReturnValue()
         {
             //Arrange
             var target = TestDataGeneratorService.ClientRequestModel();
@@ -96,12 +152,29 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             entity.Should().NotBeNull();
 
         }
-
-        /// <summary>
-        /// Изменение персоны, изменяет данные
+        // <summary>
+        /// Изменение клиента, возвращает ошибку - клиент не найден
         /// </summary>
         [Fact]
-        public async Task EditShouldWork()
+        public async Task EditShouldWorkReturnThrow()
+        {
+            //Arrange
+            var targetModel = TestDataGeneratorService.ClientRequestModel();
+
+            //Act
+            Func<Task> act = () => clientService.EditAsync(targetModel, CancellationToken);
+
+            //Assert
+            await act.Should().ThrowAsync< AccessoriesEntityNotFoundException<Client>>()
+                .WithMessage($"*{targetModel.Id}*");
+        }
+
+
+        /// <summary>
+        /// Изменение клиента, изменяет данные
+        /// </summary>
+        [Fact]
+        public async Task EditShouldWorkReturnValue()
         {
             //Arrange
             var target = TestDataGeneratorService.Client();
@@ -124,12 +197,47 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             entity.Should().NotBeNull();
 
         }
-
         /// <summary>
-        /// Удаление персоны, возвращает пустоту
+        /// Удаление клиента, возвращает ошибку - клиент не найден
         /// </summary>
         [Fact]
-        public async Task DeleteShouldWork()
+        public async Task DeleteShouldWorkReturnThrowNotFound()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+
+            // Act
+            Func<Task> act = () => clientService.DeleteAsync(id, CancellationToken);
+
+            // Assert
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Client>>()
+               .WithMessage($"*{id}*");
+        }
+
+        /// <summary>
+        /// Удаление клиента, возвращает ошибку - клиент уже удален
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldWorkReturnThrowNotFountByDeleted()
+        {
+            //Arrange
+            var target = TestDataGeneratorService.Client(x=>x.DeletedAt = DateTimeOffset.UtcNow);
+            await Context.Clients.AddAsync(target);
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            // Act
+            Func<Task> act = () => clientService.DeleteAsync(target.Id, CancellationToken);
+
+            // Assert
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Client>>()
+              .WithMessage($"*{target.Id}*");
+        }
+
+        /// <summary>
+        /// Удаление клиента, возвращает - успешно
+        /// </summary>
+        [Fact]
+        public async Task DeleteShouldWorkReturnValue()
         {
             //Arrange
             var target = TestDataGeneratorService.Client();

@@ -37,7 +37,10 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<ComponentModel?> IComponentsService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await componentsReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Component>(id);
+            }
 
             return mapper.Map<ComponentModel>(item);
         }
@@ -62,7 +65,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetComponent = await componentsReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetComponent == null)
             {
-                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+                throw new AccessoriesEntityNotFoundException<Component>(source.Id);
             }
 
             targetComponent.Name = source.Name;
@@ -82,10 +85,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (targetComponent == null)
             {
                 throw new AccessoriesEntityNotFoundException<Component>(id);
-            }
-            if (targetComponent.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Компонент с идентификатором {id} уже удален");
             }
 
             componentsWriteRepository.Delete(targetComponent);

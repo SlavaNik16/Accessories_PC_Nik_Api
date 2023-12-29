@@ -51,7 +51,7 @@ namespace Accessories_PC_Nik.Services.Tests
             settings?.Invoke(result);
             return result;
         }
-        static internal WorkerRequestModel WorkerModel(Action<WorkerRequestModel>? settings = null)
+        static internal WorkerRequestModel WorkerRequestModel(Action<WorkerRequestModel>? settings = null)
         {
             var result = new WorkerRequestModel
             {
@@ -176,7 +176,7 @@ namespace Accessories_PC_Nik.Services.Tests
             return result;
         }
 
-        static internal AccessKeyRequestModel AccessKeyModel(Action<AccessKeyRequestModel>? settings = null)
+        static internal AccessKeyRequestModel AccessKeyRequestModel(Action<AccessKeyRequestModel>? settings = null)
         {
             var result = new AccessKeyRequestModel
             {

@@ -49,13 +49,14 @@ namespace Accessories_PC_Nik.Services.Implementations
             {
                 var access = mapper.Map<AccessKeyModel>(accessKey);
 
-                if (workers.TryGetValue(accessKey.WorkerId, out var worker))
+                if (!workers.TryGetValue(accessKey.WorkerId, out var worker))
                 {
-                    access.Worker = mapper.Map<WorkerModel>(worker);
-                    var client = await clientsReadRepository.GetByIdAsync(worker.ClientId, cancellationToken);
-                    if (client == null) continue;
-                    access.WorkerClient = mapper.Map<ClientModel>(client);
+                    continue;
                 }
+                access.Worker = mapper.Map<WorkerModel>(worker);
+                var client = await clientsReadRepository.GetByIdAsync(worker.ClientId, cancellationToken);
+                if (client == null) continue;
+                access.WorkerClient = mapper.Map<ClientModel>(client);
                 listAccessKey.Add(access);
             }
             return listAccessKey;
@@ -64,7 +65,11 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<AccessKeyModel?> IAccessKeyService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await accessKeyReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<AccessKey>(id);
+            }
+
             var worker = await workersReadRepository.GetByIdAsync(item.WorkerId, cancellationToken);
             var client = await clientsReadRepository.GetByIdAsync(worker!.ClientId, cancellationToken);
             var accessKeyModel = mapper.Map<AccessKeyModel>(item);
@@ -82,17 +87,18 @@ namespace Accessories_PC_Nik.Services.Implementations
                 WorkerId = source.WorkerId,
             };
 
-            var workerExists = await workersReadRepository.AnyByWorkerWithTypeAsync(source.WorkerId, source.Types, cancellationToken);
-            if (!workerExists)
-            {
-                throw new AccessoriesInvalidOperationException($"Данный сотрудник не обладает правами, создавать ключ: c таким же уровнем или выше своего уровня доступа");
-            }
-
             var worker = await workersReadRepository.GetByIdAsync(source.WorkerId, cancellationToken);
             if (worker == null)
             {
                 throw new AccessoriesEntityNotFoundException<Worker>(source.WorkerId);
             }
+
+            var workerExists = await workersReadRepository.AnyByWorkerWithTypeAsync(source.WorkerId, source.Types, cancellationToken);
+            if (!workerExists)
+            {
+                throw new AccessoriesInvalidOperationException("Данный сотрудник не обладает правами, создавать ключ: c таким же уровнем или выше своего уровня доступа");
+            }
+
             var client = await clientsReadRepository.GetByIdAsync(worker.ClientId, cancellationToken);
 
             accessKeyWriteRepository.Add(item);
@@ -109,10 +115,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (targetAccessKey == null)
             {
                 throw new AccessoriesEntityNotFoundException<AccessKey>(id);
-            }
-            if (targetAccessKey.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Ключ с идентификатором {id} уже удален");
             }
 
             accessKeyWriteRepository.Delete(targetAccessKey);
