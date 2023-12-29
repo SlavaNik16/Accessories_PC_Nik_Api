@@ -40,9 +40,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllDeliveriesValue()
         {
             //Arrange
-            var target = TestDataGenerator.Delivery();
+            var target = TestDataGeneratorRepository.Delivery();
             await Context.Deliveries.AddRangeAsync(target,
-                TestDataGenerator.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                TestDataGeneratorRepository.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +78,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdDeliveryValue()
         {
             //Arrange
-            var target = TestDataGenerator.Delivery();
+            var target = TestDataGeneratorRepository.Delivery();
             await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -118,10 +118,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsDeliveriesValue()
         {
             //Arrange
-            var target1 = TestDataGenerator.Delivery();
-            var target2 = TestDataGenerator.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGenerator.Delivery();
-            var target4 = TestDataGenerator.Delivery();
+            var target1 = TestDataGeneratorRepository.Delivery();
+            var target2 = TestDataGeneratorRepository.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = TestDataGeneratorRepository.Delivery();
+            var target4 = TestDataGeneratorRepository.Delivery();
             await Context.Deliveries.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -160,7 +160,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdDeliveryTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Delivery();
+            var target = TestDataGeneratorRepository.Delivery();
             await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

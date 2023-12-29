@@ -12,32 +12,32 @@ namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
         /// <summary>
         /// Номер документа
         /// </summary>
-        public string Number { get; set; } = string.Empty;
+        public string Number { get; set; } 
 
         /// <summary>
         /// Серия документа
         /// </summary>
-        public string Series { get; set; } = string.Empty;
+        public string Series { get; set; }
 
         /// <summary>
         /// Дата выдачи
         /// </summary>
-        public DateTime IssuedAt { get; set; }
+        public DateTime IssuedAt { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// Кем выдан
         /// </summary>
-        public string IssuedBy { get; set; } = string.Empty;
+        public string IssuedBy { get; set; } 
 
         /// <summary>
         /// Тип документа на работу
         /// </summary>
-        public DocumentTypes DocumentType { get; set; }
+        public DocumentTypes DocumentType { get; set; } = DocumentTypes.None;
 
         /// <summary>
         /// Тип уровня доступа
         /// </summary>
-        public AccessLevelTypes AccessLevel { get; set; }
+        public AccessLevelTypes AccessLevel { get; set; } = AccessLevelTypes.None;
 
         /// <summary>
         /// Данные клиента

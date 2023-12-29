@@ -39,5 +39,10 @@
         /// Баланс
         /// </summary>
         public decimal Balance { get; set; } = 0;
+
+        public object Should()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

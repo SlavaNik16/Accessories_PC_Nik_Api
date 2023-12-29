@@ -40,9 +40,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllClientsValue()
         {
             //Arrange
-            var target = TestDataGenerator.Client();
+            var target = TestDataGeneratorRepository.Client();
             await Context.Clients.AddRangeAsync(target,
-                TestDataGenerator.Client(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                TestDataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +78,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdClientValue()
         {
             //Arrange
-            var target = TestDataGenerator.Client();
+            var target = TestDataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -118,10 +118,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsClientsValue()
         {
             //Arrange
-            var target1 = TestDataGenerator.Client();
-            var target2 = TestDataGenerator.Client(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGenerator.Client();
-            var target4 = TestDataGenerator.Client();
+            var target1 = TestDataGeneratorRepository.Client();
+            var target2 = TestDataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = TestDataGeneratorRepository.Client();
+            var target4 = TestDataGeneratorRepository.Client();
             await Context.Clients.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -160,7 +160,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdClientTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Client();
+            var target = TestDataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -179,7 +179,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByPhoneClientFalse()
         {
             //Arrange
-            var target = TestDataGenerator.Client();
+            var target = TestDataGeneratorRepository.Client();
 
             // Act
             var result = await clientsReadRepository.AnyByPhoneAsync(target.Phone, CancellationToken);
@@ -196,7 +196,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByPhoneClientTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Client();
+            var target = TestDataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -215,7 +215,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByEmailClientFalse()
         {
             //Arrange
-            var target = TestDataGenerator.Client();
+            var target = TestDataGeneratorRepository.Client();
 
             // Act
             var result = await clientsReadRepository.AnyByEmailAsync(target.Email, CancellationToken);
@@ -232,7 +232,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByEmailClientTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Client();
+            var target = TestDataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

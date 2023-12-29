@@ -40,9 +40,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllServicesValue()
         {
             //Arrange
-            var target = TestDataGenerator.Service();
+            var target = TestDataGeneratorRepository.Service();
             await Context.Services.AddRangeAsync(target,
-                TestDataGenerator.Service(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                TestDataGeneratorRepository.Service(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +78,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdServiceValue()
         {
             //Arrange
-            var target = TestDataGenerator.Service();
+            var target = TestDataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -118,10 +118,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsServicesValue()
         {
             //Arrange
-            var target1 = TestDataGenerator.Service();
-            var target2 = TestDataGenerator.Service(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGenerator.Service();
-            var target4 = TestDataGenerator.Service();
+            var target1 = TestDataGeneratorRepository.Service();
+            var target2 = TestDataGeneratorRepository.Service(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = TestDataGeneratorRepository.Service();
+            var target4 = TestDataGeneratorRepository.Service();
             await Context.Services.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -160,7 +160,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdServiceTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Service();
+            var target = TestDataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -179,7 +179,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameServiceFalse()
         {
             //Arrange
-            var target = TestDataGenerator.Service();
+            var target = TestDataGeneratorRepository.Service();
 
             // Act
             var result = await servicesReadRepository.AnyByNameAsync(target.Name, CancellationToken);
@@ -196,7 +196,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameServiceTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Service();
+            var target = TestDataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -215,7 +215,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameIsIdServiceFalse()
         {
             //Arrange
-            var target = TestDataGenerator.Service();
+            var target = TestDataGeneratorRepository.Service();
 
             // Act
             var result = await servicesReadRepository.AnyByNameIsIdAsync(target.Name, target.Id, CancellationToken);
@@ -232,7 +232,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameIsIdServiceTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Service();
+            var target = TestDataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

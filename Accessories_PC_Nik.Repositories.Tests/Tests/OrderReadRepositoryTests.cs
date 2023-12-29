@@ -40,9 +40,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllOrdersValue()
         {
             //Arrange
-            var target = TestDataGenerator.Order();
+            var target = TestDataGeneratorRepository.Order();
             await Context.Orders.AddRangeAsync(target,
-                TestDataGenerator.Order(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                TestDataGeneratorRepository.Order(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +78,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdOrderValue()
         {
             //Arrange
-            var target = TestDataGenerator.Order();
+            var target = TestDataGeneratorRepository.Order();
             await Context.Orders.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

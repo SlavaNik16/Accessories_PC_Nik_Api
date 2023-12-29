@@ -17,22 +17,22 @@ namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
         /// <summary>
         /// Тип
         /// </summary>
-        public TypeComponents TypeComponents { get; set; }
+        public TypeComponents TypeComponents { get; set; } = TypeComponents.Processor;
 
         /// <summary>
         /// Описания
         /// </summary>
-        public string? Description { get; set; }
+        public string? Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Тип материала
         /// </summary>
-        public MaterialType MaterialType { get; set; }
+        public MaterialType MaterialType { get; set; } = MaterialType.None;
 
         /// <summary>
         /// Цена за 1 шт.
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0;
 
         /// <summary>
         /// Кол-во товара

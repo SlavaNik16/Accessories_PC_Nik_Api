@@ -20,6 +20,6 @@
         /// <summary>
         /// Стоимость доставки
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0;
     }
 }
