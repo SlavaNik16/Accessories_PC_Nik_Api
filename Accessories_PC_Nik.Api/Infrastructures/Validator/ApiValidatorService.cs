@@ -43,7 +43,7 @@ namespace Accessories_PC_Nik.Api.Infrastructures.Validator
                 deliveryReadRepository);
 
             Register<CreateServiceRequestValidator>(servicesReadRepository);
-            Register<EditServiceRequestValidator>(servicesReadRepository);
+            Register<EditServiceRequestValidator>();
 
             Register<CreateWorkerRequestValidator>(clientReadRepository, workersReadRepository);
             Register<EditWorkerRequestValidator>(clientReadRepository, workersReadRepository);

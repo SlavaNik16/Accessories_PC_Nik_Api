@@ -21,7 +21,7 @@ namespace Accessories_PC_Nik.Services.Tests
             {
                 Surname = $"Surname{Guid.NewGuid():N}",
                 Name = $"Name{Guid.NewGuid():N}",
-                Phone = $"Phone{Guid.NewGuid():N}",
+                Phone = $"Phone{Random.Shared.Next(10, 100)}",
                 Email = $"Email{Guid.NewGuid():N}@gmail.com",
             };
 

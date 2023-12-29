@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add<AccessoriesExceptionFilter>();
-});
+})
+      .AddControllersAsServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.GetSwaggerDocument();
@@ -33,3 +34,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
