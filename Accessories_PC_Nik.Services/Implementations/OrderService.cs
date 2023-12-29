@@ -39,7 +39,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.mapper = mapper;
         }
 
-
         async Task<IEnumerable<OrderModel>> IOrderService.GetAllAsync(CancellationToken cancellationToken)
         {
             var orders = await orderReadRepository.GetAllAsync(cancellationToken);
@@ -154,7 +153,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetOrder = await orderReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetOrder == null)
             {
-                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+                throw new AccessoriesEntityNotFoundException<Order>(source.Id);
             }
 
             targetOrder.OrderTime = source.OrderTime;
@@ -163,6 +162,14 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (source.ComponentId == null && source.ServiceId == null)
             {
                 throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
+            }
+            if(source.ComponentId == null)
+            {
+                targetOrder.ComponentId = null;
+            }
+            else if(source.ServiceId == null)
+            {
+                targetOrder.ServiceId = null;
             }
 
             var client = await clientsReadRepository.GetByIdAsync(source.ClientId, cancellationToken);
@@ -189,8 +196,6 @@ namespace Accessories_PC_Nik.Services.Implementations
                 targetOrder.DeliveryId = delivery!.Id;
                 targetOrder.Delivery = delivery;
             }
-
-
 
             orderWriteRepository.Update(targetOrder);
             await unitOfWork.SaveChangesAsync(cancellationToken);

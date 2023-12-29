@@ -123,60 +123,32 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             var result = await orderService.GetByIdAsync(target.Id, CancellationToken);
 
             // Assert
-            result.Should()
-                .NotBeNull()
-                .And.BeEquivalentTo(new
-                {
-                    target.Id,
-                    target.Key,
-                    target.Types
-                });
+            var entity = Context.Orders.Single(x => x.Id == target.Id &&
+                x.ClientId == target.ClientId &&  
+                x.ServiceId == target.ServiceId);
+
+            entity.DeletedAt.Should().BeNull();
         }
 
         // <summary>
-        /// Добавление ключа, возвращает ошибку  - не найден работник
+        /// Добавление заказа, возвращает ошибку  - не добавлены покупки
         /// </summary>
         [Fact]
         public async Task AddShouldWorkReturnThrowNotFoundWorker()
         {
             //Arrange
-            var target = TestDataGeneratorService.AccessKeyRequestModel();
-
-            //Act
-            Func<Task> act = () => orderService.AddAsync(target, CancellationToken);
-
-            //Assert
-            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Worker>>()
-                .WithMessage($"*{target.WorkerId}*");
-        }
-
-        // <summary>
-        /// Добавление ключа, возвращает ошибку  - работник не может создать ключ выше своего уровня
-        /// </summary>
-        [Fact]
-        public async Task AddShouldWorkReturnThrowInvalid()
-        {
-            //Arrange
-            var targetClient = TestDataGeneratorService.Client();
-            await Context.Clients.AddAsync(targetClient);
-            var targetWorker = TestDataGeneratorService.Worker(x => { x.ClientId = targetClient.Id; x.AccessLevel = AccessLevelTypes.None; });
-            await Context.Workers.AddAsync(targetWorker);
-
-            await UnitOfWork.SaveChangesAsync(CancellationToken);
-
-            var target = TestDataGeneratorService.AccessKeyRequestModel(x => { x.WorkerId = targetWorker.Id; x.Types = AccessLevelTypes.Director; });
+            var target = TestDataGeneratorService.OrderRequestModel();
 
             //Act
             Func<Task> act = () => orderService.AddAsync(target, CancellationToken);
 
             //Assert
             await act.Should().ThrowAsync<AccessoriesInvalidOperationException>()
-                .WithMessage("Данный сотрудник не обладает правами, создавать ключ: c таким же уровнем или выше своего уровня доступа");
-
+                .WithMessage("Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
         }
 
         // <summary>
-        /// Добавление ключа, возвращает данные
+        /// Добавление заказа, возвращает данные
         /// </summary>
         [Fact]
         public async Task AddShouldWorkReturnValue()
@@ -184,29 +156,101 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             //Arrange
             var targetClient = TestDataGeneratorService.Client();
             await Context.Clients.AddAsync(targetClient);
-            var targetWorker = TestDataGeneratorService.Worker(x => { x.ClientId = targetClient.Id; x.AccessLevel = AccessLevelTypes.Director; });
-            await Context.Workers.AddAsync(targetWorker);
+
+            var targetService = TestDataGeneratorService.Service();
+            await Context.Services.AddAsync(targetService);
+
+            var targetComponent = TestDataGeneratorService.Component();
+            await Context.Components.AddAsync(targetComponent);
+
+            var targetDelivery = TestDataGeneratorService.Delivery();
+            await Context.Deliveries.AddAsync(targetDelivery);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var target = TestDataGeneratorService.AccessKeyRequestModel(x => x.WorkerId = targetWorker.Id);
+            var target = TestDataGeneratorService.OrderRequestModel(x => { 
+                x.ClientId = targetClient.Id;
+                x.ServiceId = targetService.Id;
+                x.ComponentId = targetComponent.Id;
+                x.DeliveryId = targetDelivery.Id;
+            });
 
             //Act
             var act = await orderService.AddAsync(target, CancellationToken);
 
             //Assert
-            var entity = Context.AccessKeys.Single(x =>
+            var entity = Context.Orders.Single(x =>
                 x.Id == act.Id &&
-                x.Key == act.Key &&
-                x.Types == target.Types &&
-                x.WorkerId == targetWorker.Id
+                x.ClientId == target.ClientId &&
+                x.ServiceId == target.ServiceId &&
+                x.ComponentId == target.ComponentId &&
+                x.DeliveryId == target.DeliveryId
+            );
+            entity.Should().NotBeNull();
+
+        }
+
+        // <summary>
+        /// Изменение заказа, возвращает ошибку - заказ не найден
+        /// </summary>
+        [Fact]
+        public async Task EditShouldWorkReturnThrow()
+        {
+            //Arrange
+            var targetModel = TestDataGeneratorService.OrderRequestModel();
+
+            //Act
+            Func<Task> act = () => orderService.EditAsync(targetModel, CancellationToken);
+
+            //Assert
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Order>>()
+                .WithMessage($"*{targetModel.Id}*");
+        }
+
+
+        /// <summary>
+        /// Изменение заказа, изменяет данные
+        /// </summary>
+        [Fact]
+        public async Task EditShouldWorkReturnValue()
+        {
+            //Arrange
+            var targetClient = TestDataGeneratorService.Client();
+            await Context.Clients.AddAsync(targetClient);
+
+            var targetService = TestDataGeneratorService.Service();
+            await Context.Services.AddAsync(targetService);
+
+            var targetComponent = TestDataGeneratorService.Component();
+            await Context.Components.AddAsync(targetComponent);
+
+            var target = TestDataGeneratorService.Order(x => { x.ClientId = targetClient.Id; x.ServiceId = targetService.Id; });
+            await Context.Orders.AddAsync(target);
+
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
+
+            var targetModel = TestDataGeneratorService.OrderRequestModel();
+            targetModel.Id = target.Id;
+            targetModel.ClientId = target.ClientId;
+            targetModel.ServiceId = null;
+            targetModel.ComponentId = targetComponent.Id;
+            //Act
+            var act = await orderService.EditAsync(targetModel, CancellationToken);
+
+            //Assert
+
+            var entity = Context.Orders.Single(x =>
+                x.Id == act.Id &&
+                x.ClientId == targetModel.ClientId &&
+                x.ServiceId == null &&
+                x.ComponentId == targetModel.ComponentId
             );
             entity.Should().NotBeNull();
 
         }
 
         /// <summary>
-        /// Удаление ключа, возвращает ошибку - ключ не найден
+        /// Удаление заказа, возвращает ошибку - заказ не найден
         /// </summary>
         [Fact]
         public async Task DeleteShouldWorkReturnThrowNotFound()
@@ -218,12 +262,12 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             Func<Task> act = () => orderService.DeleteAsync(id, CancellationToken);
 
             // Assert
-            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<AccessKey>>()
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Order>>()
                .WithMessage($"*{id}*");
         }
 
         /// <summary>
-        /// Удаление ключа, возвращает ошибку - клиент уже удален
+        /// Удаление заказ, возвращает ошибку - заказ уже удален
         /// </summary>
         [Fact]
         public async Task DeleteShouldWorkReturnThrowNotFountByDeleted()
@@ -231,17 +275,20 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             //Arrange
             var targetClient = TestDataGeneratorService.Client();
             await Context.Clients.AddAsync(targetClient);
-            var targetWorker = TestDataGeneratorService.Worker(x => x.ClientId = targetClient.Id);
-            await Context.Workers.AddAsync(targetWorker);
 
-            var target = TestDataGeneratorService.AccessKey(x => { x.WorkerId = targetWorker.Id; x.DeletedAt = DateTimeOffset.UtcNow; });
-            await Context.AccessKeys.AddAsync(target);
+            var targetService = TestDataGeneratorService.Service();
+            await Context.Services.AddAsync(targetService);
+
+            var target = TestDataGeneratorService.Order(x => { x.ClientId = targetClient.Id; x.ServiceId = targetService.Id; x.DeletedAt = DateTimeOffset.UtcNow; });
+            await Context.Orders.AddAsync(target);
+
+            await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
             Func<Task> act = () => orderService.DeleteAsync(target.Id, CancellationToken);
 
             // Assert
-            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<AccessKey>>()
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Order>>()
               .WithMessage($"*{target.Id}*");
         }
 
@@ -254,11 +301,12 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             //Arrange
             var targetClient = TestDataGeneratorService.Client();
             await Context.Clients.AddAsync(targetClient);
-            var targetWorker = TestDataGeneratorService.Worker(x => { x.ClientId = targetClient.Id; x.AccessLevel = AccessLevelTypes.Director; });
-            await Context.Workers.AddAsync(targetWorker);
 
-            var target = TestDataGeneratorService.AccessKey(x => x.WorkerId = targetWorker.Id);
-            await Context.AccessKeys.AddAsync(target);
+            var targetService = TestDataGeneratorService.Service();
+            await Context.Services.AddAsync(targetService);
+
+            var target = TestDataGeneratorService.Order(x => { x.ClientId = targetClient.Id; x.ServiceId = targetService.Id; });
+            await Context.Orders.AddAsync(target);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -267,7 +315,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
 
             // Assert
             await act.Should().NotThrowAsync();
-            var entity = Context.AccessKeys.Single(x => x.Id == target.Id);
+            var entity = Context.Orders.Single(x => x.Id == target.Id);
             entity.Should().NotBeNull();
             entity.DeletedAt.Should().NotBeNull();
         }
