@@ -3,13 +3,12 @@ using Accessories_PC_Nik.Context.Contracts.Models;
 
 namespace Accessories_PC_Nik.Repositories.Tests
 {
-    static internal class TestDataGenerator
+    static internal class TestDataGeneratorRepository
     {
         static internal Client Client(Action<Client>? settings = null)
         {
             var result = new Client
             {
-                Id = Guid.NewGuid(),
                 Surname = $"Surname{Guid.NewGuid():N}",
                 Name = $"Name{Guid.NewGuid():N}",
                 Phone = $"Phone{Guid.NewGuid():N}",
@@ -25,7 +24,6 @@ namespace Accessories_PC_Nik.Repositories.Tests
         {
             var result = new Worker
             {
-                Id = Guid.NewGuid(),
                 Number = $"Number{Guid.NewGuid():N}",
                 Series = $"Series{Guid.NewGuid():N}",
                 IssuedBy = $"IssuedBy{Guid.NewGuid():N}",
@@ -41,7 +39,6 @@ namespace Accessories_PC_Nik.Repositories.Tests
         {
             var result = new Component
             {
-                Id = Guid.NewGuid(),
                 Name = $"Name{Guid.NewGuid():N}",
             };
 
@@ -55,7 +52,6 @@ namespace Accessories_PC_Nik.Repositories.Tests
         {
             var result = new Service
             {
-                Id = Guid.NewGuid(),
                 Name = $"Name{Guid.NewGuid():N}",
                 Duration = Random.Shared.Next(2, 6),
             };
@@ -69,7 +65,6 @@ namespace Accessories_PC_Nik.Repositories.Tests
         {
             var result = new Delivery
             {
-                Id = Guid.NewGuid(),
                 From = $"From{Guid.NewGuid():N}",
                 To = $"To{Guid.NewGuid():N}",
             };
@@ -82,10 +77,7 @@ namespace Accessories_PC_Nik.Repositories.Tests
 
         static internal Order Order(Action<Order>? settings = null)
         {
-            var result = new Order
-            {
-                Id = Guid.NewGuid(),
-            };
+            var result = new Order();
 
             result.BaseAuditEntity();
 
@@ -97,7 +89,6 @@ namespace Accessories_PC_Nik.Repositories.Tests
         {
             var result = new AccessKey
             {
-                Id = Guid.NewGuid(),
                 Key = Guid.NewGuid(),
                 Types = AccessLevelTypes.Assistant,
             };
@@ -111,6 +102,7 @@ namespace Accessories_PC_Nik.Repositories.Tests
 
         private static void BaseAuditEntity<TEntity>(this TEntity entity) where TEntity : BaseAuditEntity
         {
+            entity.Id = Guid.NewGuid();
             entity.CreatedAt = DateTimeOffset.UtcNow;
             entity.CreatedBy = $"CreatedBy{Guid.NewGuid():N}";
             entity.UpdatedAt = DateTimeOffset.UtcNow;

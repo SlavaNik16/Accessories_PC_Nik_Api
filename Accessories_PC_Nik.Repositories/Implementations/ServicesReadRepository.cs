@@ -51,8 +51,4 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .ToDictionaryAsync(key => key.Id);
     }
 }
-//Slava
-
-
-//Privet
 

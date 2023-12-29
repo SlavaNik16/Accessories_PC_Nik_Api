@@ -39,7 +39,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.mapper = mapper;
         }
 
-
         async Task<IEnumerable<OrderModel>> IOrderService.GetAllAsync(CancellationToken cancellationToken)
         {
             var orders = await orderReadRepository.GetAllAsync(cancellationToken);
@@ -63,16 +62,16 @@ namespace Accessories_PC_Nik.Services.Implementations
                 if (order.ServiceId.HasValue &&
                    services.TryGetValue(order.ServiceId!.Value, out var service))
                 {
-                    ord.Services = mapper.Map<ServiceModel>(service);
+                    ord.Service = mapper.Map<ServiceModel>(service);
                 }
                 if (order.ComponentId.HasValue &&
                     components.TryGetValue(order.ComponentId!.Value, out var component))
                 {
-                    ord.Components = mapper.Map<ComponentModel>(component);
+                    ord.Component = mapper.Map<ComponentModel>(component);
                 }
 
                 //В заказы должен быть хотя бы 1 услуга или покупка
-                if (ord.Components == null && ord.Services == null)
+                if (ord.Component == null && ord.Service == null)
                 {
                     continue;
                 }
@@ -87,7 +86,7 @@ namespace Accessories_PC_Nik.Services.Implementations
                     continue;
                 }
 
-                ord.Clients = mapper.Map<ClientModel>(client);
+                ord.Client = mapper.Map<ClientModel>(client);
 
                 listOrders.Add(ord);
             }
@@ -97,19 +96,22 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<OrderModel?> IOrderService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await orderReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Order>(id);
+            }
 
             var order = mapper.Map<OrderModel>(item);
 
             if (item.ServiceId.HasValue)
             {
                 var service = await servicesReadRepository.GetByIdAsync(item.ServiceId!.Value, cancellationToken);
-                order.Services = mapper.Map<ServiceModel>(service);
+                order.Service = mapper.Map<ServiceModel>(service);
             }
             if (item.ComponentId.HasValue)
             {
                 var component = await componentsReadRepository.GetByIdAsync(item.ComponentId!.Value, cancellationToken);
-                order.Components = mapper.Map<ComponentModel>(component);
+                order.Component = mapper.Map<ComponentModel>(component);
             }
             if (item.DeliveryId.HasValue)
             {
@@ -118,7 +120,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             }
 
             var client = await deliveryReadRepository.GetByIdAsync(item.ClientId, cancellationToken);
-            order.Clients = mapper.Map<ClientModel>(client);
+            order.Client = mapper.Map<ClientModel>(client);
             return order;
         }
 
@@ -151,7 +153,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetOrder = await orderReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetOrder == null)
             {
-                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+                throw new AccessoriesEntityNotFoundException<Order>(source.Id);
             }
 
             targetOrder.OrderTime = source.OrderTime;
@@ -160,6 +162,14 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (source.ComponentId == null && source.ServiceId == null)
             {
                 throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
+            }
+            if (source.ComponentId == null)
+            {
+                targetOrder.ComponentId = null;
+            }
+            else if (source.ServiceId == null)
+            {
+                targetOrder.ServiceId = null;
             }
 
             var client = await clientsReadRepository.GetByIdAsync(source.ClientId, cancellationToken);
@@ -187,8 +197,6 @@ namespace Accessories_PC_Nik.Services.Implementations
                 targetOrder.Delivery = delivery;
             }
 
-
-
             orderWriteRepository.Update(targetOrder);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<OrderModel>(targetOrder);
@@ -199,10 +207,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (targetComponent == null)
             {
                 throw new AccessoriesEntityNotFoundException<Order>(id);
-            }
-            if (targetComponent.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Заказ с идентификатором {id} уже удален");
             }
 
             orderWriteRepository.Delete(targetComponent);

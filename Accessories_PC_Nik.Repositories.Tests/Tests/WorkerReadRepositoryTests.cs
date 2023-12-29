@@ -41,9 +41,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllWorkersValue()
         {
             //Arrange
-            var target = TestDataGenerator.Worker();
+            var target = TestDataGeneratorRepository.Worker();
             await Context.Workers.AddRangeAsync(target,
-                TestDataGenerator.Worker(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                TestDataGeneratorRepository.Worker(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -79,7 +79,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdWorkerValue()
         {
             //Arrange
-            var target = TestDataGenerator.Worker();
+            var target = TestDataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -119,10 +119,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsClientsValue()
         {
             //Arrange
-            var target1 = TestDataGenerator.Worker();
-            var target2 = TestDataGenerator.Worker(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGenerator.Worker();
-            var target4 = TestDataGenerator.Worker();
+            var target1 = TestDataGeneratorRepository.Worker();
+            var target2 = TestDataGeneratorRepository.Worker(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = TestDataGeneratorRepository.Worker();
+            var target4 = TestDataGeneratorRepository.Worker();
             await Context.Workers.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -161,7 +161,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdClientTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Worker();
+            var target = TestDataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -180,7 +180,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNumberWorkerFalse()
         {
             //Arrange
-            var target = TestDataGenerator.Worker();
+            var target = TestDataGeneratorRepository.Worker();
 
             // Act
             var result = await workersReadRepository.AnyByNumberAsync(target.Number, CancellationToken);
@@ -197,7 +197,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNumberWorkerTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Worker();
+            var target = TestDataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -216,7 +216,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByWorkerWithTypeFalse()
         {
             //Arrange
-            var target = TestDataGenerator.Worker(x => x.AccessLevel = AccessLevelTypes.Assistant);
+            var target = TestDataGeneratorRepository.Worker(x => x.AccessLevel = AccessLevelTypes.Assistant);
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -235,7 +235,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByWorkerWithTypeTrue()
         {
             //Arrange
-            var target = TestDataGenerator.Worker(x => x.AccessLevel = AccessLevelTypes.Director);
+            var target = TestDataGeneratorRepository.Worker(x => x.AccessLevel = AccessLevelTypes.Director);
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

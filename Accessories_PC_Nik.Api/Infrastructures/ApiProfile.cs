@@ -43,39 +43,43 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                  .ForMember(x => x.Types, opt => opt.MapFrom(y => y.Types.GetDisplayName()))
                  .ForMember(x => x.FIO, opt => opt.MapFrom(y => y.WorkerClient != null ? $"{y.WorkerClient.Surname} {y.WorkerClient.Name} {y.WorkerClient.Patronymic ?? string.Empty}" : string.Empty))
                  .ForMember(x => x.AccessLevel, opt => opt.MapFrom(y => y.Worker.AccessLevel));
-            CreateMap<CreateAccessKeyRequest, AccessKeyRequestModel>(MemberList.Destination);
+            CreateMap<CreateAccessKeyRequest, AccessKeyRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
 
             CreateMap<ClientModel, ClientsResponse>(MemberList.Destination)
                  .ForMember(x => x.FI0,
                     opt => opt.MapFrom(y => $"{y.Surname} {y.Name} {y.Patronymic ?? string.Empty}"))
                 .ForMember(x => x.Phone,
                     opt => opt.MapFrom(y => y.Phone));
-            CreateMap<CreateClientRequest, ClientRequestModel>(MemberList.Destination);
+            CreateMap<CreateClientRequest, ClientRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditClientRequest, ClientRequestModel>(MemberList.Destination);
 
             CreateMap<ComponentModel, ComponentsResponse>(MemberList.Destination)
                 .ForMember(x => x.MaterialType, opt => opt.MapFrom(y => y.MaterialType.GetDisplayName()))
                 .ForMember(x => x.TypeComponents, opt => opt.MapFrom(y => y.TypeComponents.GetDisplayName()));
-            CreateMap<CreateComponentRequest, ComponentRequestModel>(MemberList.Destination);
+            CreateMap<CreateComponentRequest, ComponentRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditComponentRequest, ComponentRequestModel>(MemberList.Destination);
 
             CreateMap<DeliveryModel, DeliveryResponse>(MemberList.Destination);
-            CreateMap<CreateDeliveryRequest, DeliveryRequestModel>(MemberList.Destination);
+            CreateMap<CreateDeliveryRequest, DeliveryRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditDeliveryRequest, DeliveryRequestModel>(MemberList.Destination);
 
             CreateMap<OrderModel, OrderResponse>(MemberList.Destination)
                 .ForMember(x => x.NameService,
-                    opt => opt.MapFrom(y => y.Services != null ? y.Services.Name : string.Empty))
+                    opt => opt.MapFrom(y => y.Service != null ? y.Service.Name : string.Empty))
                 .ForMember(x => x.PriceService,
-                    opt => opt.MapFrom(y => y.Services != null ? y.Services.Price : 0))
+                    opt => opt.MapFrom(y => y.Service != null ? y.Service.Price : 0))
                 .ForMember(x => x.Duration,
-                    opt => opt.MapFrom(y => y.Services != null ? y.Services.Duration : 0))
+                    opt => opt.MapFrom(y => y.Service != null ? y.Service.Duration : 0))
                  .ForMember(x => x.PriceComponent,
-                    opt => opt.MapFrom(y => y.Components != null ? y.Components.Price : 0))
+                    opt => opt.MapFrom(y => y.Component != null ? y.Component.Price : 0))
                 .ForMember(x => x.TypeComponents,
-                    opt => opt.MapFrom(y => y.Components != null ? y.Components.TypeComponents.GetDisplayName() : string.Empty))
+                    opt => opt.MapFrom(y => y.Component != null ? y.Component.TypeComponents.GetDisplayName() : string.Empty))
                     .ForMember(x => x.Count,
-                    opt => opt.MapFrom(y => y.Components != null ? y.Components.Count : 0))
+                    opt => opt.MapFrom(y => y.Component != null ? y.Component.Count : 0))
                 .ForMember(x => x.PriceDelivery,
                     opt => opt.MapFrom(y => y.Delivery != null ? y.Delivery.Price : 0))
                 .ForMember(x => x.From,
@@ -83,14 +87,16 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 .ForMember(x => x.To,
                     opt => opt.MapFrom(y => y.Delivery != null ? y.Delivery.To : string.Empty))
                 .ForMember(x => x.FIO,
-                    opt => opt.MapFrom(y => $"{y.Clients.Surname} {y.Clients.Name} {y.Clients.Patronymic ?? string.Empty}"))
+                    opt => opt.MapFrom(y => $"{y.Client.Surname} {y.Client.Name} {y.Client.Patronymic ?? string.Empty}"))
                 .ForMember(x => x.Phone,
-                    opt => opt.MapFrom(y => y.Clients.Phone));
-            CreateMap<CreateOrderRequest, OrderRequestModel>(MemberList.Destination);
+                    opt => opt.MapFrom(y => y.Client.Phone));
+            CreateMap<CreateOrderRequest, OrderRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditOrderRequest, OrderRequestModel>(MemberList.Destination);
 
             CreateMap<ServiceModel, ServicesResponse>(MemberList.Destination);
-            CreateMap<CreateServiceRequest, ServiceRequestModel>(MemberList.Destination);
+            CreateMap<CreateServiceRequest, ServiceRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditServiceRequest, ServiceRequestModel>(MemberList.Destination);
 
             CreateMap<WorkerModel, WorkersResponse>(MemberList.Destination)
@@ -99,7 +105,8 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 .ForMember(x => x.Phone,
                     opt => opt.MapFrom(y => y.Clients.Phone));
 
-            CreateMap<CreateWorkerRequest, WorkerRequestModel>(MemberList.Destination);
+            CreateMap<CreateWorkerRequest, WorkerRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditWorkerRequest, WorkerRequestModel>(MemberList.Destination);
 
         }

@@ -20,8 +20,8 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
               .NotNull()
               .NotEmpty()
               .WithMessage("Номер не должен быть пустым или null")
-              .MaximumLength(10)
-              .WithMessage("Номер не может быть больше 10 символов")
+              .MaximumLength(12)
+              .WithMessage("Номер не может быть больше 12 символов")
               .MustAsync(async (number, CancellationToken) =>
               {
                   var workerExists = await workersReadRepository.AnyByNumberAsync(number, CancellationToken);

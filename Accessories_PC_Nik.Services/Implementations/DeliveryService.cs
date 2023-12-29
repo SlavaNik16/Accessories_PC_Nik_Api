@@ -36,7 +36,10 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<DeliveryModel?> IDeliveryService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await deliveryReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Delivery>(id);
+            }
 
             return mapper.Map<DeliveryModel>(item);
         }
@@ -58,7 +61,7 @@ namespace Accessories_PC_Nik.Services.Implementations
             var targetDelivery = await deliveryReadRepository.GetByIdAsync(source.Id, cancellationToken);
             if (targetDelivery == null)
             {
-                throw new AccessoriesEntityNotFoundException<Client>(source.Id);
+                throw new AccessoriesEntityNotFoundException<Delivery>(source.Id);
             }
 
             targetDelivery.From = source.From;
@@ -75,10 +78,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (targetComponent == null)
             {
                 throw new AccessoriesEntityNotFoundException<Delivery>(id);
-            }
-            if (targetComponent.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Доставка с идентификатором {id} уже удален");
             }
 
             deliveryWriteRepository.Delete(targetComponent);

@@ -25,6 +25,6 @@
         /// <summary>
         /// Цена за услугу
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0;
     }
 }

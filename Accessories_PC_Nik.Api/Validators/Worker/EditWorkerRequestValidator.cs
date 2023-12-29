@@ -26,7 +26,7 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
                .NotNull()
                .NotEmpty()
                .WithMessage("Номер не должен быть пустым или null")
-               .MaximumLength(10)
+               .MaximumLength(12)
                .WithMessage("Номер не может быть больше 10 символов")
                .MustAsync(async (number, CancellationToken) =>
                {

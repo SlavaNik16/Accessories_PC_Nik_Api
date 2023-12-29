@@ -35,7 +35,6 @@ namespace Accessories_PC_Nik.Repositories.Implementations
                 .NotDeletedAt()
                 .FirstOrDefaultAsync(x => x.Key == key, cancellationToken);
             if (accessKey == null) return null;
-
             return accessKey.Types;
         }
     }

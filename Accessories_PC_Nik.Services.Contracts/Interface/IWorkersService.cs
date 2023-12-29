@@ -28,7 +28,7 @@ namespace Accessories_PC_Nik.Services.Contracts.Interface
         /// <summary>
         /// Редактирует существующего работника по ключу доступа
         /// </summary>
-        Task<WorkerModel> EditAccessKeyAsync(Guid id, Guid key, CancellationToken cancellationToken);
+        Task<WorkerModel> EditWithAccessKeyAsync(Guid id, Guid key, CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаляет существующего работника

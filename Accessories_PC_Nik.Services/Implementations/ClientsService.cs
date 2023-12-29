@@ -37,7 +37,10 @@ namespace Accessories_PC_Nik.Services.Implementations
         async Task<ClientModel?> IClientsService.GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await clientsReadRepository.GetByIdAsync(id, cancellationToken);
-            if (item == null) return null;
+            if (item == null)
+            {
+                throw new AccessoriesEntityNotFoundException<Client>(id);
+            }
 
             return mapper.Map<ClientModel>(item);
         }
@@ -86,10 +89,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             if (targetAccessKey == null)
             {
                 throw new AccessoriesEntityNotFoundException<Client>(id);
-            }
-            if (targetAccessKey.DeletedAt.HasValue)
-            {
-                throw new AccessoriesInvalidOperationException($"Клиент с идентификатором {id} уже удален");
             }
 
             clientsWriteRepository.Delete(targetAccessKey);

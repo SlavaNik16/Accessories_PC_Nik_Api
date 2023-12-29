@@ -4,6 +4,7 @@ using Accessories_PC_Nik.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accessories_PC_Nik.Context.Migrations
 {
     [DbContext(typeof(AccessoriesContext))]
-    partial class AccessoriesContextModelSnapshot : ModelSnapshot
+    [Migration("20231229173849_ChangeDb")]
+    partial class ChangeDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

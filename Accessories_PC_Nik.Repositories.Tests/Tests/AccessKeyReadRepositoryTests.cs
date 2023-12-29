@@ -41,9 +41,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllAccessKeysValue()
         {
             //Arrange
-            var target = TestDataGenerator.AccessKey();
+            var target = TestDataGeneratorRepository.AccessKey();
             await Context.AccessKeys.AddRangeAsync(target,
-                TestDataGenerator.AccessKey(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                TestDataGeneratorRepository.AccessKey(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -79,7 +79,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdAccessKeyValue()
         {
             //Arrange
-            var target = TestDataGenerator.AccessKey();
+            var target = TestDataGeneratorRepository.AccessKey();
             await Context.AccessKeys.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -99,7 +99,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAccessLevelByKeyEmpty()
         {
             //Arrange
-            var target = TestDataGenerator.AccessKey();
+            var target = TestDataGeneratorRepository.AccessKey();
 
             // Act
             var result = await accessKeyReadRepository.GetAccessLevelByKeyAsync(target.Key, CancellationToken);
@@ -116,7 +116,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAccessLevelByKeyValue()
         {
             //Arrange
-            var target = TestDataGenerator.AccessKey();
+            var target = TestDataGeneratorRepository.AccessKey();
             await Context.AccessKeys.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
