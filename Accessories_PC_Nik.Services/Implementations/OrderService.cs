@@ -163,11 +163,11 @@ namespace Accessories_PC_Nik.Services.Implementations
             {
                 throw new AccessoriesInvalidOperationException($"Заказ без покупок недействителен! Нужно хотя бы выбрать компонент или услугу!");
             }
-            if(source.ComponentId == null)
+            if (source.ComponentId == null)
             {
                 targetOrder.ComponentId = null;
             }
-            else if(source.ServiceId == null)
+            else if (source.ServiceId == null)
             {
                 targetOrder.ServiceId = null;
             }

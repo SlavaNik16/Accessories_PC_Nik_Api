@@ -99,8 +99,8 @@ namespace Accessories_PC_Nik.Services.Implementations
                 throw new AccessoriesEntityNotFoundException<Worker>(id);
             }
 
-            var targetAccessLevel = await  accessKeyReadRepository.GetAccessLevelByKeyAsync(key, cancellationToken);
-            if(targetAccessLevel == null)
+            var targetAccessLevel = await accessKeyReadRepository.GetAccessLevelByKeyAsync(key, cancellationToken);
+            if (targetAccessLevel == null)
             {
                 throw new AccessoriesInvalidOperationException("Такого ключа нет в наличии!");
             }

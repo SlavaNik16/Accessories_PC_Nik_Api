@@ -47,7 +47,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
 
             // Assert
             result.Should().BeEmpty();
-            
+
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         {
             //Arrange
             var target = TestDataGeneratorService.Client();
-            await Context.Clients.AddRangeAsync(target, TestDataGeneratorService.Client(x=>x.DeletedAt = DateTimeOffset.UtcNow));
+            await Context.Clients.AddRangeAsync(target, TestDataGeneratorService.Client(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -122,7 +122,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task AddShouldWorkReturnThrow()
         {
             //Arrange
-            var target = TestDataGeneratorService.ClientRequestModel(x=>x.Name = null);
+            var target = TestDataGeneratorService.ClientRequestModel(x => x.Name = null);
 
             //Act
             Func<Task> act = () => clientService.AddAsync(target, CancellationToken);
@@ -165,7 +165,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             Func<Task> act = () => clientService.EditAsync(targetModel, CancellationToken);
 
             //Assert
-            await act.Should().ThrowAsync< AccessoriesEntityNotFoundException<Client>>()
+            await act.Should().ThrowAsync<AccessoriesEntityNotFoundException<Client>>()
                 .WithMessage($"*{targetModel.Id}*");
         }
 
@@ -221,7 +221,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnThrowNotFountByDeleted()
         {
             //Arrange
-            var target = TestDataGeneratorService.Client(x=>x.DeletedAt = DateTimeOffset.UtcNow);
+            var target = TestDataGeneratorService.Client(x => x.DeletedAt = DateTimeOffset.UtcNow);
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

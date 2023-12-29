@@ -40,7 +40,7 @@ namespace Accessories_PC_Nik.Services.Implementations
                 throw new AccessoriesEntityNotFoundException<Service>(id);
             }
 
-             return mapper.Map<ServiceModel>(item);
+            return mapper.Map<ServiceModel>(item);
         }
 
         async Task<ServiceModel> IServicesService.AddAsync(ServiceRequestModel source, CancellationToken cancellationToken)

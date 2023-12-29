@@ -12,7 +12,7 @@ namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
         /// <summary>
         /// Номер документа
         /// </summary>
-        public string Number { get; set; } 
+        public string Number { get; set; }
 
         /// <summary>
         /// Серия документа
@@ -27,7 +27,7 @@ namespace Accessories_PC_Nik.Services.Contracts.ModelRequest
         /// <summary>
         /// Кем выдан
         /// </summary>
-        public string IssuedBy { get; set; } 
+        public string IssuedBy { get; set; }
 
         /// <summary>
         /// Тип документа на работу

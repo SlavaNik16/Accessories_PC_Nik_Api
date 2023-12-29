@@ -1,7 +1,6 @@
 ﻿using Accessories_PC_Nik.Context.Contracts.Enums;
 using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Context.Tests;
-using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
 using Accessories_PC_Nik.Services.Automappers;
 using Accessories_PC_Nik.Services.Contracts.Exceptions;
@@ -60,14 +59,14 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task GetAllShouldReturnValue()
         {
             //Arrange
-          
+
 
             var targetClient = TestDataGeneratorService.Client();
             await Context.Clients.AddAsync(targetClient);
 
-            var target = TestDataGeneratorService.Worker(x=> x.ClientId = targetClient.Id);
+            var target = TestDataGeneratorService.Worker(x => x.ClientId = targetClient.Id);
 
-            await Context.Workers.AddRangeAsync(target, 
+            await Context.Workers.AddRangeAsync(target,
                 TestDataGeneratorService.Worker(x => { x.ClientId = targetClient.Id; x.DeletedAt = DateTimeOffset.UtcNow; }));
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
@@ -288,7 +287,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             var targetClient = TestDataGeneratorService.Client();
             await Context.Clients.AddAsync(targetClient);
 
-            var targetAccessKey = TestDataGeneratorService.AccessKey(x=> x.WorkerId = target.Id);
+            var targetAccessKey = TestDataGeneratorService.AccessKey(x => x.WorkerId = target.Id);
             await Context.AccessKeys.AddAsync(targetAccessKey);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);

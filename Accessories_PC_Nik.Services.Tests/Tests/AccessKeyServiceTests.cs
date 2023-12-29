@@ -62,7 +62,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             await Context.Clients.AddAsync(targetClient);
             var targetWorker = TestDataGeneratorService.Worker(x => x.ClientId = targetClient.Id);
             await Context.Workers.AddAsync(targetWorker);
-            var target = TestDataGeneratorService.AccessKey(x=>x.WorkerId = targetWorker.Id);
+            var target = TestDataGeneratorService.AccessKey(x => x.WorkerId = targetWorker.Id);
 
             await Context.AccessKeys.AddRangeAsync(target, TestDataGeneratorService.AccessKey(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
@@ -103,10 +103,10 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             //Arrange
             var targetClient = TestDataGeneratorService.Client();
             await Context.Clients.AddAsync(targetClient);
-            var targetWorker = TestDataGeneratorService.Worker(x=>x.ClientId = targetClient.Id);
+            var targetWorker = TestDataGeneratorService.Worker(x => x.ClientId = targetClient.Id);
             await Context.Workers.AddAsync(targetWorker);
 
-            var target = TestDataGeneratorService.AccessKey(x=>x.WorkerId = targetWorker.Id);
+            var target = TestDataGeneratorService.AccessKey(x => x.WorkerId = targetWorker.Id);
             await Context.AccessKeys.AddAsync(target);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
@@ -156,7 +156,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var target = TestDataGeneratorService.AccessKeyRequestModel(x=> { x.WorkerId = targetWorker.Id; x.Types = AccessLevelTypes.Director; });
+            var target = TestDataGeneratorService.AccessKeyRequestModel(x => { x.WorkerId = targetWorker.Id; x.Types = AccessLevelTypes.Director; });
 
             //Act
             Func<Task> act = () => accessKeyService.AddAsync(target, CancellationToken);
@@ -176,12 +176,12 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             //Arrange
             var targetClient = TestDataGeneratorService.Client();
             await Context.Clients.AddAsync(targetClient);
-            var targetWorker = TestDataGeneratorService.Worker(x => { x.ClientId = targetClient.Id;x.AccessLevel = AccessLevelTypes.Director; });
+            var targetWorker = TestDataGeneratorService.Worker(x => { x.ClientId = targetClient.Id; x.AccessLevel = AccessLevelTypes.Director; });
             await Context.Workers.AddAsync(targetWorker);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var target = TestDataGeneratorService.AccessKeyRequestModel(x=>x.WorkerId = targetWorker.Id);
+            var target = TestDataGeneratorService.AccessKeyRequestModel(x => x.WorkerId = targetWorker.Id);
 
             //Act
             var act = await accessKeyService.AddAsync(target, CancellationToken);
@@ -190,13 +190,13 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             var entity = Context.AccessKeys.Single(x =>
                 x.Id == act.Id &&
                 x.Key == act.Key &&
-                x.Types == target.Types && 
+                x.Types == target.Types &&
                 x.WorkerId == targetWorker.Id
             );
             entity.Should().NotBeNull();
 
         }
-       
+
         /// <summary>
         /// Удаление ключа, возвращает ошибку - ключ не найден
         /// </summary>
@@ -226,7 +226,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             var targetWorker = TestDataGeneratorService.Worker(x => x.ClientId = targetClient.Id);
             await Context.Workers.AddAsync(targetWorker);
 
-            var target = TestDataGeneratorService.AccessKey(x=> { x.WorkerId = targetWorker.Id; x.DeletedAt = DateTimeOffset.UtcNow; });
+            var target = TestDataGeneratorService.AccessKey(x => { x.WorkerId = targetWorker.Id; x.DeletedAt = DateTimeOffset.UtcNow; });
             await Context.AccessKeys.AddAsync(target);
 
             // Act
@@ -250,7 +250,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             await Context.Workers.AddAsync(targetWorker);
 
             var target = TestDataGeneratorService.AccessKey(x => x.WorkerId = targetWorker.Id);
-            await Context.AccessKeys.AddAsync(target); 
+            await Context.AccessKeys.AddAsync(target);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

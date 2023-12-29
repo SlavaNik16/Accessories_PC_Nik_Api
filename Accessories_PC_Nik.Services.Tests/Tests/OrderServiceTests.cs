@@ -1,5 +1,4 @@
-﻿using Accessories_PC_Nik.Context.Contracts.Enums;
-using Accessories_PC_Nik.Context.Contracts.Models;
+﻿using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Implementations;
 using Accessories_PC_Nik.Services.Automappers;
@@ -66,11 +65,14 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             var targetService = TestDataGeneratorService.Service();
             await Context.Services.AddAsync(targetService);
 
-            var target = TestDataGeneratorService.Order(x=> { x.ClientId = targetClient.Id; x.ServiceId = targetService.Id; });
+            var target = TestDataGeneratorService.Order(x => { x.ClientId = targetClient.Id; x.ServiceId = targetService.Id; });
             await Context.Orders.AddRangeAsync(target,
-                TestDataGeneratorService.Order(x => { x.ClientId = targetClient.Id;
-                                                    x.ServiceId = targetService.Id; 
-                                                    x.DeletedAt = DateTimeOffset.UtcNow; }));
+                TestDataGeneratorService.Order(x =>
+                {
+                    x.ClientId = targetClient.Id;
+                    x.ServiceId = targetService.Id;
+                    x.DeletedAt = DateTimeOffset.UtcNow;
+                }));
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -124,7 +126,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
 
             // Assert
             var entity = Context.Orders.Single(x => x.Id == target.Id &&
-                x.ClientId == target.ClientId &&  
+                x.ClientId == target.ClientId &&
                 x.ServiceId == target.ServiceId);
 
             entity.DeletedAt.Should().BeNull();
@@ -168,7 +170,8 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var target = TestDataGeneratorService.OrderRequestModel(x => { 
+            var target = TestDataGeneratorService.OrderRequestModel(x =>
+            {
                 x.ClientId = targetClient.Id;
                 x.ServiceId = targetService.Id;
                 x.ComponentId = targetComponent.Id;
