@@ -42,8 +42,8 @@ namespace Accessories_PC_Nik.Api.Validators.Order
                 .MustAsync(async (id, CancellationToken) =>
                 {
                     if (id == null) return true;
-                    var componentExists = await servicesReadRepository.AnyByIdAsync(id.Value, CancellationToken);
-                    return componentExists;
+                    var servicesExists = await servicesReadRepository.AnyByIdAsync(id.Value, CancellationToken);
+                    return servicesExists;
                 })
                 .WithMessage("Такой услуги не существует!");
 

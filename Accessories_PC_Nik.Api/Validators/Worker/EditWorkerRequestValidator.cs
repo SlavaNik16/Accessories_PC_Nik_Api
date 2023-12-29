@@ -31,7 +31,7 @@ namespace Accessories_PC_Nik.Api.Validators.Worker
                .MustAsync(async (number, CancellationToken) =>
                {
                    var workerExists = await workersReadRepository.AnyByNumberAsync(number, CancellationToken);
-                   return workerExists;
+                   return !workerExists;
                })
                 .WithMessage("Номер должен быть уникальным!");
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -27,10 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Accessories_PC_Nik.Api\Accessories_PC_Nik.Api.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ValidatorsTests\AccessKey\" />
   </ItemGroup>
 
 </Project>

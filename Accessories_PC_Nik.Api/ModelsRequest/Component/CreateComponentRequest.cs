@@ -31,11 +31,11 @@ namespace Accessories_PC_Nik.Api.ModelsRequest.Component
         /// <summary>
         /// Цена за 1 шт.
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0;
 
         /// <summary>
         /// Кол-во товара
         /// </summary>
-        public int Count { get; set; }
+        public int Count { get; set; } = 1;
     }
 }

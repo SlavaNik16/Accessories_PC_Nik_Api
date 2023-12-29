@@ -18,7 +18,7 @@
         /// <summary>
         /// Отчество
         /// </summary>
-        public string? Patronymic { get; set; }
+        public string? Patronymic { get; set; } = string.Empty;
 
         /// <summary>
         /// Телефон
@@ -33,7 +33,7 @@
         /// <summary>
         /// Баланс
         /// </summary>
-        public decimal Balance { get; set; }
+        public decimal Balance { get; set; } = 0;
 
     }
 }

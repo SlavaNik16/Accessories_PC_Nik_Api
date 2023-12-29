@@ -34,8 +34,6 @@ namespace Accessories_PC_Nik.Services.Implementations
             this.mapper = mapper;
         }
 
-
-
         async Task<IEnumerable<WorkerModel>> IWorkersService.GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await workersReadRepository.GetAllAsync(cancellationToken);

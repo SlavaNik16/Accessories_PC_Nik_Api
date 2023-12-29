@@ -12,7 +12,7 @@ namespace Accessories_PC_Nik.Api.Validators.Service
         /// <summary>
         /// Инициализирую <see cref="EditServiceRequestValidator"/>
         /// </summary>
-        public EditServiceRequestValidator(IServicesReadRepository servicesReadRepository)
+        public EditServiceRequestValidator()
         {
 
             RuleFor(x => x.Id)
