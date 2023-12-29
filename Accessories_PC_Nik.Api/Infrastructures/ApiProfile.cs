@@ -43,24 +43,28 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                  .ForMember(x => x.Types, opt => opt.MapFrom(y => y.Types.GetDisplayName()))
                  .ForMember(x => x.FIO, opt => opt.MapFrom(y => y.WorkerClient != null ? $"{y.WorkerClient.Surname} {y.WorkerClient.Name} {y.WorkerClient.Patronymic ?? string.Empty}" : string.Empty))
                  .ForMember(x => x.AccessLevel, opt => opt.MapFrom(y => y.Worker.AccessLevel));
-            CreateMap<CreateAccessKeyRequest, AccessKeyRequestModel>(MemberList.Destination);
+            CreateMap<CreateAccessKeyRequest, AccessKeyRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
 
             CreateMap<ClientModel, ClientsResponse>(MemberList.Destination)
                  .ForMember(x => x.FI0,
                     opt => opt.MapFrom(y => $"{y.Surname} {y.Name} {y.Patronymic ?? string.Empty}"))
                 .ForMember(x => x.Phone,
                     opt => opt.MapFrom(y => y.Phone));
-            CreateMap<CreateClientRequest, ClientRequestModel>(MemberList.Destination);
+            CreateMap<CreateClientRequest, ClientRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditClientRequest, ClientRequestModel>(MemberList.Destination);
 
             CreateMap<ComponentModel, ComponentsResponse>(MemberList.Destination)
                 .ForMember(x => x.MaterialType, opt => opt.MapFrom(y => y.MaterialType.GetDisplayName()))
                 .ForMember(x => x.TypeComponents, opt => opt.MapFrom(y => y.TypeComponents.GetDisplayName()));
-            CreateMap<CreateComponentRequest, ComponentRequestModel>(MemberList.Destination);
+            CreateMap<CreateComponentRequest, ComponentRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditComponentRequest, ComponentRequestModel>(MemberList.Destination);
 
             CreateMap<DeliveryModel, DeliveryResponse>(MemberList.Destination);
-            CreateMap<CreateDeliveryRequest, DeliveryRequestModel>(MemberList.Destination);
+            CreateMap<CreateDeliveryRequest, DeliveryRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditDeliveryRequest, DeliveryRequestModel>(MemberList.Destination);
 
             CreateMap<OrderModel, OrderResponse>(MemberList.Destination)
@@ -86,11 +90,13 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                     opt => opt.MapFrom(y => $"{y.Client.Surname} {y.Client.Name} {y.Client.Patronymic ?? string.Empty}"))
                 .ForMember(x => x.Phone,
                     opt => opt.MapFrom(y => y.Client.Phone));
-            CreateMap<CreateOrderRequest, OrderRequestModel>(MemberList.Destination);
+            CreateMap<CreateOrderRequest, OrderRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditOrderRequest, OrderRequestModel>(MemberList.Destination);
 
             CreateMap<ServiceModel, ServicesResponse>(MemberList.Destination);
-            CreateMap<CreateServiceRequest, ServiceRequestModel>(MemberList.Destination);
+            CreateMap<CreateServiceRequest, ServiceRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditServiceRequest, ServiceRequestModel>(MemberList.Destination);
 
             CreateMap<WorkerModel, WorkersResponse>(MemberList.Destination)
@@ -99,7 +105,8 @@ namespace Accessories_PC_Nik.Api.Infrastructures
                 .ForMember(x => x.Phone,
                     opt => opt.MapFrom(y => y.Clients.Phone));
 
-            CreateMap<CreateWorkerRequest, WorkerRequestModel>(MemberList.Destination);
+            CreateMap<CreateWorkerRequest, WorkerRequestModel>(MemberList.Destination)
+                 .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<EditWorkerRequest, WorkerRequestModel>(MemberList.Destination);
 
         }
