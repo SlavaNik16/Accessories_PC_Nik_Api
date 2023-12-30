@@ -168,7 +168,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
 
             var result = JsonConvert.DeserializeObject<ServicesResponse>(resultString);
 
-            var  serviceResult = context.Services.FirstOrDefault(x => x.Id == serviceItem.Id);
+            var serviceResult = context.Services.FirstOrDefault(x => x.Id == serviceItem.Id);
 
             serviceResult!.DeletedAt.Should().NotBeNull();
         }

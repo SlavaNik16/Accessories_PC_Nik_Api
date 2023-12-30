@@ -52,7 +52,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
             });
             await context.Workers.AddRangeAsync(workerItemAssistant, workerItemDeleted);
 
-            var accessKeyItem = DataGeneratorRepository.AccessKey(x=>x.WorkerId = workerItemAssistant.Id);
+            var accessKeyItem = DataGeneratorRepository.AccessKey(x => x.WorkerId = workerItemAssistant.Id);
             var accessKeyItemDeleted = DataGeneratorRepository.AccessKey(x =>
             {
                 x.DeletedAt = DateTimeOffset.UtcNow;
@@ -143,7 +143,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
                 x.AccessLevel = AccessLevelTypes.Assistant;
             });
             var workerItemDirector = DataGeneratorRepository.Worker(x =>
-            { 
+            {
                 x.ClientId = clientItemNew.Id;
                 x.AccessLevel = AccessLevelTypes.Director;
             });

@@ -1,7 +1,6 @@
 ﻿using Accessories_PC_Nik.Api.Controllers;
 using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Api.Tests.Infrastructures;
-using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -21,7 +20,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
         /// <param name="fixture"></param>
         public ComponentIntegrationTests(AccessoriesApiFixture fixture) : base(fixture)
         {
-            
+
 
         }
 
@@ -122,7 +121,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
             //Arrange
             var clientHTTP = factory.CreateClient();
             var componentItem = DataGeneratorRepository.Component();
-            var componentItemNew= DataGeneratorRepository.Component();
+            var componentItemNew = DataGeneratorRepository.Component();
             await context.Components.AddRangeAsync(componentItem, componentItemNew);
             await unitOfWork.SaveChangesAsync();
 

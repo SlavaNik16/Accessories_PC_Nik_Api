@@ -1,9 +1,7 @@
 ﻿using Accessories_PC_Nik.Api.Controllers;
 using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Api.Tests.Infrastructures;
-using Accessories_PC_Nik.Common.Entity.InterfaceDB;
 using Accessories_PC_Nik.Context.Contracts.Enums;
-using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -23,7 +21,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
         /// <param name="fixture"></param>
         public WorkerIntegrationTests(AccessoriesApiFixture fixture) : base(fixture)
         {
-          
+
         }
 
         /// <summary>
@@ -238,7 +236,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
             await unitOfWork.SaveChangesAsync();
 
             // Act
-            var response = await clientHTTP.PutAsync($"/Workers/{workerItemAssistant.Id}/?key={accessKeyItem.Key}",null);
+            var response = await clientHTTP.PutAsync($"/Workers/{workerItemAssistant.Id}/?key={accessKeyItem.Key}", null);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -279,7 +277,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
             });
             await context.Workers.AddRangeAsync(workerItemAssistant, workerItemDirector);
             await unitOfWork.SaveChangesAsync();
-           
+
             // Act
             var response = await clientHTTP.DeleteAsync($"/Workers/{workerItemAssistant.Id}");
 

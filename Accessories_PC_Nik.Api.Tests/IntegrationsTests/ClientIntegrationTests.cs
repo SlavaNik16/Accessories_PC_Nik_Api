@@ -1,7 +1,6 @@
 ﻿using Accessories_PC_Nik.Api.Controllers;
 using Accessories_PC_Nik.Api.Models;
 using Accessories_PC_Nik.Api.Tests.Infrastructures;
-using Accessories_PC_Nik.Context.Contracts.Models;
 using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -48,7 +47,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
             var result = JsonConvert.DeserializeObject<IEnumerable<ClientsResponse>>(resultString);
             result.Should().NotBeNull()
                 .And.ContainSingle(x => x.Id == clientItem.Id)
-                .And.NotContain(x=>x.Id == clientItemDeleted.Id);
+                .And.NotContain(x => x.Id == clientItemDeleted.Id);
         }
 
         /// <summary>
@@ -113,7 +112,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
             clientResult.Should().NotBeNull();
         }
 
-       
+
         /// <summary>
         /// Изменения клиента
         /// </summary>
@@ -143,7 +142,7 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
 
             var result = JsonConvert.DeserializeObject<ClientsResponse>(resultString);
 
-            var clientResult = context.Clients.Single(x => x.Id == targetItem.Id && 
+            var clientResult = context.Clients.Single(x => x.Id == targetItem.Id &&
                                                       x.Surname == targetItem.Surname &&
                                                       x.Phone == targetItem.Phone);
 

@@ -11,7 +11,7 @@ namespace Accessories_PC_Nik.Tests.Generator
             {
                 Surname = $"Surname{Guid.NewGuid():N}",
                 Name = $"Name{Guid.NewGuid():N}",
-                Phone = $"Phone{Random.Shared.Next(0,100000)}",
+                Phone = $"Phone{Random.Shared.Next(0, 100000)}",
                 Email = $"Email{Guid.NewGuid():N}@gmail.com",
             };
 

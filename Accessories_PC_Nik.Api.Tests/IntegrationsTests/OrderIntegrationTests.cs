@@ -55,11 +55,11 @@ namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
                 x.ComponentId = componentItem.Id;
                 x.DeliveryId = deliveryItem.Id;
             });
-            var itemDeleted = DataGeneratorRepository.Order(x=>
-            { 
-                x.DeletedAt = DateTimeOffset.UtcNow; 
+            var itemDeleted = DataGeneratorRepository.Order(x =>
+            {
+                x.DeletedAt = DateTimeOffset.UtcNow;
                 x.ClientId = clientItem.Id;
-                x.ServiceId = serviceItem.Id; 
+                x.ServiceId = serviceItem.Id;
             });
             await context.Orders.AddRangeAsync(item, itemDeleted);
             await unitOfWork.SaveChangesAsync();
