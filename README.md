@@ -21,6 +21,10 @@
 ---
 Николаев Вячеслав Алексеевич студент группы ИП 20-3
 
+# Пример реального бизнес сценария
+
+![RealProimer](https://github.com/SlavaNik16/Accessories_PC_Nik/assets/70444635/7eed2153-d7ab-43fa-9518-903fb782f0ef)
+
 ## Схема базы данных
 ```mermaid
 erDiagram
