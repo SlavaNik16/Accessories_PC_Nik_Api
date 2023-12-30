@@ -6,6 +6,7 @@ using Accessories_PC_Nik.Services.Automappers;
 using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -61,13 +62,13 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
             //Arrange
 
 
-            var targetClient = TestDataGeneratorService.Client();
+            var targetClient = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(targetClient);
 
-            var target = TestDataGeneratorService.Worker(x => x.ClientId = targetClient.Id);
+            var target = DataGeneratorRepository.Worker(x => x.ClientId = targetClient.Id);
 
             await Context.Workers.AddRangeAsync(target,
-                TestDataGeneratorService.Worker(x => { x.ClientId = targetClient.Id; x.DeletedAt = DateTimeOffset.UtcNow; }));
+                DataGeneratorRepository.Worker(x => { x.ClientId = targetClient.Id; x.DeletedAt = DateTimeOffset.UtcNow; }));
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -105,7 +106,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task GetByIdShouldReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker();
+            var target = DataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -132,7 +133,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task AddShouldWorkReturnThrow()
         {
             //Arrange
-            var target = TestDataGeneratorService.WorkerRequestModel(x => x.Number = null);
+            var target = DataGeneratorService.WorkerRequestModel(x => x.Number = null);
 
             //Act
             Func<Task> act = () => workerService.AddAsync(target, CancellationToken);
@@ -149,7 +150,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task AddShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.WorkerRequestModel();
+            var target = DataGeneratorService.WorkerRequestModel();
 
             //Act
             var act = await workerService.AddAsync(target, CancellationToken);
@@ -170,7 +171,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditShouldWorkReturnThrow()
         {
             //Arrange
-            var targetModel = TestDataGeneratorService.WorkerRequestModel();
+            var targetModel = DataGeneratorService.WorkerRequestModel();
 
             //Act
             Func<Task> act = () => workerService.EditAsync(targetModel, CancellationToken);
@@ -188,15 +189,15 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker();
+            var target = DataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
 
-            var targetClient = TestDataGeneratorService.Client();
+            var targetClient = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(targetClient);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var targetModel = TestDataGeneratorService.WorkerRequestModel();
+            var targetModel = DataGeneratorService.WorkerRequestModel();
             targetModel.Id = target.Id;
             targetModel.Number = target.Number;
             targetModel.AccessLevel = AccessLevelTypes.Director;
@@ -223,13 +224,13 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditAccessKeyShouldWorkReturnThrowNotFound()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker();
+            var target = DataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
 
-            var targetClient = TestDataGeneratorService.Client();
+            var targetClient = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(targetClient);
 
-            var targetAccessKey = TestDataGeneratorService.AccessKey(x => { x.WorkerId = target.Id; x.Types = AccessLevelTypes.DeputyDirector; });
+            var targetAccessKey = DataGeneratorRepository.AccessKey(x => { x.WorkerId = target.Id; x.Types = AccessLevelTypes.DeputyDirector; });
             await Context.AccessKeys.AddAsync(targetAccessKey);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
@@ -252,13 +253,13 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditAccessKeyShouldWorkReturnThrowInvalidKey()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker();
+            var target = DataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
 
-            var targetClient = TestDataGeneratorService.Client();
+            var targetClient = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(targetClient);
 
-            var targetAccessKey = TestDataGeneratorService.AccessKey(x => x.WorkerId = target.Id);
+            var targetAccessKey = DataGeneratorRepository.AccessKey(x => x.WorkerId = target.Id);
             await Context.AccessKeys.AddAsync(targetAccessKey);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
@@ -281,13 +282,13 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditAccessKeyShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker();
+            var target = DataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
 
-            var targetClient = TestDataGeneratorService.Client();
+            var targetClient = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(targetClient);
 
-            var targetAccessKey = TestDataGeneratorService.AccessKey(x => x.WorkerId = target.Id);
+            var targetAccessKey = DataGeneratorRepository.AccessKey(x => x.WorkerId = target.Id);
             await Context.AccessKeys.AddAsync(targetAccessKey);
 
             await UnitOfWork.SaveChangesAsync(CancellationToken);
@@ -314,7 +315,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnThrowNotFound()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker();
+            var target = DataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -335,7 +336,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnThrowNotFountByDeleted()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target = DataGeneratorRepository.Worker(x => x.DeletedAt = DateTimeOffset.UtcNow);
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -354,7 +355,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Worker();
+            var target = DataGeneratorRepository.Worker();
             await Context.Workers.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

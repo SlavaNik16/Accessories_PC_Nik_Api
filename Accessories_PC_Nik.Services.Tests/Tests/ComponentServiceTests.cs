@@ -5,6 +5,7 @@ using Accessories_PC_Nik.Services.Automappers;
 using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -56,8 +57,8 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task GetAllShouldReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Component();
-            await Context.Components.AddRangeAsync(target, TestDataGeneratorService.Component(x => x.DeletedAt = DateTimeOffset.UtcNow));
+            var target = DataGeneratorRepository.Component();
+            await Context.Components.AddRangeAsync(target, DataGeneratorRepository.Component(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -94,7 +95,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task GetByIdShouldReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Component();
+            var target = DataGeneratorRepository.Component();
             await Context.Components.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -120,7 +121,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task AddShouldWorkReturnThrow()
         {
             //Arrange
-            var target = TestDataGeneratorService.ComponentRequestModel(x => x.Name = null);
+            var target = DataGeneratorService.ComponentRequestModel(x => x.Name = null);
 
             //Act
             Func<Task> act = () => componentService.AddAsync(target, CancellationToken);
@@ -137,7 +138,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task AddShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.ComponentRequestModel();
+            var target = DataGeneratorService.ComponentRequestModel();
 
             //Act
             var act = await componentService.AddAsync(target, CancellationToken);
@@ -159,7 +160,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditShouldWorkReturnThrow()
         {
             //Arrange
-            var targetModel = TestDataGeneratorService.ComponentRequestModel();
+            var targetModel = DataGeneratorService.ComponentRequestModel();
 
             //Act
             Func<Task> act = () => componentService.EditAsync(targetModel, CancellationToken);
@@ -177,11 +178,11 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Component();
+            var target = DataGeneratorRepository.Component();
             await Context.Components.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var targetModel = TestDataGeneratorService.ComponentRequestModel(x => x.Id = target.Id);
+            var targetModel = DataGeneratorService.ComponentRequestModel(x => x.Id = target.Id);
 
             //Act
             var act = await componentService.EditAsync(targetModel, CancellationToken);
@@ -221,7 +222,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnThrowNotFountByDeleted()
         {
             //Arrange
-            var target = TestDataGeneratorService.Component(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target = DataGeneratorRepository.Component(x => x.DeletedAt = DateTimeOffset.UtcNow);
             await Context.Components.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -240,7 +241,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Component();
+            var target = DataGeneratorRepository.Component();
             await Context.Components.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

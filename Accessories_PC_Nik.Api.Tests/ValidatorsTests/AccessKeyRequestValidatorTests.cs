@@ -1,14 +1,9 @@
 ﻿using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
 using Accessories_PC_Nik.Api.Validators.AccessKey;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using Accessories_PC_Nik.Services.Tests;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentValidation.TestHelper;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
@@ -22,6 +17,9 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
 
         private readonly Mock<IWorkersReadRepository> workersReadRepositoryMock;
 
+        /// <summary>
+        /// Инициализация <see cref="AccessKeyRequestValidatorTests"/>
+        /// </summary>
         public AccessKeyRequestValidatorTests()
         {
             workersReadRepositoryMock = new Mock<IWorkersReadRepository>();
@@ -51,7 +49,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorCreateRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.CreateAccessKeyRequest();
+            var model = DataGeneratorApi.CreateAccessKeyRequest();
 
             workersReadRepositoryMock.Setup(x => x.AnyByIdAsync(model.WorkerId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);

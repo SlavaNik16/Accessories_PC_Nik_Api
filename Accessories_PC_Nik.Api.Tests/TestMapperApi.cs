@@ -4,6 +4,9 @@ using Xunit;
 
 namespace Accessories_PC_Nik.Api.Tests
 {
+    /// <summary>
+    /// Тест мапперов в Api
+    /// </summary>
     public class TestMapperApi
     {
         /// <summary>

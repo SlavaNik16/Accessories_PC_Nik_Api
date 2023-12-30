@@ -1,6 +1,7 @@
 using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Xunit;
 
@@ -40,9 +41,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllComponentsValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Component();
+            var target = DataGeneratorRepository.Component();
             await Context.Components.AddRangeAsync(target,
-                TestDataGeneratorRepository.Component(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                DataGeneratorRepository.Component(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +79,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdComponentValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Component();
+            var target = DataGeneratorRepository.Component();
             await Context.Components.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -118,10 +119,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsComponentsValue()
         {
             //Arrange
-            var target1 = TestDataGeneratorRepository.Component();
-            var target2 = TestDataGeneratorRepository.Component(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGeneratorRepository.Component();
-            var target4 = TestDataGeneratorRepository.Component();
+            var target1 = DataGeneratorRepository.Component();
+            var target2 = DataGeneratorRepository.Component(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = DataGeneratorRepository.Component();
+            var target4 = DataGeneratorRepository.Component();
             await Context.Components.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -160,7 +161,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdComponentTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Component();
+            var target = DataGeneratorRepository.Component();
             await Context.Components.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

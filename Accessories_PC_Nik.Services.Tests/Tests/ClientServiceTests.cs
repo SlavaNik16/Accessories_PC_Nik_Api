@@ -6,6 +6,7 @@ using Accessories_PC_Nik.Services.Automappers;
 using Accessories_PC_Nik.Services.Contracts.Exceptions;
 using Accessories_PC_Nik.Services.Contracts.Interface;
 using Accessories_PC_Nik.Services.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -57,8 +58,8 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task GetAllShouldReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Client();
-            await Context.Clients.AddRangeAsync(target, TestDataGeneratorService.Client(x => x.DeletedAt = DateTimeOffset.UtcNow));
+            var target = DataGeneratorRepository.Client();
+            await Context.Clients.AddRangeAsync(target, DataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -95,7 +96,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task GetByIdShouldReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -122,7 +123,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task AddShouldWorkReturnThrow()
         {
             //Arrange
-            var target = TestDataGeneratorService.ClientRequestModel(x => x.Name = null);
+            var target = DataGeneratorService.ClientRequestModel(x => x.Name = null);
 
             //Act
             Func<Task> act = () => clientService.AddAsync(target, CancellationToken);
@@ -139,7 +140,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task AddShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.ClientRequestModel();
+            var target = DataGeneratorService.ClientRequestModel();
 
             //Act
             var act = await clientService.AddAsync(target, CancellationToken);
@@ -159,7 +160,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditShouldWorkReturnThrow()
         {
             //Arrange
-            var targetModel = TestDataGeneratorService.ClientRequestModel();
+            var targetModel = DataGeneratorService.ClientRequestModel();
 
             //Act
             Func<Task> act = () => clientService.EditAsync(targetModel, CancellationToken);
@@ -177,11 +178,11 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task EditShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
-            var targetModel = TestDataGeneratorService.ClientRequestModel();
+            var targetModel = DataGeneratorService.ClientRequestModel();
             targetModel.Id = target.Id;
             targetModel.Patronymic = null;
             //Act
@@ -221,7 +222,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnThrowNotFountByDeleted()
         {
             //Arrange
-            var target = TestDataGeneratorService.Client(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target = DataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow);
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -240,7 +241,7 @@ namespace Accessories_PC_Nik.Services.Tests.Tests
         public async Task DeleteShouldWorkReturnValue()
         {
             //Arrange
-            var target = TestDataGeneratorService.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

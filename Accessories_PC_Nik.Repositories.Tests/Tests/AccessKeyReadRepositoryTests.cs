@@ -2,6 +2,7 @@
 using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Xunit;
 
@@ -41,9 +42,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllAccessKeysValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.AccessKey();
+            var target = DataGeneratorRepository.AccessKey();
             await Context.AccessKeys.AddRangeAsync(target,
-                TestDataGeneratorRepository.AccessKey(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                DataGeneratorRepository.AccessKey(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -79,7 +80,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdAccessKeyValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.AccessKey();
+            var target = DataGeneratorRepository.AccessKey();
             await Context.AccessKeys.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -99,7 +100,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAccessLevelByKeyEmpty()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.AccessKey();
+            var target = DataGeneratorRepository.AccessKey();
 
             // Act
             var result = await accessKeyReadRepository.GetAccessLevelByKeyAsync(target.Key, CancellationToken);
@@ -116,7 +117,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAccessLevelByKeyValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.AccessKey();
+            var target = DataGeneratorRepository.AccessKey();
             await Context.AccessKeys.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

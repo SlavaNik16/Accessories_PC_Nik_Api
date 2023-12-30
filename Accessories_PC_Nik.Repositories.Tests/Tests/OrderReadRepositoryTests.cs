@@ -1,6 +1,7 @@
 ﻿using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Xunit;
 
@@ -40,9 +41,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllOrdersValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Order();
+            var target = DataGeneratorRepository.Order();
             await Context.Orders.AddRangeAsync(target,
-                TestDataGeneratorRepository.Order(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                DataGeneratorRepository.Order(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +79,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdOrderValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Order();
+            var target = DataGeneratorRepository.Order();
             await Context.Orders.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

@@ -1,9 +1,7 @@
-﻿using Accessories_PC_Nik.Api.ModelsRequest.AccessKey;
-using Accessories_PC_Nik.Api.ModelsRequest.Client;
-using Accessories_PC_Nik.Api.Validators.AccessKey;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.Client;
 using Accessories_PC_Nik.Api.Validators.Client;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using Accessories_PC_Nik.Services.Tests;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentValidation.TestHelper;
 using Moq;
 using Xunit;
@@ -21,6 +19,9 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
 
         private readonly Mock<IClientsReadRepository> clientsReadRepositoryMock;
 
+        /// <summary>
+        /// Инициализация <see cref="ClientRequestValidatorTests"/>
+        /// </summary>
         public ClientRequestValidatorTests()
         {
             clientsReadRepositoryMock = new Mock<IClientsReadRepository>();
@@ -51,7 +52,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorCreateRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.CreateClientRequest();
+            var model = DataGeneratorApi.CreateClientRequest();
 
             clientsReadRepositoryMock.Setup(x => x.AnyByPhoneAsync(model.Phone, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(false);
@@ -89,7 +90,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorEditRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.EditClientRequest();
+            var model = DataGeneratorApi.EditClientRequest();
 
             clientsReadRepositoryMock.Setup(x => x.AnyByPhoneAsync(model.Phone, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(false);

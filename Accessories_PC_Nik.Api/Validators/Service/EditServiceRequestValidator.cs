@@ -1,11 +1,10 @@
 ﻿using Accessories_PC_Nik.Api.ModelsRequest.Service;
-using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using FluentValidation;
 
 namespace Accessories_PC_Nik.Api.Validators.Service
 {
     /// <summary>
-    /// Валидатор класса <see cref="EditServiceRequestValidator"/>
+    /// Валидатор класса <see cref="EditServiceRequest"/>
     /// </summary>
     public class EditServiceRequestValidator : AbstractValidator<EditServiceRequest>
     {
