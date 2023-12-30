@@ -10,3 +10,4 @@ namespace Accessories_PC_Nik.Api.Infrastructures
         DateTimeOffset IDateTimeProvider.UtcNow => DateTimeOffset.UtcNow;
     }
 }
+
