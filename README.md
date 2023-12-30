@@ -37,6 +37,7 @@ erDiagram
     AccessKey {
         Guid Key
         Enum Types
+        Guid WorkerId
     }
 
     Client {
@@ -49,6 +50,7 @@ erDiagram
     }
 
     Component {
+        string Name
         Enum TypeComponents
         string Description
         Enum MaterialType
@@ -64,7 +66,7 @@ erDiagram
 
     Order {
         Guid ClientId
-        Guid ServiceI "null"
+        Guid ServiceId "null"
         Guid ComponentId "null"
         DateTime OrderTime
         Guid DeliveryId "null"
@@ -73,7 +75,7 @@ erDiagram
     Service {
         string Name
         string Description "null"
-        DateTimeOffset Duration
+        string Duration
         decimal Price
     }
     Worker {
@@ -90,6 +92,7 @@ erDiagram
     Component ||--o{ Order: is
     Client ||--o{ Order: is
     Client ||--o{ Worker: is
+    Worker ||--o{ AccessKey: is
 
     BaseAuditEntity ||--o{ Delivery: allows
     BaseAuditEntity ||--o{ Service: allows
