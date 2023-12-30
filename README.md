@@ -26,7 +26,7 @@
 erDiagram
 
     BaseAuditEntity {
-        Guid ID
+        Guid Id
         DateTimeOffset CreatedAt
         string CreatedBy
         DateTimeOffset UpdatedAt
@@ -52,7 +52,7 @@ erDiagram
     Component {
         string Name
         Enum TypeComponents
-        string Description
+        string Description "null"
         Enum MaterialType
         decimal Price
         int Count
