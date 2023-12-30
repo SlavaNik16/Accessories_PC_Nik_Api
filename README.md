@@ -106,8 +106,9 @@ erDiagram
     BaseAuditEntity ||--o{ AccessKey: allows
     BaseAuditEntity ||--o{ Client: allows
  ```
-# Sql - скрипты
-
+SQL скрипт
+---
+```
 use Accessories_PC 
 
 GO 
@@ -185,5 +186,5 @@ N'', CAST(N'2023-12-30T04:45:09.7883599+00:00' AS DateTimeOffset), N'Accessories
 N'9eb49753-13eb-468d-91f8-6ff3ef98bd7f', N'Очень крутой магазин, всем рекомендую', CAST(N'2023-12-30T04:42:56.8049534+00:00' AS DateTimeOffset), N'Accessories_PC_Nik.Api', CAST(N'2023-12-30T04:42:56.8049613+00:00' AS DateTimeOffset), N'Accessories_PC_Nik.Api', NULL) ;
 
 GO
-
+```
 
