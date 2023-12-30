@@ -165,7 +165,7 @@ namespace Accessories_PC_Nik.Tests.Generator
         {
             var result = new CreateAccessKeyRequest
             {
-                Types = AccessLevelTypesModel.Assistant,
+                Types = AccessLevelTypesModel.DeputyDirector,
                 WorkerId = Guid.NewGuid(),
             };
             settings?.Invoke(result);
