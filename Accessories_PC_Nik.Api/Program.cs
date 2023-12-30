@@ -34,4 +34,7 @@ app.MapControllers();
 
 app.Run();
 
+/// <summary>
+/// Класс для Интеграционных тестов
+/// </summary>
 public partial class Program { }

@@ -15,6 +15,9 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         private readonly CreateComponentRequestValidator validatorCreateRequest;
         private readonly EditComponentRequestValidator validatorEditRequest;
 
+        /// <summary>
+        /// Инициализация <see cref="ComponentRequestValidatorTests"/>
+        /// </summary>
         public ComponentRequestValidatorTests()
         {
             validatorCreateRequest = new CreateComponentRequestValidator();

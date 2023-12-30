@@ -23,6 +23,9 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         private readonly Mock<IServicesReadRepository> servicesReadRepositoryMock;
         private readonly Mock<IDeliveryReadRepository> deliveryReadRepositoryMock;
 
+        /// <summary>
+        /// Инициализация <see cref="OrderRequestValidatorTests"/>
+        /// </summary>
         public OrderRequestValidatorTests()
         {
             clientsReadRepositoryMock = new Mock<IClientsReadRepository>();

@@ -19,6 +19,9 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
 
         private readonly Mock<IServicesReadRepository> servicesReadRepositoryMock;
 
+        /// <summary>
+        /// Инициализация <see cref="ServiceRequestValidatorTests"/>
+        /// </summary>
         public ServiceRequestValidatorTests()
         {
             servicesReadRepositoryMock = new Mock<IServicesReadRepository>();

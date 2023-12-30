@@ -32,10 +32,19 @@ namespace Accessories_PC_Nik.Api.Tests.Infrastructures
             await factory.DisposeAsync();
         }
 
+        /// <summary>
+        /// Фабрика работы с бд 
+        /// </summary>
         public CustomWebApplicationFactory Factory => factory;
 
+        /// <summary>
+        /// Контекст бд
+        /// </summary>
         public IAccessoriesContext Context => AccessoriesContext;
 
+        /// <summary>
+        /// Контекст бд сохранения
+        /// </summary>
         public IUnitOfWork UnitOfWork => AccessoriesContext;
 
         internal AccessoriesContext AccessoriesContext

@@ -17,6 +17,9 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
 
         private readonly Mock<IWorkersReadRepository> workersReadRepositoryMock;
 
+        /// <summary>
+        /// Инициализация <see cref="AccessKeyRequestValidatorTests"/>
+        /// </summary>
         public AccessKeyRequestValidatorTests()
         {
             workersReadRepositoryMock = new Mock<IWorkersReadRepository>();

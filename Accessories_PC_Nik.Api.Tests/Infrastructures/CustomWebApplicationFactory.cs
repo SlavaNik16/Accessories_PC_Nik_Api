@@ -10,7 +10,10 @@ namespace Accessories_PC_Nik.Api.Tests.Infrastructures
     /// </summary>
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
-        public static string EnvironmentName = "integration";
+        /// <summary>
+        /// Константа названия json файла интеграционных тестов
+        /// </summary>
+        public const string EnvironmentName = "integration";
 
         /// <inheritdoc cref="WebApplicationFactory{TEntryPoint}.CreateHost"/>
         protected override IHost CreateHost(IHostBuilder builder)
@@ -19,6 +22,9 @@ namespace Accessories_PC_Nik.Api.Tests.Infrastructures
             return base.CreateHost(builder);
         }
 
+        /// <summary>
+        ///  Переопределенный метод конфигурации Хоста
+        /// </summary>
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureTestAppConfiguration();

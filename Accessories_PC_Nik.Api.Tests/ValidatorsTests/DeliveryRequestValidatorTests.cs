@@ -15,6 +15,9 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         private readonly CreateDeliveryRequestValidator validatorCreateRequest;
         private readonly EditDeliveryRequestValidator validatorEditRequest;
 
+        /// <summary>
+        /// Инициализация <see cref="DeliveryRequestValidatorTests"/>
+        /// </summary>
         public DeliveryRequestValidatorTests()
         {
             validatorCreateRequest = new CreateDeliveryRequestValidator();
