@@ -7,8 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add<AccessoriesExceptionFilter>();
-})
-      .AddControllersAsServices();
+}).AddControllersAsServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.GetSwaggerDocument();

@@ -1,6 +1,6 @@
 ﻿using Accessories_PC_Nik.Api.ModelsRequest.Component;
 using Accessories_PC_Nik.Api.Validators.Component;
-using Accessories_PC_Nik.Services.Tests;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentValidation.TestHelper;
 using Xunit;
 
@@ -44,7 +44,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorCreateRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.CreateComponentRequest();
+            var model = DataGeneratorApi.CreateComponentRequest();
 
             //Act
             var validation = await validatorCreateRequest.TestValidateAsync(model);
@@ -76,7 +76,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorEditRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.EditComponentRequest();
+            var model = DataGeneratorApi.EditComponentRequest();
 
             //Act
             var validation = await validatorEditRequest.TestValidateAsync(model);

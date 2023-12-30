@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Accessories_PC_Nik.Api\Accessories_PC_Nik.Api.csproj" />
+    <ProjectReference Include="..\Accessories_PC_Nik.Tests.Generator\Accessories_PC_Nik.Tests.Generator.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Accessories_PC_Nik.Api.Tests.Infrastructures
 {
+    /// <summary>
+    /// Подключение хоста, для удаление старого подключения к бд и установкой нового подключения
+    /// </summary>
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         public static string EnvironmentName = "integration";

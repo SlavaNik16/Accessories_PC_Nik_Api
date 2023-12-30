@@ -1,16 +1,9 @@
-﻿using Accessories_PC_Nik.Api.ModelsRequest.Component;
-using Accessories_PC_Nik.Api.ModelsRequest.Service;
-using Accessories_PC_Nik.Api.Validators.Component;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.Service;
 using Accessories_PC_Nik.Api.Validators.Service;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using Accessories_PC_Nik.Services.Tests;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentValidation.TestHelper;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
@@ -56,7 +49,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorCreateRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.CreateServiceRequest();
+            var model = DataGeneratorApi.CreateServiceRequest();
 
             //Act
             var validation = await validatorCreateRequest.TestValidateAsync(model);
@@ -88,7 +81,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorEditRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.EditServiceRequest();
+            var model = DataGeneratorApi.EditServiceRequest();
 
             //Act
             var validation = await validatorEditRequest.TestValidateAsync(model);

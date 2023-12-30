@@ -6,6 +6,9 @@ using Xunit;
 
 namespace Accessories_PC_Nik.Api.Tests.Infrastructures
 {
+    /// <summary>
+    /// Класс для создание бд и удаление ее
+    /// </summary>
     public class AccessoriesApiFixture : IAsyncLifetime
     {
         private readonly CustomWebApplicationFactory factory;

@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accessories_PC_Nik.Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Api.Tests", "Accessories_PC_Nik.Api.Tests\Accessories_PC_Nik.Api.Tests.csproj", "{FD781597-A269-4ADE-82A5-7BDA4A4A66B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accessories_PC_Nik.Tests.Generator", "Accessories_PC_Nik.Tests.Generator\Accessories_PC_Nik.Tests.Generator.csproj", "{BBCFFFBF-9981-4868-AEFF-94083DF32859}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{FD781597-A269-4ADE-82A5-7BDA4A4A66B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD781597-A269-4ADE-82A5-7BDA4A4A66B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD781597-A269-4ADE-82A5-7BDA4A4A66B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBCFFFBF-9981-4868-AEFF-94083DF32859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCFFFBF-9981-4868-AEFF-94083DF32859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCFFFBF-9981-4868-AEFF-94083DF32859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCFFFBF-9981-4868-AEFF-94083DF32859}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

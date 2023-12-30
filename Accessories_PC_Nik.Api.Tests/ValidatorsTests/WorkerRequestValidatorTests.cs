@@ -1,16 +1,9 @@
-﻿using Accessories_PC_Nik.Api.ModelsRequest.Client;
-using Accessories_PC_Nik.Api.ModelsRequest.Worker;
-using Accessories_PC_Nik.Api.Validators.Client;
+﻿using Accessories_PC_Nik.Api.ModelsRequest.Worker;
 using Accessories_PC_Nik.Api.Validators.Worker;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using Accessories_PC_Nik.Services.Tests;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentValidation.TestHelper;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
@@ -63,7 +56,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorCreateRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.CreateWorkerRequest();
+            var model = DataGeneratorApi.CreateWorkerRequest();
 
             clientsReadRepositoryMock.Setup(x => x.AnyByIdAsync(model.ClientId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
@@ -101,7 +94,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorEditRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.EditWorkerRequest();
+            var model = DataGeneratorApi.EditWorkerRequest();
 
             clientsReadRepositoryMock.Setup(x => x.AnyByIdAsync(model.ClientId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);

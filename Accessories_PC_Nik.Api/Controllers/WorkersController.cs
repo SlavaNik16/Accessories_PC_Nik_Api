@@ -56,8 +56,6 @@ namespace Accessories_PC_Nik.Api.Controllers
         {
             var item = await workersService.GetByIdAsync(id, cancellationToken);
             if (item == null) return NotFound($"Не удалось найти сотрудника с идентификатором {id}");
-
-
             return Ok(mapper.Map<WorkersResponse>(item));
         }
 

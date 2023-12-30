@@ -1,6 +1,7 @@
 ﻿using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Xunit;
 
@@ -40,9 +41,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllServicesValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Service();
+            var target = DataGeneratorRepository.Service();
             await Context.Services.AddRangeAsync(target,
-                TestDataGeneratorRepository.Service(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                DataGeneratorRepository.Service(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +79,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdServiceValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Service();
+            var target = DataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -118,10 +119,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsServicesValue()
         {
             //Arrange
-            var target1 = TestDataGeneratorRepository.Service();
-            var target2 = TestDataGeneratorRepository.Service(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGeneratorRepository.Service();
-            var target4 = TestDataGeneratorRepository.Service();
+            var target1 = DataGeneratorRepository.Service();
+            var target2 = DataGeneratorRepository.Service(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = DataGeneratorRepository.Service();
+            var target4 = DataGeneratorRepository.Service();
             await Context.Services.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -160,7 +161,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdServiceTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Service();
+            var target = DataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -179,7 +180,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameServiceFalse()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Service();
+            var target = DataGeneratorRepository.Service();
 
             // Act
             var result = await servicesReadRepository.AnyByNameAsync(target.Name, CancellationToken);
@@ -196,7 +197,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameServiceTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Service();
+            var target = DataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -215,7 +216,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameIsIdServiceFalse()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Service();
+            var target = DataGeneratorRepository.Service();
 
             // Act
             var result = await servicesReadRepository.AnyByNameIsIdAsync(target.Name, target.Id, CancellationToken);
@@ -232,7 +233,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByNameIsIdServiceTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Service();
+            var target = DataGeneratorRepository.Service();
             await Context.Services.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

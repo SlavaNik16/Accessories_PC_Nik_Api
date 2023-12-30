@@ -1,6 +1,7 @@
 ﻿using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Xunit;
 
@@ -40,9 +41,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllDeliveriesValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Delivery();
+            var target = DataGeneratorRepository.Delivery();
             await Context.Deliveries.AddRangeAsync(target,
-                TestDataGeneratorRepository.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                DataGeneratorRepository.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +79,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdDeliveryValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Delivery();
+            var target = DataGeneratorRepository.Delivery();
             await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -118,10 +119,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsDeliveriesValue()
         {
             //Arrange
-            var target1 = TestDataGeneratorRepository.Delivery();
-            var target2 = TestDataGeneratorRepository.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGeneratorRepository.Delivery();
-            var target4 = TestDataGeneratorRepository.Delivery();
+            var target1 = DataGeneratorRepository.Delivery();
+            var target2 = DataGeneratorRepository.Delivery(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = DataGeneratorRepository.Delivery();
+            var target4 = DataGeneratorRepository.Delivery();
             await Context.Deliveries.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -160,7 +161,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdDeliveryTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Delivery();
+            var target = DataGeneratorRepository.Delivery();
             await Context.Deliveries.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

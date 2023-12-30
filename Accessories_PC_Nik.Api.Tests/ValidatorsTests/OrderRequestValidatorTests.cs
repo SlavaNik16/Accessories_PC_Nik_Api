@@ -1,9 +1,7 @@
 ﻿using Accessories_PC_Nik.Api.ModelsRequest.Order;
-using Accessories_PC_Nik.Api.ModelsRequest.Worker;
 using Accessories_PC_Nik.Api.Validators.Order;
-using Accessories_PC_Nik.Api.Validators.Worker;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
-using Accessories_PC_Nik.Services.Tests;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentValidation.TestHelper;
 using Moq;
 using Xunit;
@@ -67,15 +65,15 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorCreateRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.CreateOrderRequest();
+            var model = DataGeneratorApi.CreateOrderRequest();
 
             clientsReadRepositoryMock.Setup(x => x.AnyByIdAsync(model.ClientId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
 
-          if (model.ComponentId.HasValue)
+            if (model.ComponentId.HasValue)
             {
-                  componentsReadRepositoryMock.Setup(x => x.AnyByIdAsync(model.ComponentId.Value, It.IsAny<CancellationToken>()))
-                   .ReturnsAsync(true);
+                componentsReadRepositoryMock.Setup(x => x.AnyByIdAsync(model.ComponentId.Value, It.IsAny<CancellationToken>()))
+                 .ReturnsAsync(true);
             }
 
             if (model.DeliveryId.HasValue)
@@ -120,7 +118,7 @@ namespace Accessories_PC_Nik.Api.Tests.ValidatorsTests
         public async void ValidatorEditRequestShouldSuccess()
         {
             //Arrange
-            var model = TestDataGeneratorApi.EditOrderRequest();
+            var model = DataGeneratorApi.EditOrderRequest();
 
             clientsReadRepositoryMock.Setup(x => x.AnyByIdAsync(model.ClientId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);

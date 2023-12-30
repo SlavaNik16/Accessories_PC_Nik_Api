@@ -1,6 +1,7 @@
 using Accessories_PC_Nik.Context.Tests;
 using Accessories_PC_Nik.Repositories.Contracts.Interface;
 using Accessories_PC_Nik.Repositories.Implementations;
+using Accessories_PC_Nik.Tests.Generator;
 using FluentAssertions;
 using Xunit;
 
@@ -40,9 +41,9 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetAllClientsValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddRangeAsync(target,
-                TestDataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow));
+                DataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow));
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
             // Act
@@ -78,7 +79,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdClientValue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -118,10 +119,10 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task GetByIdsClientsValue()
         {
             //Arrange
-            var target1 = TestDataGeneratorRepository.Client();
-            var target2 = TestDataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow);
-            var target3 = TestDataGeneratorRepository.Client();
-            var target4 = TestDataGeneratorRepository.Client();
+            var target1 = DataGeneratorRepository.Client();
+            var target2 = DataGeneratorRepository.Client(x => x.DeletedAt = DateTimeOffset.UtcNow);
+            var target3 = DataGeneratorRepository.Client();
+            var target4 = DataGeneratorRepository.Client();
             await Context.Clients.AddRangeAsync(target1, target2, target3, target4);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -160,7 +161,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByIdClientTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -179,7 +180,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByPhoneClientFalse()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Client();
+            var target = DataGeneratorRepository.Client();
 
             // Act
             var result = await clientsReadRepository.AnyByPhoneAsync(target.Phone, CancellationToken);
@@ -196,7 +197,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByPhoneClientTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 
@@ -215,7 +216,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByEmailClientFalse()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Client();
+            var target = DataGeneratorRepository.Client();
 
             // Act
             var result = await clientsReadRepository.AnyByEmailAsync(target.Email, CancellationToken);
@@ -232,7 +233,7 @@ namespace Accessories_PC_Nik.Repositories.Tests.Tests
         public async Task AnyByEmailClientTrue()
         {
             //Arrange
-            var target = TestDataGeneratorRepository.Client();
+            var target = DataGeneratorRepository.Client();
             await Context.Clients.AddAsync(target);
             await UnitOfWork.SaveChangesAsync(CancellationToken);
 

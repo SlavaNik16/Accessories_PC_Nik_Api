@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using System.Reflection;
 using Xunit;
 
-namespace Accessories_PC_Nik.Api.Tests
+namespace Accessories_PC_Nik.Api.Tests.IntegrationsTests
 {
     /// <summary>
     /// Тесты зависимостей контроллеров

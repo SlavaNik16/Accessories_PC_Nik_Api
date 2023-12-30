@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-
-namespace Accessories_PC_Nik.Api.Tests.Infrastructures
+﻿namespace Accessories_PC_Nik.Api.Tests.Infrastructures
 {
     static internal class WebHostBuilderHelper
     {
