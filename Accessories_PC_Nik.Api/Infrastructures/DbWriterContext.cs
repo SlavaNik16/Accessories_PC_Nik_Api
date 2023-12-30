@@ -36,3 +36,5 @@ namespace Accessories_PC_Nik.Api.Infrastructures
         public string UserName { get; } = "Accessories_PC_Nik.Api";
     }
 }
+
+
